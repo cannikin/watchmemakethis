@@ -1,0 +1,13 @@
+<p>
+  <b>Title:</b>
+  <%=h @comp.title %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @comp.project_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_comp_path(@comp) %> |
+<%= link_to 'Back', comps_path %>
