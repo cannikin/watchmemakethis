@@ -1,7 +1,7 @@
 # admin home
 get '/admin' do
   login_required
-  haml :'admin/index', :layout => :'layouts/admin'
+  haml :'admin/index'
 end
 
 # admin client list

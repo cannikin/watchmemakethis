@@ -1,3 +1,3 @@
 get '/watch' do
-  haml :'site/index', :layout => :'layouts/site'
+  haml :'site/index'
 end
