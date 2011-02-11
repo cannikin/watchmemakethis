@@ -33,7 +33,7 @@ end
   
 desc 'Start webserver'
 task :server do
-  `shotgun -p 4567`
+  `shotgun -p 4567 -E #{ARGV[1] || 'development' }`
 end
 
 desc "Report code statistics"
