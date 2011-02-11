@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %title
+      = @page_title || ''
+      | Watch Me Make This
+    %link(rel="stylesheet" type="text/css" href="/stylesheets/reset-fonts.css" media="all")
+    %link(rel="stylesheet" type="text/css" href="/stylesheets/shared.css" media="all")
+    %link(rel="stylesheet" type="text/css" href="/stylesheets/colorpicker.css" media="all")
+    
+    %script(type="text/javascript" src="/javascripts/json.js")
+    %script(type="text/javascript" src="/javascripts/jquery.js")
+    %script(type="text/javascript" src="/javascripts/eye.js")
+    %script(type="text/javascript" src="/javascripts/utils.js")
+    %script(type="text/javascript" src="/javascripts/layout.js")
+    %script(type="text/javascript" src="/javascripts/colorpicker.js")
+    
+  %body
+    %h1 
+      %a(href="/") 
+        %span Active.com Widgets
+    .container
+    
+      Client Layout
+      
+      = yield
+      
+    :javascript
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    :javascript
+      try {
+        var pageTracker = _gat._getTracker("UA-6622846-4");
+        pageTracker._trackPageview();
+      } catch(err) {}
+      
