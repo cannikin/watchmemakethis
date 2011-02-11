@@ -5,7 +5,7 @@ helpers do
   end
   
   def log_out_user
-    session.clear if logged_in?
+    session[:user_id] = nil if logged_in?
   end
   
   def logged_in?

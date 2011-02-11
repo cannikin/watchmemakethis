@@ -35,4 +35,9 @@ error do
   haml :'500'
 end
 
+# styles
+get '/stylesheets/shared.css' do
+  sass :'stylesheets/shared'
+end
+
 # see /controllers for endpoints
