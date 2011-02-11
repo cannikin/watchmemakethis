@@ -7,7 +7,9 @@ enable :sessions, :logging
 set :haml, { :attr_wrapper => '"', :format => :html5 }
 
 configure :development do
-  set :database, 'sqlite://db/development.db'
+  config = YAML::load(File.open(File.join(File.dirname(__FILE__),'config','database.yml')))
+  environment = Sinatra::Application.environment.to_s
+  set :database, config[environment]['connect']
   Dir.glob('./models/*').each { |m| require m }
 end
 
