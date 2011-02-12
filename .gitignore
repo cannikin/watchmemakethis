@@ -1,1 +1,5 @@
 .rvmrc
+db/*.db
+config/database.yml
+.DS_Store
+.sass-cache

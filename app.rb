@@ -1,20 +1,32 @@
 require 'bundler'
 Bundler.require
 
-Dir.glob('./helpers/*').each { |h| require h }
+# require stuff in various directories
+['./app/controllers/*','./app/helpers/*','./lib/*'].each { |f| Dir.glob(f).each { |r| require r } }
 
 enable :sessions, :logging
-set :haml, { :attr_wrapper => '"', :format => :html5 }
+set :views, './app/views'
+use Rack::Flash, :sweep => true
+
+configure do
+  config = YAML::load(File.open(File.join(File.dirname(__FILE__),'config','database.yml')))
+  environment = Sinatra::Application.environment.to_s
+  set :database, config[environment]['connect']
+  Dir.glob('./app/models/*').each { |m| require m }
+end
 
 configure :development do
-  set :database, 'sqlite://db/development.db'
-  Dir.glob('./models/*').each { |m| require m }
+  set :haml, { :attr_wrapper => '"', :format => :html5, :ugly => false }
+end
+
+configure :production do
+  set :haml, { :attr_wrapper => '"', :format => :html5, :ugly => true }
 end
 
 # 404 page
 not_found do
   @page_title = 'Not Found'
-  haml :'404'
+  '404'
 end
 
 # general error page
@@ -23,50 +35,10 @@ error do
   haml :'500'
 end
 
-# login page
-get '/login' do
-  @page_title = 'Login'
-  @users = User.all
-  haml :login, :layout => :client_layout
+# styles
+get '/stylesheets/shared.css' do
+  response['Expires'] = (Time.now + 60*60*24*356*3).httpdate
+  sass :'stylesheets/shared'
 end
 
-# process login
-post '/login/go' do
-  if params[:email] and params[:password]
-    if user = User.authenticate(params)
-      log_in_user(user)
-      redirect '/admin'
-    else
-      @flash = 'No user was found with that email and password!'
-      redirect '/login'
-    end
-  else
-    @flash = 'Please enter both username and password!'
-    redirect '/login'
-  end
-end
-
-# admin home
-get '/admin' do
-  
-end
-
-# admin client list
-get '/admin/clients' do
-  
-end
-
-# admin create client
-get '/admin/clients/new' do
-  
-end
-
-# process create client
-post '/admin/clients/create' do
-  
-end
-
-# client page
-get '/admin/clients/:hashtag' do
-  
-end
+# see /controllers for endpoints

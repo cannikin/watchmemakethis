@@ -31,3 +31,23 @@ namespace :db do
   
 end
   
+desc 'Start webserver'
+task :server do
+  `shotgun -p 4567 -E #{ARGV[1] || 'development' }`
+end
+
+desc "Report code statistics"
+task :stats do
+  require './vendor/code_statistics'
+  
+  STATS_DIRECTORIES = [
+    %w(Controllers        app/controllers),
+    %w(Helpers            app/helpers),
+    %w(Models             app/models),
+    %w(Libraries          lib/),
+    %w(Migrations         db/migrations),
+    %w(Views              app/views)
+  ].collect { |name, dir| [ name, "./#{dir}" ] }.select { |name, dir| File.directory?(dir) }
+
+  CodeStatistics.new(*STATS_DIRECTORIES).to_s
+end
