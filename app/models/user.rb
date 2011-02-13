@@ -6,7 +6,7 @@ class User < Sequel::Model
   one_to_many :sites
   
   def before_create
-    self.password = Digest::MD5.hexdigest(params[:password])
+    self.password = Digest::MD5.hexdigest(self.password)
   end
   
   def self.authenticate(params)

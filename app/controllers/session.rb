@@ -14,7 +14,7 @@ get '/login2' do
 end
 
 # process login
-post '/login/go' do
+post '/login/create' do
   unless params[:email].blank? or params[:password].blank?
     if user = User.authenticate(params)
       log_in_user(user)

@@ -2,13 +2,14 @@ Sequel.migration do
   up do
     create_table(:users) do
       primary_key :id
-      String      :name
+      String      :first_name
+      String      :last_name
       String      :email
       String      :password
       String      :twitter
       Integer     :role_id
       DateTime    :last_login_at
-      Integer     :login_count
+      Integer     :login_count, :default => 0
       DateTime    :created_at
       
       index :email

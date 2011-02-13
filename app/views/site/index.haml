@@ -1,0 +1,6 @@
+%h2= @site.name
+
+- if @public_clients.any?
+  %h3 Current Projects
+  - @public_clients.each do |client|
+    %a(href="#{client.path}")= client.name

@@ -1,9 +1,13 @@
 require 'sequel'
 
 Sequel.connect('sqlite://db/development.db')
-Dir.glob('./models/*').each { |m| require m }
+Dir.glob('./app/models/*').each { |m| require m }
 
 Role.create(:name => 'admin')
 Role.create(:name => 'client')
 
-User.create :name => 'Rob Cameron', :email => 'cannikinn@gmail.com', :password => '13036a5c965bb73653a5de95b89ae4c2', :twitter => 'cannikin', :role_id => 1, :created_at => Time.now
+User.create :first_name => 'Rob', :last_name => 'Cameron', :email => 'cannikinn@gmail.com', :password => '13036a5c965bb73653a5de95b89ae4c2', :twitter => 'cannikin', :role_id => 1, :created_at => Time.now
+
+Client.create :first_name => 'John', :last_name => 'Doe', :email => 'johndoe@anonymous.com', :hashtag => 'johndoe', :user_id => 1, :site_id => 1, :public => true
+
+Site.create :user_id => 1, :name => 'Cameron Woodworks', :path => 'cameronwoodworks', :body_color => '#336699', :header_color => '#009900', :text_color => '#ffffff'
