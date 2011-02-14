@@ -12,6 +12,7 @@ Sequel.migration do
       Integer     :views,         :default => 0
       String      :created_at
       
+      index :user_id
       index :site_id
       index :hashtag
     end

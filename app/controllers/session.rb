@@ -9,9 +9,6 @@ get '/login' do
   end
 end
 
-get '/login2' do
-  haml :login
-end
 
 # process login
 post '/login/create' do
@@ -28,6 +25,7 @@ post '/login/create' do
     redirect '/login'
   end
 end
+
 
 # logout
 get '/logout' do

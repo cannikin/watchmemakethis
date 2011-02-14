@@ -3,6 +3,7 @@
 class Build < Sequel::Model
   many_to_one :user
   many_to_one :site
+  one_to_many :clients
   
   def path
     '/' + self.site.path + '/' + self.hashtag

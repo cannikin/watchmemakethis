@@ -1,10 +1,8 @@
 require 'digest/md5'
 
-class User < Sequel::Model
-  many_to_one :role
-  one_to_many :builds
-  one_to_many :sites
-  one_to_many :clients
+class Client < Sequel::Model
+  many_to_one :user
+  many_to_one :build
   
   def before_create
     self.password = Digest::MD5.hexdigest(self.password)

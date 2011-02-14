@@ -14,6 +14,7 @@ Sequel.migration do
       
       index :user_id
       index :path
+      index :image_id
     end
   end
 

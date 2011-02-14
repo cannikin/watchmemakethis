@@ -6,7 +6,7 @@ Dir.glob('./app/models/*').each { |m| require m }
 Role.create(:name => 'admin')
 Role.create(:name => 'client')
 
-User.create :first_name => 'Rob', :last_name => 'Cameron', :email => 'cannikinn@gmail.com', :password => '13036a5c965bb73653a5de95b89ae4c2', :twitter => 'cannikin', :role_id => 1, :created_at => Time.now
+User.create :first_name => 'Rob', :last_name => 'Cameron', :email => 'cannikinn@gmail.com', :password => 'bosco', :twitter => 'cannikin', :role_id => 1, :created_at => Time.now
 
 Build.create :name => "John Doe's Bookshelf", :hashtag => 'johndoe', :user_id => 1, :site_id => 1, :public => true
 
