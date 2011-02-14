@@ -7,8 +7,8 @@ helpers do
   
   
   # find a client from their hashtag and the site they should be a member of
-  def find_client(hashtag, site)
-    Client.find(:hashtag => hashtag, :site_id => site.id, :archived => false)
+  def find_build(hashtag, site)
+    Build.find(:hashtag => hashtag, :site_id => site.id, :archived => false)
   end
   
 end

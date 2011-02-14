@@ -2,7 +2,7 @@ require 'digest/md5'
 
 class User < Sequel::Model
   many_to_one :role
-  one_to_many :clients
+  one_to_many :builds
   one_to_many :sites
   
   def before_create

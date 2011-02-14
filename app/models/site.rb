@@ -2,5 +2,5 @@
 
 class Site < Sequel::Model
   many_to_one :user
-  one_to_many :clients
+  one_to_many :builds
 end
