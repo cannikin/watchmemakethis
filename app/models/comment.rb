@@ -1,5 +1,5 @@
-# these are the unique URLs  http://watchmemakethis.com/site_name/client_hashtag
+# images can have comments
 
-class Client < Sequel::Model
+class Comment < Sequel::Model
   many_to_one :image
 end

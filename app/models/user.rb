@@ -6,7 +6,12 @@ class User < Sequel::Model
   one_to_many :sites
   one_to_many :clients
   
+  def builds
+    self.clients.collect(&:build)
+  end
+  
   def before_create
+    super
     self.password = Digest::MD5.hexdigest(self.password)
   end
   
