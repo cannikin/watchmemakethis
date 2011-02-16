@@ -1,2 +1,8 @@
 %h2= @site.name
 %h3= "Welcome to the #{@build.name} build"
+
+- # if the user viewing this page is an admin, let them upload new images
+- if admin?
+  %form(action="upload" method="post" enctype="multipart/form-data")
+    %input(type="file" name="file")
+    %input(type="submit" value="Upload Image")

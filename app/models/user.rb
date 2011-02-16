@@ -6,6 +6,14 @@ class User < Sequel::Model
   one_to_many :sites
   one_to_many :clients
   
+  def admin?
+    self.role.id == Role::ADMIN
+  end
+  
+  def client?
+    self.role.id == Role::CLIENT
+  end
+  
   def builds
     self.clients.collect(&:build)
   end

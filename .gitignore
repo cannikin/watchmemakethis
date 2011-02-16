@@ -1,5 +1,6 @@
 .rvmrc
 db/*.db
 config/database.yml
+config/amazon_s3.yml
 .DS_Store
 .sass-cache

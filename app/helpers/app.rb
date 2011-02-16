@@ -12,6 +12,10 @@ helpers do
     !session[:user_id].nil?
   end
   
+  def admin?
+    logged_in? and current_user.admin?
+  end
+  
   def login_required
     unless logged_in?
       flash[:notice] = 'Please log in to continue!'
