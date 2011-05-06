@@ -1,6 +1,0 @@
-development:
-  bucket_name: bucketname
-  access_key_id: ABCD1234
-  secret_access_key: 1234abcd
-  url: http://bucketname.s3.amazonaws.com
-  object_prefix: 

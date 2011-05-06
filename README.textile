@@ -1,3 +1,0 @@
-h1. Watch Me Make This
-
-Codebase for the Watch Me Make This site.
