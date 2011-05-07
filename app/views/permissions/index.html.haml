@@ -1,0 +1,21 @@
+%h1 Listing permissions
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th
+    %th
+    %th
+
+  - @permissions.each do |permission|
+    %tr
+      %td= permission.name
+      %td= permission.description
+      %td= link_to 'Show', permission
+      %td= link_to 'Edit', edit_permission_path(permission)
+      %td= link_to 'Destroy', permission, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Permission', new_permission_path

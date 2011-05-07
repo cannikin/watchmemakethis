@@ -1,0 +1,25 @@
+%h1 Listing sites
+
+%table
+  %tr
+    %th User
+    %th Name
+    %th Path
+    %th Show in directory
+    %th
+    %th
+    %th
+
+  - @sites.each do |site|
+    %tr
+      %td= site.user_id
+      %td= site.name
+      %td= site.path
+      %td= site.show_in_directory
+      %td= link_to 'Show', site
+      %td= link_to 'Edit', edit_site_path(site)
+      %td= link_to 'Destroy', site, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Site', new_site_path

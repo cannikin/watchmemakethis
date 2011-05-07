@@ -1,4 +1,16 @@
 Watchmemakethis::Application.routes.draw do
+  resources :permissions
+
+  resources :clients
+
+  resources :sites
+
+  resources :builds
+
+  resources :roles
+
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

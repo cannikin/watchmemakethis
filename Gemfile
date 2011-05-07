@@ -6,6 +6,14 @@ gem 'rails', '3.0.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'haml'
+gem 'haml-rails'
+gem 'sass'
+gem 'jquery-rails'
+gem 'formtastic'
+gem 'rails3-generators'
+gem 'factory_girl'
+gem 'shoulda'
 
 # Use unicorn as the web server
 # gem 'unicorn'

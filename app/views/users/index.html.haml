@@ -1,0 +1,33 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th First name
+    %th Last name
+    %th Email
+    %th Password
+    %th Twitter
+    %th Role
+    %th Last login at
+    %th Login count
+    %th
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= user.first_name
+      %td= user.last_name
+      %td= user.email
+      %td= user.password
+      %td= user.twitter
+      %td= user.role_id
+      %td= user.last_login_at
+      %td= user.login_count
+      %td= link_to 'Show', user
+      %td= link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New User', new_user_path

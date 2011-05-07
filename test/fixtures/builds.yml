@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  site_id: 1
+  name: MyString
+  hashtag: MyString
+  archived: false
+  public: false
+  last_login_at: 2011-05-06 22:36:06
+  views: 1
+
+two:
+  user_id: 1
+  site_id: 1
+  name: MyString
+  hashtag: MyString
+  archived: false
+  public: false
+  last_login_at: 2011-05-06 22:36:06
+  views: 1

@@ -1,0 +1,11 @@
+= semantic_form_for @user do |form|
+  = form.inputs do
+    = form.input :first_name, :label => 'First Name'
+    = form.input :last_name, :label => 'Last Name'
+    = form.input :email, :label => 'Email'
+    = form.input :password, :label => 'Password'
+    = form.input :twitter, :label => 'Twitter'
+    = form.input :role, :label => 'Role'
+    = form.input :last_login_at, :label => 'Last Login At'
+    = form.input :login_count, :label => 'Login Count'
+  = form.buttons
