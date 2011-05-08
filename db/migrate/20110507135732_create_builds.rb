@@ -3,6 +3,7 @@ class CreateBuilds < ActiveRecord::Migration
     create_table :builds do |t|
       t.integer :site_id
       t.string :name
+      t.string :path
       t.string :hashtag
       t.boolean :archived,      :default => false
       t.boolean :public,        :default => true
@@ -13,6 +14,7 @@ class CreateBuilds < ActiveRecord::Migration
     end
     
     add_index :builds, :site_id
+    add_index :builds, :path
     add_index :builds, :hashtag
   end
 

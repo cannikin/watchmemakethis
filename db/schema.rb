@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20110507140524) do
   create_table "builds", :force => true do |t|
     t.integer  "site_id"
     t.string   "name"
+    t.string   "path"
     t.string   "hashtag"
     t.boolean  "archived",      :default => false
     t.boolean  "public",        :default => true
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20110507140524) do
   end
 
   add_index "builds", ["hashtag"], :name => "index_builds_on_hashtag"
+  add_index "builds", ["path"], :name => "index_builds_on_path"
   add_index "builds", ["site_id"], :name => "index_builds_on_site_id"
 
   create_table "clients", :force => true do |t|

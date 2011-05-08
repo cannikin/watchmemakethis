@@ -1,0 +1,32 @@
+%ul
+  - @nav.each do |nav|
+    - selected = false
+    - case nav.second
+    - when String
+      - case nav.third 
+      - when String
+        - selected = true if nav.third == params[:controller]
+      - when Array 
+        - selected = true if nav.third.include? params[:controller]
+        
+      - if selected
+        %li.selected= link_to nav.first, nav.second
+      - else
+        %li= link_to nav.first, nav.second
+    
+    - when Array
+      %li
+        = link_to "+ #{nav.first}", '#', :class => 'parent'
+        %ul.subnav{:style => "#{'display:none' unless nav[1..-1].find { |n| n.third.include? params[:controller] }}"}
+          - nav[1..nav.length].each do |subnav|
+            - selected = !request.fullpath.index('/' + subnav.third).nil?
+            - if selected
+              %li.selected= link_to subnav.first, subnav.second
+            - else
+              %li= link_to subnav.first, subnav.second
+      
+:javascript
+  $('a.parent').click(function() {
+    $(this).siblings('ul').toggle();
+    return false;
+  });

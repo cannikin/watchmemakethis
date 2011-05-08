@@ -1,0 +1,9 @@
+- if flash[:notice] || flash[:error]
+  #flash
+    - if flash[:notice]
+      .notice= flash[:notice]
+    - if flash[:error]
+      .error= flash[:error]
+
+  :javascript
+    setTimeout(function() { $('#flash').slideUp() }, 3000);

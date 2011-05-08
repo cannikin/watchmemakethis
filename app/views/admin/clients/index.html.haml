@@ -1,0 +1,20 @@
+%h1 Listing clients
+
+%table
+  %tr
+    %th User
+    %th Build
+    %th
+    %th
+    %th
+
+  - @clients.each do |client|
+    %tr
+      %td= client.user_id
+      %td= client.build_id
+      %td= link_to 'Edit', edit_admin_client_path(client)
+      %td= link_to 'Destroy', [:admin,client], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Client', new_admin_client_path

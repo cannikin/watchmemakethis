@@ -1,15 +1,21 @@
 Watchmemakethis::Application.routes.draw do
-  resources :permissions
 
-  resources :clients
+  get '/admin' => 'admin/home#index', :as => :admin_home
 
-  resources :sites
-
-  resources :builds
-
-  resources :roles
-
-  resources :users
+  namespace :admin do
+    resources :permissions
+    resources :clients
+    resources :sites
+    resources :builds
+    resources :roles
+    resources :users
+  end
+  
+  controller :session do
+    get   '/login'    =>  :new
+    post  '/login/go' =>  :create
+    get   '/logout'   =>  :destroy
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

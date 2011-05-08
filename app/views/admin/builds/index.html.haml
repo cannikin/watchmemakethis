@@ -1,0 +1,32 @@
+%h1 Listing builds
+
+%table
+  %tr
+    %th User
+    %th Site
+    %th Name
+    %th Hashtag
+    %th Archived
+    %th Public
+    %th Last login at
+    %th Views
+    %th
+    %th
+    %th
+
+  - @builds.each do |build|
+    %tr
+      %td= build.user_id
+      %td= build.site_id
+      %td= build.name
+      %td= build.hashtag
+      %td= build.archived
+      %td= build.public
+      %td= build.last_login_at
+      %td= build.views
+      %td= link_to 'Edit', edit_admin_build_path(build)
+      %td= link_to 'Destroy', [:admin,build], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Build', new_admin_build_path

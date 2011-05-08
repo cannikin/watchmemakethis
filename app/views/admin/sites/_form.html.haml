@@ -1,0 +1,7 @@
+= semantic_form_for [:admin,@site] do |form|
+  = form.inputs do
+    = form.input :user, :label => 'User'
+    = form.input :name, :label => 'Name'
+    = form.input :path, :label => 'Path'
+    = form.input :show_in_directory, :label => 'Show In Directory'
+  = form.buttons
