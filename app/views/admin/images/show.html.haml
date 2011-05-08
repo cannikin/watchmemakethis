@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Build:
+  = @image.build_id
+%p
+  %b Filename:
+  = @image.filename
+%p
+  %b Description:
+  = @image.description
+
+= link_to 'Edit', edit_admin_image_path(@image)
+\|
+= link_to 'Back', admin_images_path

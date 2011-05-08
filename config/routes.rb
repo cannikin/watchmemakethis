@@ -3,11 +3,12 @@ Watchmemakethis::Application.routes.draw do
   get '/admin' => 'admin/home#index', :as => :admin_home
 
   namespace :admin do
-    resources :permissions
-    resources :clients
-    resources :sites
     resources :builds
+    resources :clients
+    resources :images
+    resources :permissions
     resources :roles
+    resources :sites
     resources :users
   end
   

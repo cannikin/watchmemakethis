@@ -1,0 +1,21 @@
+%h1 Listing images
+
+%table
+  %tr
+    %th Build
+    %th Filename
+    %th Description
+    %th
+    %th
+
+  - @images.each do |image|
+    %tr
+      %td= image.build_id
+      %td= image.filename
+      %td= image.description
+      %td= link_to 'Edit', edit_admin_image_path(image)
+      %td= link_to 'Destroy', [:admin,image], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Image', new_admin_image_path

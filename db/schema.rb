@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110507140524) do
+ActiveRecord::Schema.define(:version => 20110508202120) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(:version => 20110507140524) do
   add_index "clients", ["build_id"], :name => "index_clients_on_build_id"
   add_index "clients", ["user_id", "build_id"], :name => "index_clients_on_user_id_and_build_id"
   add_index "clients", ["user_id"], :name => "index_clients_on_user_id"
+
+  create_table "images", :force => true do |t|
+    t.integer  "build_id"
+    t.string   "filename"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "permissions", :force => true do |t|
     t.string   "name"

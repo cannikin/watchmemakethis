@@ -7,6 +7,7 @@ class Admin::AdminController < ApplicationController
     @nav = [  ['Dashboard',   admin_home_path,          'admin/home'],
               ['Builds',      admin_builds_path,        'admin/builds'],
               ['Clients',     admin_clients_path,       'admin/clients'],
+              ['Images',      admin_images_path,        'admin/images'],
               ['Permissions', admin_permissions_path,   'admin/permissions'],
               ['Roles',       admin_roles_path,         'admin/roles'],
               ['Sites',       admin_sites_path,         'admin/sites'],
