@@ -14,6 +14,9 @@ gem 'formtastic'
 gem 'rails3-generators'
 gem 'factory_girl'
 gem 'shoulda'
+gem 'uuid'
+gem 'mini_magick'
+gem 'aws-s3', :require => 'aws/s3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
