@@ -1,0 +1,32 @@
+header {
+  padding: 20px; }
+
+#login_form {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  -webkit-border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+  #login_form label {
+    display: block; }
+  #login_form input {
+    font-size: 130%;
+    display: block;
+    margin: 0 0 10px; }
+    #login_form input[type=text], #login_form input[type=password] {
+      width: 280px; }
+
+#build_images li {
+  display: block;
+  float: left;
+  width: 300px;
+  height: 320px;
+  overflow: hidden;
+  padding: 10px;
+  text-align: center; }
+  #build_images li img {
+    border: 16px solid white;
+    -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); }
+  #build_images li span.uploaded {
+    display: block;
+    margin: 5px 0 0; }

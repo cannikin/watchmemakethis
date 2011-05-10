@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110508202120) do
+ActiveRecord::Schema.define(:version => 20110509233057) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -82,6 +82,17 @@ ActiveRecord::Schema.define(:version => 20110508202120) do
 
   add_index "sites", ["path"], :name => "index_sites_on_path"
   add_index "sites", ["user_id"], :name => "index_sites_on_user_id"
+
+  create_table "styles", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "header_background"
+    t.string   "header_text_color"
+    t.string   "body_background"
+    t.string   "body_text_color"
+    t.string   "image_border"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

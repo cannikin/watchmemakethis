@@ -1,0 +1,24 @@
+= render :partial => 'styles', :locals => { :style => @site.style }
+= render :partial => 'site/header', :locals => { :site => @site }
+
+%ul#build_images
+  - @build.images.each do |image| 
+    %li
+      = link_to(image_tag(image.url(:small)), 
+                          image.url(:large), 
+                          :title => "#{image.description}", 
+                          :rel => "build_group")
+                          
+      %span.uploaded 
+        Uploaded 
+        %time(datetime="#{image.created_at}")= time_ago_in_words(image.created_at)
+        ago
+
+= content_for :head do
+  = stylesheet_link_tag 'jquery.fancybox.css'
+  
+= content_for :body_end do
+  = javascript_include_tag 'jquery.fancybox.min.js'
+  :javascript
+    $('#build_images a').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
+  

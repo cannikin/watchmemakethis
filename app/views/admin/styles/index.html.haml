@@ -1,0 +1,27 @@
+%h1 Listing styles
+
+%table
+  %tr
+    %th Site
+    %th Header background
+    %th Header text color
+    %th Body background
+    %th Body text color
+    %th Image border
+    %th
+    %th
+
+  - @styles.each do |style|
+    %tr
+      %td= style.site_id
+      %td= style.header_background
+      %td= style.header_text_color
+      %td= style.body_background
+      %td= style.body_text_color
+      %td= style.image_border
+      %td= link_to 'Edit', edit_admin_style_path(style)
+      %td= link_to 'Destroy', [:admin,style], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Style', new_admin_style_path

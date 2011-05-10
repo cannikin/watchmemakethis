@@ -11,6 +11,7 @@ class Admin::AdminController < ApplicationController
               ['Permissions', admin_permissions_path,   'admin/permissions'],
               ['Roles',       admin_roles_path,         'admin/roles'],
               ['Sites',       admin_sites_path,         'admin/sites'],
+              ['Styles',      admin_styles_path,        'admin/styles'],
               ['Users',       admin_users_path,         'admin/users']
               #['API',
               #  ['Documentation',       admin_api_path,                   'admin/api'],

@@ -9,6 +9,7 @@ Watchmemakethis::Application.routes.draw do
     resources :permissions
     resources :roles
     resources :sites
+    resources :styles
     resources :users
   end
   
@@ -16,6 +17,18 @@ Watchmemakethis::Application.routes.draw do
     get   '/login'    =>  :new
     post  '/login/go' =>  :create
     get   '/logout'   =>  :destroy
+  end
+  
+  controller :site_admin do
+    get '/:site_path/admin' => :index
+  end
+  
+  controller :site do
+    get '/:site_path' => :show
+  end
+  
+  controller :build do
+    get '/:site_path/:build_path' => :show
   end
 
   # The priority is based upon order of creation:

@@ -1,0 +1,24 @@
+#debug {
+  border-top: 2px dotted white;
+  margin: 2em 0 0;
+  padding: 2em 1em;
+  clear: left;
+  float: none; }
+  #debug a {
+    display: block;
+    outline: none; }
+    #debug a:hover {
+      color: #333333;
+      background-color: transparent;
+      text-decoration: none; }
+  #debug div {
+    margin: 1em 0 1em; }
+  #debug table tr:hover {
+    background-color: #ffffcc; }
+  #debug table tr:last-child td {
+    border-bottom: none; }
+  #debug table tr td {
+    padding: 0.2em;
+    border-bottom: 1px solid #cccccc; }
+    #debug table tr td:first-child {
+      font-weight: bold; }

@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   before_save   :encrypt_password, :if => lambda { self.changed.include? 'password' }
   
   
+  def self.authenticate(email, password)
+    User.find_by_email_and_password(email, Digest::MD5.hexdigest(password))
+  end
+  
   # list all the permissions for the use through the role and allowances
   def permissions
     Permission.joins(:allowances).where(:allowances => { :role_id => self.role_id})

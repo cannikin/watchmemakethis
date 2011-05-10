@@ -8,9 +8,9 @@ class Image < ActiveRecord::Base
   attr_accessor :file
   
   OUTPUT_FORMAT = 'jpg'
-  META = { :small => { :width => 150, :height => 150, :prefix => 's_'},
-           :large => { :width => 1024, :height => 1024, :prefix => 'l_'},
-           :original => { :prefix => 'o_'}}
+  META = { :small     => { :prefix => 's_', :size => "250x250>"   },
+           :large     => { :prefix => 'l_', :size => "1024x1024>" },
+           :original  => { :prefix => 'o_'                        } }
   
   
   # prefix to the path for this image (not including filename)
@@ -31,7 +31,7 @@ class Image < ActiveRecord::Base
       META.each do |size,options|
         tempfile = Tempfile.new(['watch','.jpg'])
         tempfile << File.read(self.file)
-        resize(tempfile, options) if options[:width]
+        resize(tempfile, options) if options[:size]
         upload(tempfile, options[:prefix]+remote_filename)
       end
       self.filename = remote_filename
@@ -45,10 +45,15 @@ class Image < ActiveRecord::Base
   # Returns the name of the file it just uploaded (or throws an error if something goes wrong)
   def resize(tempfile, options)
     puts "Resizing #{options.inspect}"
-    resize_command = "#{options[:width]}x#{options[:height]}>"
     
-    command = %Q{mogrify -resize "#{resize_command}" #{tempfile.path}}
+    command = %Q{mogrify -resize "#{options[:size]}" #{tempfile.path}}
     sub = Subexec.run(command, :timeout => 5)
+    
+    # any problem resizing this image?
+    if sub.exitstatus != 0
+      cleanup(tempfile)
+      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed: #{{:status_code => sub.exitstatus, :output => sub.output}.inspect}"
+    end
     
     puts "exitstatus: #{sub.exitstatus}, output: #{sub.output}"
   end
@@ -58,10 +63,23 @@ class Image < ActiveRecord::Base
   # takes the current instance and upload its attached file to S3
   def upload(tempfile, filename)
     puts "Uploading filename..."
+    
     s3_path = File.join(self.full_path_prefix, filename)
     AWS::S3::S3Object.store(s3_path, tempfile.open, S3_CONFIG[:bucket_name], :access => :public_read)   # reopen the tempfile and write directly to S3
+    
     puts "** Uploaded image to S3: #{s3_path}"
+  ensure
+    tempfile.close
   end
   private :upload
+  
+  
+  # if there is a problem with trying to encode an image, eliminate the tempfile
+  def cleanup(tempfile)
+    return if tempfile.nil?
+    File.unlink(tempfile.path)
+    tempfile = nil
+  end
+  private :cleanup
   
 end

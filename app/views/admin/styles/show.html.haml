@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Site:
+  = @style.site_id
+%p
+  %b Header background:
+  = @style.header_background
+%p
+  %b Header text color:
+  = @style.header_text_color
+%p
+  %b Body background:
+  = @style.body_background
+%p
+  %b Body text color:
+  = @style.body_text_color
+%p
+  %b Image border:
+  = @style.image_border
+
+= link_to 'Edit', edit_admin_style_path(@style)
+\|
+= link_to 'Back', admin_styles_path
