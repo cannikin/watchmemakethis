@@ -20,7 +20,7 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :site_admin do
-    get '/:site_path/admin' => :index
+    get '/:site_path/admin' => :index, :as => :site_admin
   end
   
   controller :site do
@@ -28,7 +28,8 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :build do
-    get '/:site_path/:build_path' => :show
+    get   '/:site_path/:build_path'         => :show
+    post  '/:site_path/:build_path/upload'  => :upload, :as => :build_upload
   end
 
   # The priority is based upon order of creation:

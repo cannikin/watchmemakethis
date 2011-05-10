@@ -3,16 +3,10 @@
 
 %ul#build_images
   - @build.images.each do |image| 
-    %li
-      = link_to(image_tag(image.url(:small)), 
-                          image.url(:large), 
-                          :title => "#{image.description}", 
-                          :rel => "build_group")
-                          
-      %span.uploaded 
-        Uploaded 
-        %time(datetime="#{image.created_at}")= time_ago_in_words(image.created_at)
-        ago
+    = render :partial => 'image', :locals => { :image => image }
+  - if logged_in?
+    %li#new_image
+      = render :partial => 'shared/upload', :locals => {  :action => build_upload_path, :on_complete => "$('#build_images').prepend(data); WatchMeMakeThis.fancyboxify();" }
 
 = content_for :head do
   = stylesheet_link_tag 'jquery.fancybox.css'
@@ -20,5 +14,7 @@
 = content_for :body_end do
   = javascript_include_tag 'jquery.fancybox.min.js'
   :javascript
-    $('#build_images a').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
-  
+    $(document).ready(function() {
+      WatchMeMakeThis.fancyboxify();
+    });
+      

@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
       remote_filename = UUID.new.generate + '.' + OUTPUT_FORMAT # filename becomes the timestamp to avoid name conflicts
       META.each do |size,options|
         tempfile = Tempfile.new(['watch','.jpg'])
-        tempfile << File.read(self.file)
+        tempfile << File.read(self.file.tempfile)
         resize(tempfile, options) if options[:size]
         upload(tempfile, options[:prefix]+remote_filename)
       end

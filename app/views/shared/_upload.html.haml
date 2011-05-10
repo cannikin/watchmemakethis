@@ -1,0 +1,65 @@
+- id ||= "upload_#{rand(1000000)}"
+- table_id ||= id + '_files'
+- form_id ||= id + '_form'
+- action ||= 'upload'
+- build_download_row ||= on_complete ||= nil
+- multiple ||= false
+- only ||= nil
+- params ||= {}
+- label ||= ['Click to Upload Image','or Drag and Drop']
+- case only
+- when :images
+  - only = '/^image\/(gif|jpeg|png)$/'
+- else
+  - only = "''"
+  
+%form(id="#{form_id}" action="#{action}" method="post" enctype="multipart/form-data" class="secondary")
+  - if multiple
+    %input(type="file" name="file" id="#{id}" class="upload" multiple="multiple")
+  - else
+    %input(type="file" name="file" id="#{id}" class="upload")
+  %input.alternate(type="submit" value="#{label.first}")
+  %div.label(style="display:none")
+    %span.line1= label.first
+    %span.line2= label.second
+%table(id="#{table_id}")
+
+- content_for :head do
+  = stylesheet_link_tag 'jquery.fileupload-ui'
+
+= content_for :body_end do
+  = javascript_include_tag 'jquery.fileupload','jquery.fileupload-ui'
+  :javascript
+    $(document).ready(function() {
+      if ($.support.dragDropUpload) {
+        $('##{form_id}').find('div.label').show().end().find('input[type=submit]').hide();
+        $('##{form_id}').fileUploadUI({
+          uploadTable: $('##{table_id}'),
+          downloadTable: $('##{table_id}'),
+          imageTypes:#{only},
+          formData:#{params.to_json},
+          // what to do when a file is chosen for upload
+          buildUploadRow: function(files, index) {
+            return $('<tr><td class="file_upload_progress">' + files[index].name +
+                    '<div><\/div><\/td>' +
+                    '<td class="file_upload_cancel">' +
+                    '<button class="ui-state-default ui-corner-all" title="Cancel">' +
+                    '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
+                    '<\/button><\/td><\/tr>');
+          },
+          buildDownloadRow: function(data,handler) {
+            #{build_download_row}
+            return false;
+          }
+        });
+      } else {
+        // no dragdrop uploader
+        $('##{form_id} input.alternate').click(function() {
+          if ($(this).siblings('##{id}').val() == '') {
+            alert('Please choose an image to upload for your avatar!');
+            return false;
+          }
+          return true;
+        });
+      }
+    });

@@ -1,0 +1,85 @@
+.file_upload, .file_upload_small {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
+  padding: 0.5em 0 0.3em;
+  font-size: 108%;
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+  background-color: #1f5084;
+  background: -moz-linear-gradient(top, #2a6cb0, #18416c);
+  background: -webkit-gradient(linear, left top, left bottom, from(#2a6cb0), to(#18416c));
+  border-color: #155c95;
+  -moz-box-shadow: inset 0 0.07em 0.07em rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: inset 0 0.07em 0.07em rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0.07em 0.07em rgba(255, 255, 255, 0.5);
+  cursor: pointer; }
+  .file_upload:hover, .file_upload_small:hover {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 0.6em 0 0.2em; }
+  .file_upload div, .file_upload_small div {
+    cursor: pointer;
+    font-weight: normal;
+    height: 40px;
+    line-height: 1.2; }
+    .file_upload div span, .file_upload_small div span {
+      display: block; }
+      .file_upload div span.line1, .file_upload_small div span.line1 {
+        font-weight: bold; }
+      .file_upload div span.line2, .file_upload_small div span.line2 {
+        font-weight: normal;
+        font-size: 85%; }
+  .file_upload input, .file_upload_small input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: 300px solid transparent;
+    opacity: 0;
+    -ms-filter: "alpha(opacity=0)";
+    filter: alpha(opacity=0);
+    -o-transform: translate(-300px, -300px) scale(10);
+    -moz-transform: translate(-800px, 0) scale(10);
+    cursor: pointer; }
+  .file_upload iframe, .file_upload button, .file_upload_small iframe, .file_upload_small button {
+    display: none; }
+
+.file_upload_large {
+  width: 100%;
+  padding: 2em 0 2.2em;
+  font-size: 161%;
+  background: white;
+  color: #cccccc;
+  border: 2px dashed #666666;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  text-shadow: none; }
+
+.file_upload_highlight {
+  background: white; }
+
+.file_upload_preview img {
+  width: 80px; }
+
+.file_upload_progress {
+  font-size: 85%; }
+
+.file_upload_progress .ui-progressbar-value {
+  background: url("/images/pbar-ani.gif"); }
+
+.file_upload_progress div {
+  width: 150px;
+  height: 15px; }
+
+.file_upload_cancel button {
+  cursor: pointer;
+  margin: 1em 0 0; }
