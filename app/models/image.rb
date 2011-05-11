@@ -35,7 +35,7 @@ class Image < ActiveRecord::Base
         upload(tempfile, options[:prefix]+remote_filename)
       end
       self.filename = remote_filename
-      self.width, self.height = get_size(self.file)
+      self.width, self.height = get_size(self.file.tempfile)
     else
       raise 'No file attached to image'
     end

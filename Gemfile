@@ -17,6 +17,8 @@ gem 'shoulda'
 gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3'
+gem 'twimage'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
