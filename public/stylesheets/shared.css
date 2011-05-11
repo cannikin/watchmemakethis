@@ -16,17 +16,26 @@ header {
     #login_form input[type=text], #login_form input[type=password] {
       width: 280px; }
 
-#build_images li {
-  display: block;
-  float: left;
-  width: 300px;
-  height: 320px;
-  overflow: hidden;
-  padding: 10px;
-  text-align: center; }
-  #build_images li img {
-    border: 16px solid white;
-    -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); }
-  #build_images li span.uploaded {
+#build_images {
+  padding: 20px; }
+  #build_images li {
     display: block;
-    margin: 5px 0 0; }
+    float: left;
+    width: 300px;
+    height: 320px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center; }
+    #build_images li img {
+      border: 16px solid white;
+      -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); }
+    #build_images li span.uploaded {
+      display: block;
+      margin: 5px 0 0; }
+  #build_images #new_image {
+    overflow: auto; }
+    #build_images #new_image table {
+      width: 100%; }
+      #build_images #new_image table td {
+        font-size: 80%;
+        text-align: left; }

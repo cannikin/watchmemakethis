@@ -2,17 +2,17 @@
 = render :partial => 'site/header', :locals => { :site => @site }
 
 %ul#build_images
-  - @build.images.each do |image| 
-    = render :partial => 'image', :locals => { :image => image }
   - if logged_in?
     %li#new_image
-      = render :partial => 'shared/upload', :locals => {  :action => build_upload_path, :on_complete => "$('#build_images').prepend(data); WatchMeMakeThis.fancyboxify();" }
-
+      = render :partial => 'shared/upload', :locals => {  :action => build_upload_path, :on_complete => "$('#new_image').after(data); WatchMeMakeThis.fancyboxify();" }
+  - @build.images.each do |image| 
+    = render :partial => 'image', :locals => { :image => image }
+  
 = content_for :head do
   = stylesheet_link_tag 'jquery.fancybox.css'
   
 = content_for :body_end do
-  = javascript_include_tag 'jquery.fancybox.min.js'
+  = javascript_include_tag 'jquery.fancybox.min.js','jquery.masonry.min.js'
   :javascript
     $(document).ready(function() {
       WatchMeMakeThis.fancyboxify();

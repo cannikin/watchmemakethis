@@ -3,10 +3,10 @@
 - form_id ||= id + '_form'
 - action ||= 'upload'
 - build_download_row ||= on_complete ||= nil
-- multiple ||= false
+- multiple ||= true
 - only ||= nil
 - params ||= {}
-- label ||= ['Click to Upload Image','or Drag and Drop']
+- label ||= ['Click to Upload Images','or Drag and Drop']
 - case only
 - when :images
   - only = '/^image\/(gif|jpeg|png)$/'
@@ -40,13 +40,19 @@
           formData:#{params.to_json},
           // what to do when a file is chosen for upload
           buildUploadRow: function(files, index) {
-            return $('<tr><td class="file_upload_progress">' + files[index].name +
+            if (files[index].name.length > 30) {
+              var imageName = files[index].name.slice(0,30) + '...';
+            } else {
+              var imageName = files[index].name;
+            }
+            return $('<tr><td class="file_upload_progress">' + imageName +
                     '<div><\/div><\/td>' +
                     '<td class="file_upload_cancel">' +
                     '<button class="ui-state-default ui-corner-all" title="Cancel">' +
                     '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
                     '<\/button><\/td><\/tr>');
           },
+          // what to do when a file is done uploading
           buildDownloadRow: function(data,handler) {
             #{build_download_row}
             return false;
