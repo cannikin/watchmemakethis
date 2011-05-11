@@ -24,11 +24,11 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :site do
-    get '/:site_path' => :show
+    get '/:site_path' => :show, :as => :site
   end
   
   controller :build do
-    get   '/:site_path/:build_path'         => :show
+    get   '/:site_path/:build_path'         => :show,   :as => :build
     post  '/:site_path/:build_path/upload'  => :upload, :as => :build_upload
   end
 

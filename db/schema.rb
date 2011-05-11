@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110509233057) do
+ActiveRecord::Schema.define(:version => 20110511014757) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110509233057) do
     t.integer  "views",         :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "client_name"
   end
 
   add_index "builds", ["hashtag"], :name => "index_builds_on_hashtag"
@@ -54,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20110509233057) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "height"
+    t.integer  "width"
   end
 
   create_table "permissions", :force => true do |t|
@@ -92,6 +95,10 @@ ActiveRecord::Schema.define(:version => 20110509233057) do
     t.string   "image_border"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "header_font_family"
+    t.string   "header_font_size"
+    t.string   "body_font_family"
+    t.string   "body_font_size"
   end
 
   create_table "users", :force => true do |t|

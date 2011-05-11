@@ -1,5 +1,17 @@
-header
+body
   padding: 20px
+
+header
+  margin: -20px -20px 20px -20px
+  padding: 20px
+  font-size: 200%
+  a
+    text-decoration: none
+    
+footer
+  margin: 40px 0 20px
+  clear: both
+  text-align: center
 
 #login_form
   width: 300px
@@ -15,6 +27,25 @@ header
     margin: 0 0 10px
     &[type=text], &[type=password]
       width: 280px
+      
+#builds
+  overflow: hidden
+  ul
+    display: block
+    float: left
+    overflow: hidden
+    li
+      float: left
+      img
+        border: 4px solid #ffffff
+        -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.2)
+        margin: 0 5px
+  a.build_name
+    display: block
+    float: left
+    margin: 26px 0 0 10px
+    font-size: 200%
+    text-decoration: none
   
 #build_images
   padding: 20px

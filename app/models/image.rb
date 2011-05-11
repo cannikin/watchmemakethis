@@ -35,6 +35,7 @@ class Image < ActiveRecord::Base
         upload(tempfile, options[:prefix]+remote_filename)
       end
       self.filename = remote_filename
+      self.width, self.height = get_size(self.file)
     else
       raise 'No file attached to image'
     end
@@ -72,6 +73,19 @@ class Image < ActiveRecord::Base
     tempfile.close
   end
   private :upload
+  
+  
+  def get_size(tempfile)
+    command = %Q{identify #{tempfile.path}}
+    sub = Subexec.run(command, :timeout => 5)
+    
+    if sub.exitstatus != 0
+      cleanup(tempfile)
+      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed: #{{:status_code => sub.exitstatus, :output => sub.output}.inspect}"
+    else
+      return sub.output.split(' ')[2].split('x')
+    end
+  end
   
   
   # if there is a problem with trying to encode an image, eliminate the tempfile

@@ -6,4 +6,7 @@ class Build < ActiveRecord::Base
   validates :name,    :presence => true
   validates_presence_of :path, :scope => :site_id
   validates_presence_of :hashtag, :scope => :site_id
+  
+  scope :public, where(:public => true)
+  scope :private, where(:public => false)
 end
