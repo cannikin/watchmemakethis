@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110511014757) do
+ActiveRecord::Schema.define(:version => 20110512015212) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(:version => 20110511014757) do
     t.string   "header_font_size"
     t.string   "body_font_family"
     t.string   "body_font_size"
+  end
+
+  create_table "systems", :force => true do |t|
+    t.string  "twitter_username"
+    t.string  "next_twitter_call"
+    t.integer "twitpic_count",     :default => 0
+    t.integer "yfrog_count",       :default => 0
+    t.integer "instagram_count",   :default => 0
   end
 
   create_table "users", :force => true do |t|

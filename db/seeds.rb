@@ -9,4 +9,5 @@ Role.create([
   {:id => 1, :name => 'admin'},
   {:id => 2, :name => 'owner'},
   {:id => 3, :name => 'client'}])
-  
+
+System.create :twitter_username => '@watchmemake', :next_twitter_call => 'http://search.twitter.com/search.json?q=to%3Awatchmemake'

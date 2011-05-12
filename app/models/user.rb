@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many    :sites
   belongs_to  :role
   has_many    :allowances, :through => :role
+  has_many    :builds, :through => :sites
   
   validates :first_name,  :presence => true
   validates :last_name,   :presence => true
