@@ -1,3 +1,12 @@
+GIT
+  remote: git@github.com:cannikin/aws-s3.git
+  revision: 778b9c7d22491f9f8a94c2b00c25a8de444848aa
+  specs:
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,10 +38,6 @@ GEM
       activesupport (= 3.0.7)
     activesupport (3.0.7)
     arel (2.0.9)
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
     builder (2.1.2)
     crack (0.1.8)
     erubis (2.6.6)
@@ -91,7 +96,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    twimage (0.0.8)
+    twimage (0.0.11)
       httparty
       nokogiri
     tzinfo (0.3.27)
@@ -103,7 +108,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-s3
+  aws-s3!
   factory_girl
   formtastic
   haml

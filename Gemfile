@@ -16,7 +16,7 @@ gem 'factory_girl'
 gem 'shoulda'
 gem 'uuid'
 gem 'subexec'
-gem 'aws-s3', :require => 'aws/s3'
+gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
 gem 'twimage'
 
 
