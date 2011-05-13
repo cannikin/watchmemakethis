@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/apprentice'
+
+while true do
+  WatchMeMakeThis::Apprentice.run
+  sleep 10
+end

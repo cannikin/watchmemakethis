@@ -1,7 +1,9 @@
 !!!
 %html
   %head
-    %title Admin | Watch Me Make This
+    %title
+      = @page_title + " | " if @page_title
+      Watch Me Make This
     = stylesheet_link_tag 'reset', 'fonts', 'shared'
     = yield :head
     = csrf_meta_tag

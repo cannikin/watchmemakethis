@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110512015212) do
+ActiveRecord::Schema.define(:version => 20110513193104) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20110512015212) do
     t.datetime "updated_at"
     t.integer  "height"
     t.integer  "width"
+    t.string   "tweet_id"
   end
 
   create_table "permissions", :force => true do |t|

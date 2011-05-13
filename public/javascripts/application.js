@@ -3,9 +3,13 @@
 
 var WatchMeMakeThis = {
   fancyboxify:function() {
-    $('#build_images a').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
+    $('#build_images a.thumb').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
   }
 };
+
+$('.image .delete').live('ajax:success', function() {
+  $(this).parents('li.image').fadeOut();
+});
 
 $.support.dragDropUpload = (function(){ 
   var support = false

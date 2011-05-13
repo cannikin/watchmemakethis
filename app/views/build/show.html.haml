@@ -4,7 +4,7 @@
 %ul#build_images
   - if logged_in?
     %li#new_image
-      = render :partial => 'shared/upload', :locals => {  :action => build_upload_path, :on_complete => "$('#new_image').after(data); WatchMeMakeThis.fancyboxify();" }
+      = render :partial => 'shared/upload', :locals => { :action => build_upload_path, :on_complete => "$('#new_image').after(data); WatchMeMakeThis.fancyboxify();" }
   - @build.images.each do |image| 
     = render :partial => 'image', :locals => { :image => image }
   

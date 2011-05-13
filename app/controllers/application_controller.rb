@@ -3,6 +3,25 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :logged_in?, :current_user, :today
   
+  
+  def get_site_and_build
+    if params[:site_path]
+      if @site = Site.find_by_path(params[:site_path])
+        if params[:build_path]
+          if @build = @site.builds.find_by_path(params[:build_path])
+            # ready to go, @site and @build are set
+          else
+            raise ActionController::RoutingError, 'Build not found'
+          end
+        end
+      else
+        raise ActionController::RoutingError, 'Site not found'
+      end
+    end
+  end
+  private :get_site_and_build
+  
+  
   # returns the current user
   def current_user
     if logged_in?

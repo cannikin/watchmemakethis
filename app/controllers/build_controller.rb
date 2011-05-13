@@ -1,25 +1,41 @@
 class BuildController < ApplicationController
   
+  before_filter :get_site_and_build
+  
   # show the images for a build
   def show
-    session[:user_id] = 1
-    if @site = Site.find_by_path(params[:site_path])
-      unless @build = @site.builds.where(:path => params[:build_path]).first
-        raise ActionController::RoutingError, 'Build not found'
-      end
-    end
+    @page_title = @site.name + ':' + @build.name
   end
   
   
   # upload an image to this build
   def upload
-    if site = Site.find_by_path(params[:site_path]) and build = Build.find_by_path(params[:build_path])
-      file = params[:file]
-      image = Image.create(:file => file, :build_id => build.id)
-      render :partial => 'image', :locals => { :image => image }
+    file = params[:file]
+    image = Image.create(:file => file, :build_id => @build.id)
+    render :partial => 'image', :locals => { :image => image }
+  end
+  
+  
+  # mark a build as archived (not viewable publicly)
+  def archive
+    
+  end
+  
+  
+  # remove a build and all associated images
+  def destroy
+    
+  end
+  
+  
+  def destroy_image
+    if image = @build.images.find(params[:id])
+      image.destroy
+      render :nothing => true
     else
       render :nothing => true, :status => :bad_request
     end
   end
+  
   
 end
