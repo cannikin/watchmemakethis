@@ -36,16 +36,18 @@ module WatchMeMakeThis
             if validate(tweet)
               begin
                 # get the image from the proper service
-                case tweet[:url]
-                when /twitpic/
-                  image = Twimage::Twitpic.new(tweet[:url])
-                  System.first.increment!(:twitpic_count)
-                when /yfrog/
-                  image = Twimage::Yfrog.new(tweet[:url])
-                  System.first.increment!(:yfrog_count)
-                else
-                  raise StandardError, "Service parser for #{url} not found"
-                end
+                # case tweet[:url]
+                # when /twitpic/
+                #   image = Twimage::Twitpic.new(tweet[:url])
+                #   System.first.increment!(:twitpic_count)
+                # when /yfrog/
+                #   image = Twimage::Yfrog.new(tweet[:url])
+                #   System.first.increment!(:yfrog_count)
+                # else
+                #   raise StandardError, "Service parser for #{url} not found"
+                # end
+                
+                image = Twimage.get(tweet[:url])
   
                 # find the appropriate user/build to assign this image to
                 if user = User.find_by_twitter(tweet[:from])
