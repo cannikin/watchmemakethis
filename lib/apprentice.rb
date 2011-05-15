@@ -53,6 +53,7 @@ module WatchMeMakeThis
                 if user = User.find_by_twitter(tweet[:from])
                   if build = user.builds.find_by_hashtag(tweet[:hashtag])
                     Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id])
+                    image.tempfile.unlink
                   else
                     raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
                   end

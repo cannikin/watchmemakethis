@@ -70,7 +70,7 @@ class Image < ActiveRecord::Base
     
     puts "** Uploaded image to S3: #{s3_path}"
   ensure
-    tempfile.close
+    tempfile.unlink
   end
   private :upload
   
@@ -91,7 +91,7 @@ class Image < ActiveRecord::Base
   # if there is a problem with trying to encode an image, eliminate the tempfile
   def cleanup(tempfile)
     return if tempfile.nil?
-    File.unlink(tempfile.path)
+    tempfile.unlink
     tempfile = nil
   end
   private :cleanup
