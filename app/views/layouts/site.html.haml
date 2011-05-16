@@ -10,6 +10,9 @@
 
   %body{:id => "#{controller.controller_name}-#{controller.action_name}"}
     = render 'shared/flash', :flash => flash
+    = render :partial => 'site/styles', :locals => { :style => @site.style }
+    = render :partial => 'site/header', :locals => { :site => @site }
+    
     = yield
     
     %footer
@@ -20,4 +23,3 @@
     = yield :body_end
     
     = render :partial => 'shared/debug' if Rails.env.development?
-      

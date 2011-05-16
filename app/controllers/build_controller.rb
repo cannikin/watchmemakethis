@@ -1,6 +1,33 @@
 class BuildController < ApplicationController
   
   before_filter :get_site_and_build
+  before_filter :login_required, :except => [:show]
+  
+  layout 'site'
+  
+  # list builds
+  def index
+    
+  end
+  
+  
+  # new build page
+  def new
+    @new_build = Build.new
+  end
+  
+  
+  # create a build
+  def create
+    site = current_user.sites.find_by_path(params[:site_path])
+    @new_build = Build.new(params[:build].merge(:site_id => site.id))
+    if @new_build.save
+      redirect_to build_path(site.path, @new_build.path)
+    else
+      render :new
+    end
+  end
+  
   
   # show the images for a build
   def show

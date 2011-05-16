@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_user, :today
   
   
+  # create @site and @build instance variables based on URL paths
   def get_site_and_build
     if params[:site_path]
       if @site = Site.find_by_path(params[:site_path])

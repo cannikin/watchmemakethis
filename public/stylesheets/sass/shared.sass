@@ -3,10 +3,17 @@ body
 
 header
   margin: -20px -20px 20px -20px
-  padding: 20px
-  font-size: 200%
-  a
-    text-decoration: none
+  h1
+    padding: 20px
+    font-size: 200%
+    a
+      text-decoration: none
+  nav
+    float: right
+    margin: -48px 20px 0 0
+    vertical-align: middle
+    select
+      font-size: 110%
     
 footer
   margin: 40px 0 20px
@@ -36,10 +43,20 @@ footer
     overflow: hidden
     li
       float: left
+      overflow: hidden
+      width: 75px
+      height: 75px
+      img
+        width: 75px
+        height: 75px
       img
         border: 4px solid #ffffff
         -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.2)
         margin: 0 5px
+#builds > li
+  float: left
+  margin: 0 40px 20px 0
+    
   a.build_name
     display: block
     float: left

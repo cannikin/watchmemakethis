@@ -1,5 +1,4 @@
-= render :partial => 'site/styles', :locals => { :style => @site.style }
-= render :partial => 'site/header', :locals => { :site => @site }
+= link_to 'Create Build', new_build_path(params[:site_path])
 
 - if @site.builds.public.any?
   %ul#builds

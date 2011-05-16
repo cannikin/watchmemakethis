@@ -1,6 +1,3 @@
-= render :partial => 'site/styles', :locals => { :style => @site.style }
-= render :partial => 'site/header', :locals => { :site => @site }
-
 %ul#build_images
   - if logged_in?
     %li#new_image

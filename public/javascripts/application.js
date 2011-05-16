@@ -7,6 +7,10 @@ var WatchMeMakeThis = {
   }
 };
 
+$('header nav select').change(function() {
+  location.href = '/' + this.value;
+});
+
 $('.image .delete').live('ajax:success', function() {
   $(this).parents('li.image').fadeOut();
 });
