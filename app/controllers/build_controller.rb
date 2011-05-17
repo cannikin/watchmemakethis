@@ -39,7 +39,9 @@ class BuildController < ApplicationController
   def upload
     file = params[:file]
     image = Image.create(:file => file, :build_id => @build.id)
-    render :json => image
+    render :json => image.attributes.merge( :url_small => image.url(:small), 
+                                            :url_large => image.url(:large), 
+                                            :url_delete => destroy_image_path(params[:site_path], params[:build_path], image.id))
     #render :partial => 'image', :locals => { :image => image, :hide => true }
   end
   

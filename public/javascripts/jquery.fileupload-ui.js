@@ -24,7 +24,7 @@
             // By default, files added to the widget are uploaded as soon
             // as the user clicks on the start buttons. To enable automatic
             // uploads, set the following option to true:
-            autoUpload: false,
+            autoUpload: true,
             // The following option limits the number of files that are
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: undefined,
@@ -106,7 +106,7 @@
             },
             // Callback for successful uploads:
             done: function (e, data) {
-                console.info(data.result.image);
+                var image = data.result;
                 var that = $(this).data('fileupload');
                 if (data.context) {
                     data.context.each(function (index) {
@@ -122,7 +122,25 @@
                                 });
                         });
                     });
+                  // add the new image to the page
+                  var newImageElement = $("#image_new").clone();
+                  // update the container
+                  newImageElement.attr('id', 'image_'+image.id);
+                  // update thumbnail image
+                  newImageElement.find('img').attr('src', image.url_small);
+                  // update link surrounding image
+                  newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
+                  // update upload time
+                  newImageElement.find('.added').text('Added just now');
+                  // update delete link
+                  newImageElement.find('.delete').attr('href', image.url_delete);
+                  
+                  $('#build_images').prepend(newImageElement);
+                  WatchMeMakeThis.fancyboxify();
+                  newImageElement.delay(1000).fadeIn(500);
+                  
                 } else {
+                  alert("no context");
                     that._renderDownload(data.result)
                         .css('display', 'none')
                         .appendTo($(this).find('.files'))

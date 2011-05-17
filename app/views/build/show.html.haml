@@ -3,6 +3,7 @@
     = render :partial => 'shared/upload', :locals => { :action => build_upload_path, :on_complete => "$('#build_images').prepend(data).find('li').first().delay(1000).fadeIn(500); WatchMeMakeThis.fancyboxify();" }
 
 %ul#build_images
+  = render :partial => 'image', :locals => { :image => Image.new, :blank => true }
   - @build.images.each do |image| 
     = render :partial => 'image', :locals => { :image => image }
   

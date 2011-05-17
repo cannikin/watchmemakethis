@@ -30,7 +30,11 @@
   width: 400px;
   margin: 0 auto;
   display: block;
+  color: #666666
 }
+  .fileinput-button:hover {
+    color: #c77405;
+  }
   .fileinput-button .ui-button-text {
     padding: 0;
   }

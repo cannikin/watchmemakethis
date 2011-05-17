@@ -3,7 +3,7 @@
 
 var WatchMeMakeThis = {
   fancyboxify:function() {
-    $('#build_images a.thumb').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
+    $('#build_images a[rel=build_group]').fancybox({'cyclic':true,'transitionIn':'elastic','transitionOut'	:'elastic'});
   }
 };
 
