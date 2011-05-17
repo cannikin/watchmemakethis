@@ -1,12 +1,13 @@
 .file_upload, .file_upload_small {
   position: relative;
+  margin: 0 auto;
   overflow: hidden;
   cursor: pointer;
   text-align: center;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  width: 295px;
+  width: 500px;
   height: 50px;
   padding: 0.7em 0 0.3em;
   font-size: 116%;
@@ -47,7 +48,7 @@
   .file_upload input, .file_upload_small input {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     margin: 0;
     border: 100px solid transparent;
     opacity: 0;
@@ -86,11 +87,11 @@
   }
 
 .file_upload_progress .ui-progressbar-value {
-  background: url("/images/pbar-ani.gif"); 
+  background: url("/images/jqueryui/pbar-ani.gif"); 
   }
 
 .file_upload_progress div {
-  width: 236px;
+  width: 435px;
   height: 15px; 
   }
 

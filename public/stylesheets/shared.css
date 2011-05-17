@@ -35,42 +35,69 @@ footer {
     #login_form input[type=text], #login_form input[type=password] {
       width: 280px; }
 
+#create_build {
+  display: block;
+  float: right;
+  background-color: #009900;
+  color: white;
+  text-decoration: none;
+  margin: 0 -20px 20px 0;
+  padding: 10px 30px;
+  -webkit-border-radius: 20px 0 0 20px;
+  -webkit-box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.5); }
+
 #builds {
+  clear: left;
   overflow: hidden; }
-  #builds ul {
+  #builds ul.images {
     display: block;
     float: left;
-    overflow: hidden; }
-    #builds ul li {
+    overflow: hidden;
+    width: 300px; }
+    #builds ul.images li {
       float: left;
-      overflow: hidden;
-      width: 75px;
-      height: 75px; }
-      #builds ul li img {
-        width: 75px;
-        height: 75px; }
-      #builds ul li img {
+      overflow: hidden; }
+      #builds ul.images li img {
         border: 4px solid white;
         -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         margin: 0 5px; }
-
-#builds > li {
-  float: left;
-  margin: 0 40px 20px 0; }
-  #builds > li a.build_name {
+  #builds > li {
+    clear: both;
+    overflow: hidden;
+    height: 90px;
+    padding: 5px;
+    cursor: pointer;
+    margin: 0 0 10px; }
+  #builds .stats {
     display: block;
-    float: left;
-    margin: 26px 0 0 10px;
-    font-size: 200%;
-    text-decoration: none; }
+    float: left; }
+    #builds .stats h2 {
+      font-size: 200%;
+      margin: 0 0 10px; }
+      #builds .stats h2 a {
+        text-decoration: none; }
+    #builds .stats ul li {
+      display: block;
+      float: none;
+      line-height: 1.3;
+      font-size: 90%; }
+
+#new_image {
+  overflow: auto; }
+  #new_image table {
+    width: 500px;
+    margin: 0 auto; }
+    #new_image table td {
+      font-size: 80%;
+      text-align: left; }
 
 #build_images {
-  padding: 20px; }
+  padding: 20px;
+  text-align: center; }
   #build_images li {
-    display: block;
-    float: left;
+    display: inline-block;
     width: 300px;
-    height: 320px;
+    height: 340px;
     overflow: hidden;
     padding: 10px;
     text-align: center; }
@@ -80,10 +107,3 @@ footer {
     #build_images li span.uploaded {
       display: block;
       margin: 5px 0 0; }
-  #build_images #new_image {
-    overflow: auto; }
-    #build_images #new_image table {
-      width: 100%; }
-      #build_images #new_image table td {
-        font-size: 80%;
-        text-align: left; }

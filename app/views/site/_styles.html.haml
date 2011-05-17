@@ -1,20 +1,29 @@
 - if style
-  :css
-    header {
-      background: #{style.header_background};
-      color: #{style.header_text_color};
-      }
-      header a {
-        color: #{style.header_text_color};
-        }
-    body {
-      background: #{style.body_background};
-      color: #{style.body_text_color};
-      }
-    a {
-      color: #{style.body_text_color};
-      }
-    #build_images li img {
-      border: #{style.image_border};
-      }
+  %style(type="text/css")
+    :sass
+      $header_background: #{style.header_background}
+      $header_text: #{style.header_text_color}
+      $body_background: #{style.body_background}
+      $body_text: #{style.body_text_color}
+      $image_border: #{style.image_border}
     
+      header
+        background: $header_background
+        color: $header_text
+        a
+          color: $header_text
+      body 
+        background: $body_background
+        color: $body_text
+      a
+        color: $body_text
+      
+      #builds
+        & > li:hover
+          background-color: transparentize($body_text, 0.95)
+        .stats
+          color: transparentize($body_text, 0.5)
+          
+      #build_images li img
+        border: $image_border
+

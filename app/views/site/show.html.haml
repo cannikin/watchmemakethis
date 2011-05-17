@@ -1,18 +1,29 @@
-= link_to 'Create Build', new_build_path(params[:site_path])
+- if logged_in? and current_user.is_an_owner?
+  = link_to 'Create a New Build', new_build_path(params[:site_path]), :id => 'create_build'
 
 - if @site.builds.public.any?
   %ul#builds
     - @site.builds.public.each do |build| 
-      %li
+      %li(data-path="#{build_path(@site.path, build.path)}")
         - if build.images.any?
-          %ul
+          %ul.images
             - build.images[0..2].each do |image| 
               - style = image.width > image.height ? "width:75px" : "height:75px"
               %li= link_to(image_tag(image.url, :style => style), build_path(@site.path, build.path))
-              
-        = link_to build.name, build_path(@site.path, build.path), :class => 'build_name'
+        
+        .stats    
+          %h2= link_to build.name, build_path(@site.path, build.path), :class => 'build_name'
+          %ul
+            %li.count= pluralize(build.images.count, 'image')
+            %li.last= "Last updated #{time_ago_in_words(build.last_updated_at)} ago"
+      
 - else
   %p.none
     = @site.name
     has no public builds to view!
     
+= content_for :body_end do
+  :javascript
+    $('#builds > li').click(function() {
+      location.href = $(this).attr('data-path');
+    });

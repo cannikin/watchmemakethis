@@ -1,5 +1,7 @@
-%li[image]
-  = link_to(image_tag(image.url(:small)), 
+- hide = hide.nil? ? false : hide
+
+%li[image]{:style => "#{'display:none' if hide}"}
+  = link_to(image_tag(image.url(:small), compute_width_height(image)), 
                       image.url(:large), 
                       :title => "#{image.description}", 
                       :rel => "build_group",

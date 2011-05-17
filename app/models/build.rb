@@ -10,4 +10,13 @@ class Build < ActiveRecord::Base
   
   scope :public, where(:public => true)
   scope :private, where(:public => false)
+  
+  def last_updated_at
+    if self.images.any?
+      return self.images.first.created_at
+    else
+      return nil
+    end
+  end
+  
 end

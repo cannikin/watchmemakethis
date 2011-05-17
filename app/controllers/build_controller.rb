@@ -39,7 +39,7 @@ class BuildController < ApplicationController
   def upload
     file = params[:file]
     image = Image.create(:file => file, :build_id => @build.id)
-    render :partial => 'image', :locals => { :image => image }
+    render :partial => 'image', :locals => { :image => image, :hide => true }
   end
   
   
