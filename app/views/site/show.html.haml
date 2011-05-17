@@ -1,6 +1,3 @@
-- if logged_in? and current_user.is_an_owner?
-  = link_to '<span class="icon">P</span> <span class="label">Create a New Build</span>'.html_safe, new_build_path(params[:site_path]), :id => 'create_build'
-
 - if @site.builds.public.any?
   %ul#builds
     - @site.builds.public.each do |build| 
@@ -10,12 +7,14 @@
             - build.images[0..2].each do |image| 
               - style = image.width > image.height ? "width:75px" : "height:75px"
               %li= link_to(image_tag(image.url, :style => style), build_path(@site.path, build.path))
-        
+        - else
+          %p.none No images yet
         .stats    
           %h2= link_to build.name, build_path(@site.path, build.path), :class => 'build_name'
           %ul
             %li.count= pluralize(build.images.count, 'image')
-            %li.last= "Last updated #{time_ago_in_words(build.last_updated_at)} ago"
+            - if build.images.any?
+              %li.last= "Last updated #{time_ago_in_words(build.last_updated_at)} ago"
       
 - else
   %p.none

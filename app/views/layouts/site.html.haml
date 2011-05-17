@@ -4,7 +4,7 @@
     %title
       = @page_title + " @ " if @page_title
       Watch Me Make This
-    = stylesheet_link_tag 'reset', 'fonts', 'jquery-ui-1.8.12.custom', 'pictos', 'shared'
+    = stylesheet_link_tag 'reset', 'jquery-ui-1.8.12.custom', 'pictos', 'shared'
     = yield :head
     = csrf_meta_tag
 
@@ -12,6 +12,9 @@
     = render 'shared/flash', :flash => flash
     = render :partial => 'site/styles', :locals => { :style => @site.style }
     = render :partial => 'site/header', :locals => { :site => @site }
+    
+    - if logged_in? and current_user.is_an_owner?
+      = link_to '<span class="icon">P</span> <span class="label">Create a New Build</span>'.html_safe, new_build_path(params[:site_path]), :id => 'create_build'
     
     = yield
     

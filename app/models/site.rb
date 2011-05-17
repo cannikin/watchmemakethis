@@ -3,6 +3,6 @@ class Site < ActiveRecord::Base
   belongs_to  :user
   has_one     :style
   
-  validates :name, :presence => true
-  validates :path, :presence => true, :uniqueness => true
+  validates :name, :presence => true, :length => { :maximum => 32, :minimum => 1 }
+  validates :path, :presence => true, :uniqueness => true, :length => { :maximum => 32, :minimum => 1 }
 end

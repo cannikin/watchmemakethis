@@ -31,9 +31,9 @@ Watchmemakethis::Application.routes.draw do
     get     '/:site_path/builds'              => :index
     get     '/:site_path/builds/new'          => :new,            :as => :new_build
     post    '/:site_path/builds/create'       => :create,         :as => :create_build
-    get     '/:site_path/:build_path'         => :show,           :as => :build
-    post    '/:site_path/:build_path/upload'  => :upload,         :as => :build_upload
-    delete  '/:site_path/:build_path/:id'     => :destroy_image,  :as => :destroy_image
+    get     '/:site_path/:build_path'         => :show,           :as => :build,          :build_path => /[\w\.-]+/
+    post    '/:site_path/:build_path/upload'  => :upload,         :as => :build_upload,   :build_path => /[\w\.-]+/
+    delete  '/:site_path/:build_path/:id'     => :destroy_image,  :as => :destroy_image,  :build_path => /[\w\.-]+/
   end
 
   # The priority is based upon order of creation:

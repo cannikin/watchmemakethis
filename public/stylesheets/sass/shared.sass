@@ -1,7 +1,18 @@
+$font-family: 'Helvetica Neue', HelveticaNeue, sans-serif
 $create_background: #009900
+
+html, table, td, th, input, textarea
+  font-family: $font-family
+  font-size: 16px
 
 body
   padding: 20px
+  
+strong
+  font-weight: bold
+  
+em
+  font-style: italic
 
 header
   margin: -20px -20px 20px -20px
@@ -43,6 +54,9 @@ footer
       width: 280px
       
 #create_build
+  position: absolute
+  right: 0
+  cursor: pointer
   display: block
   overflow: hidden
   width: 210px
@@ -50,7 +64,6 @@ footer
   background-color: $create_background
   color: #ffffff
   text-decoration: none
-  margin: 0 -20px 20px 0
   padding: 6px 10px 0 20px
   -webkit-border-radius: 20px 0 0 20px
   -webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,0.5)
@@ -71,6 +84,14 @@ footer
 #builds
   clear: left
   overflow: hidden
+  p.none
+    display: block
+    float: left
+    width: 230px
+    font-size: 140%
+    padding: 32px 20px
+    margin: 0 28px 0 0
+    text-align: center
   ul.images
     display: block
     float: left
@@ -122,6 +143,8 @@ footer
     img
       border: 16px solid #ffffff
       -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
+    p.description
+      margin: 5px 0 0
     span.added
       display: block
       margin: 5px 0 0
@@ -129,3 +152,50 @@ footer
     .delete
       font-size: 150%
       
+      
+form
+  div.field_with_errors
+    input
+      border: 2px solid #ff0000
+      
+#new_build
+  width: 680px
+  margin: 60px auto
+  padding: 20px
+  -webkit-border-radius: 20px
+  #build_name
+    width: 400px
+  
+  .url
+    span, input
+      display: inline
+      
+  span.example
+    display: block
+    font-size: 85%
+    margin: 2px 0 40px
+    
+  input
+    font-size: 140%
+    font-family: $font-family
+    display: block
+    width: 200px
+    
+  label
+    display: block
+    margin: 0 0 4px
+    font-size: 140%
+    font-weight: bold
+    
+  input[type=submit]
+    background-color: $create_background
+    color: #ffffff
+    border: none
+    -webkit-border-radius: 30px
+    padding: 5px 35px
+    width: 280px
+    text-align: center
+    margin: 0 auto
+    font-size: 160%
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.2)
+    

@@ -24,9 +24,17 @@
           background-color: transparentize($body_text, 0.95)
         .stats
           color: transparentize($body_text, 0.5)
-          
+        p.none
+          color: transparentize($body_text, 0.5)
+          border: 1px dashed transparentize($body_text, 0.5)
       #build_images li img
         border: $image_border
 
       #new_image table.files td canvas
         border: 2px solid $image_border_color
+      
+      #new_build
+        background-color: lighten($body_background, 5%)
+        border: 1px solid $body_text
+        span.example
+          color: transparentize($body_text, 0.5)
