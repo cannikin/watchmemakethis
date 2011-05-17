@@ -296,30 +296,20 @@
 #fancybox-title-float-wrap {
 	border: none;
 	border-collapse: collapse;
-	width: auto;
+	width: 500px;
+	background-color: #ffffff;
+	-webkit-border-radius: 20px;
 }
 
 #fancybox-title-float-wrap td {
 	border: none;
-	white-space: nowrap;
-}
-
-#fancybox-title-float-left {
-	padding: 0 0 0 15px;
-	background: url('/images/fancybox/fancybox.png') -40px -90px no-repeat;
 }
 
 #fancybox-title-float-main {
-	color: #FFF;
-	line-height: 29px;
-	font-weight: bold;
-	padding: 0 0 3px 0;
-	background: url('/images/fancybox/fancybox-x.png') 0px -40px;
-}
-
-#fancybox-title-float-right {
-	padding: 0 0 0 15px;
-	background: url('/images/fancybox/fancybox.png') -55px -90px no-repeat;
+	color: #000000;
+	line-height: 1.2;
+	padding: 10px;
+	text-align: center
 }
 
 /* IE6 */

@@ -4,9 +4,12 @@
 
 %ul#build_images
   = render :partial => 'image', :locals => { :image => Image.new, :blank => true }
-  - @build.images.each do |image| 
-    = render :partial => 'image', :locals => { :image => image }
-  
+  - if @build.images.any?
+    - @build.images.each do |image| 
+      = render :partial => 'image', :locals => { :image => image }
+  - else
+    .none No images for this build yet, check back soon!
+    
 = content_for :head do
   = stylesheet_link_tag 'jquery.fancybox.css'
   

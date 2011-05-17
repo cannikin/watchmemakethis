@@ -122,6 +122,9 @@
                                 });
                         });
                     });
+                    
+                  // remove any "no images" placeholder
+                  $('.none').remove();
                   // add the new image to the page
                   var newImageElement = $("#image_new").clone();
                   // update the container

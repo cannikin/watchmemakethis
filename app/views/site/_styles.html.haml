@@ -27,9 +27,15 @@
         p.none
           color: transparentize($body_text, 0.5)
           border: 1px dashed transparentize($body_text, 0.5)
-      #build_images li img
-        border: $image_border
-
+          
+      #build_images 
+        .none
+          border: 1px dashed $body_text
+        li 
+          img
+            border: $image_border
+          .added
+            color: transparentize($body_text, 0.5)
       #new_image table.files td canvas
         border: 2px solid $image_border_color
       

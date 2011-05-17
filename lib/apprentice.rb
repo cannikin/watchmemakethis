@@ -9,6 +9,8 @@ module WatchMeMakeThis
   URL_REGEX = /http.*?( |$)/
   HASHTAG_REGEX = /#([\w-]+)/
   SEARCH_URL_PREFIX = 'http://search.twitter.com/search.json'
+  TWITTER_USERNAME = '@watchmemake'
+  
   class Apprentice
     
     @@log = Logger.new(Rails.root.join('log','apprentice.log'))
@@ -25,7 +27,8 @@ module WatchMeMakeThis
           from = result['from_user']
           url = result['text'].match(URL_REGEX)[0] if result['text'].match(URL_REGEX)
           hashtag = result['text'].match(HASHTAG_REGEX)[1] if result['text'].match(HASHTAG_REGEX)
-          { :id => id, :from => result['from_user'], :url => url, :hashtag => hashtag }
+          description = result['text'].gsub(TWITTER_USERNAME, '').gsub(url, '').gsub('#'+hashtag, '').strip if url and hashtag
+          { :id => id, :from => result['from_user'], :url => url, :hashtag => hashtag, :description => description }
         end
       
         @@log.info "  #{tweets.size} new tweets found, page #{data['page']}"
@@ -52,7 +55,7 @@ module WatchMeMakeThis
                 # find the appropriate user/build to assign this image to
                 if user = User.find_by_twitter(tweet[:from])
                   if build = user.builds.find_by_hashtag(tweet[:hashtag])
-                    Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id])
+                    Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id], :description => tweet[:description])
                     image.tempfile.unlink
                   else
                     raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"

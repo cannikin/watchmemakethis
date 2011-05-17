@@ -10,7 +10,9 @@
                         :title => "#{image.description}", 
                         :rel => "build_group",
                         :class => 'thumb')
-  %p.description= image.description
+  %p.description
+    = image.description.present? ? image.description[0..70] : ''
+    = "... #{link_to 'more', '#', :class => 'more'}".html_safe if image.description and image.description.length > 70
   %span.added 
     Added 
     - if blank

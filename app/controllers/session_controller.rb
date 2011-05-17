@@ -22,6 +22,7 @@ class SessionController < ApplicationController
   # /logout
   def destroy
     log_out_user
+    redirect_to login_path
   end
 
 end
