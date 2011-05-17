@@ -1,73 +1,60 @@
-- id ||= "upload_#{rand(1000000)}"
-- table_id ||= id + '_files'
-- form_id ||= id + '_form'
-- action ||= 'upload'
-- build_download_row ||= on_complete ||= nil
-- multiple ||= true
-- only ||= nil
-- params ||= {}
-- label ||= ['Click to Upload Images','or Drag and Drop']
-- case only
-- when :images
-  - only = '/^image\/(gif|jpeg|png)$/'
-- else
-  - only = "''"
-  
-%form(id="#{form_id}" action="#{action}" method="post" enctype="multipart/form-data" class="secondary")
-  - if multiple
-    %input(type="file" name="file" id="#{id}" class="upload" multiple="multiple")
-  - else
-    %input(type="file" name="file" id="#{id}" class="upload")
-  %input.alternate(type="submit" value="#{label.first}")
-  %div.label(style="display:none")
-    %span.icon c
-    %span.label
-      %span.line1= label.first
-      %span.line2= label.second
-%table(id="#{table_id}")
+#fileupload
+  %form(action="#{request.path}/upload.html" method="POST" enctype="multipart/form-data")
+    .fileupload-buttonbar
+      .fileinput-button
+        %span.icon c
+        %span.label
+          %span.line1 Click to Upload Files
+          %span.line2 or Drag and Drop
+        %input(type="file" name="file" multiple)
+  %table.files
+  .fileupload-progressbar
+
+:plain
+  <script id="template-upload" type="text/x-jquery-tmpl">
+      <tr class="template-upload{{if error}} ui-state-error{{/if}}">
+          <td class="preview"></td>
+          <td class="name">${name}</td>
+          <td class="size">${sizef}</td>
+          {{if error}}
+              <td class="error" colspan="2">Error:
+                  {{if error === 'maxFileSize'}}File is too big
+                  {{else error === 'minFileSize'}}File is too small
+                  {{else error === 'acceptFileTypes'}}Filetype not allowed
+                  {{else error === 'maxNumberOfFiles'}}Max number of files exceeded
+                  {{else}}${error}
+                  {{/if}}
+              </td>
+          {{else}}
+              <td class="progress"><div></div></td>
+              <td class="start"><button>Start</button></td>
+          {{/if}}
+          <td class="cancel"><button>Cancel</button></td>
+      </tr>
+  </script>
+
 
 - content_for :head do
   = stylesheet_link_tag 'jquery.fileupload-ui'
 
-= content_for :body_end do
-  = javascript_include_tag 'jquery.fileupload','jquery.fileupload-ui'
+- content_for :body_end do
+  = javascript_include_tag 'jquery.tmpl.min', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-ui'
+  
   :javascript
-    $(document).ready(function() {
-      if ($.support.dragDropUpload) {
-        $('##{form_id}').find('div.label').show().end().find('input[type=submit]').hide();
-        $('##{form_id}').fileUploadUI({
-          uploadTable: $('##{table_id}'),
-          downloadTable: $('##{table_id}'),
-          imageTypes:#{only},
-          formData:{'authenticity_token':$('meta[name=csrf-token]').attr('content')},
-          // what to do when a file is chosen for upload
-          buildUploadRow: function(files, index) {
-            if (files[index].name.length > 30) {
-              var imageName = files[index].name.slice(0,30) + '...';
-            } else {
-              var imageName = files[index].name;
-            }
-            return $('<tr><td class="file_upload_progress">' + imageName +
-                    '<div><\/div><\/td>' +
-                    '<td class="file_upload_cancel">' +
-                    '<button class="ui-state-default ui-corner-all" title="Cancel">' +
-                    '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
-                    '<\/button><\/td><\/tr>');
-          },
-          // what to do when a file is done uploading
-          buildDownloadRow: function(data,handler) {
-            #{build_download_row}
-            return false;
-          }
-        });
-      } else {
-        // no dragdrop uploader
-        $('##{form_id} input.alternate').click(function() {
-          if ($(this).siblings('##{id}').val() == '') {
-            alert('Please choose an image to upload!');
-            return false;
-          }
-          return true;
-        });
-      }
-    });
+  $(function () {
+    
+      // Initialize the jQuery File Upload widget:
+      $('#fileupload').fileupload({
+        downloadTemplate:null
+      });
+
+      // Open download dialogs via iframes,
+      // to prevent aborting current uploads:
+      $('#fileupload .files a:not([rel^=gallery])').live('click', function (e) {
+          e.preventDefault();
+          $('<iframe style="display:none;"></iframe>')
+              .prop('src', this.href)
+              .appendTo('body');
+      });
+
+  });

@@ -103,12 +103,6 @@ footer {
 
 #new_image {
   overflow: auto; }
-  #new_image table {
-    width: 500px;
-    margin: 0 auto; }
-    #new_image table td {
-      font-size: 80%;
-      text-align: left; }
 
 #build_images {
   padding: 20px;

@@ -1,115 +1,129 @@
-.file_upload, .file_upload_small {
-  position: relative;
-  margin: 0 auto;
+@charset 'UTF-8';
+/*
+ * jQuery File Upload UI Plugin CSS 5.0
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://creativecommons.org/licenses/MIT/
+ */
+
+.ui-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  border: solid transparent;
+  border-width: 0 0 100px 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -o-transform: translate(250px, -50px) scale(1);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+}
+
+.fileinput-button {
   overflow: hidden;
-  cursor: pointer;
-  text-align: center;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  width: 500px;
-  height: 50px;
-  padding: 0.7em 0 0.3em;
-  font-size: 116%;
-  color: #ffffff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
-  background-color: #1f5084;
-  background: -moz-linear-gradient(top, #999999, #666666);
-  background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#666666));
-  border-color: #666666;
-  cursor: pointer; 
-  -webkit-box-shadow: inset 0 0.1em 0.1em rgba(255,255,255,1);
+  width: 400px;
+  margin: 0 auto;
+  display: block;
+}
+  .fileinput-button .ui-button-text {
+    padding: 0;
   }
-  .file_upload:hover, .file_upload_small:hover {
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    padding: 0.7em 0 0.3em;
-    background: -moz-linear-gradient(top, #939393, #606060);
-    background: -webkit-gradient(linear, left top, left bottom, from(#939393), to(#606060)); 
-    }
-  .file_upload div, .file_upload_small div {
-    cursor: pointer;
+  .fileinput-button span.icon {
+    display: block;
+    float: left;
+    font-size: 350%;
+    margin: 0 10px 0 70px;
+  }
+  .fileinput-button span.label {
+    display: block;
+    float: left;
+    overflow: hidden;
+    text-align: left;
+    font-family: 'Helvetica Neue',HelveticaNeue,sans-serif;
+    margin: 20px 0 0;
+    line-height: 1.2;
+  }
+  .fileinput-button span.line1 {
+    display: block;
+  }
+  .fileinput-button span.line2 {
+    display: block;
     font-weight: normal;
-    height: 40px;
-    line-height: 1.2; 
-    }
-    .file_upload div span.icon {
-      float: left;
-      font-size: 350%;
-      margin: -15px 20px 0 100px;
-    }
-    .file_upload div span.label {
-      float: left;
-      overflow: hidden;
-      text-align: left;
-    }
-    .file_upload div span, .file_upload_small div span {
-      display: block; 
-      }
-      .file_upload div span.line1, .file_upload_small div span.line1 {
-        font-weight: bold; 
-        }
-      .file_upload div span.line2, .file_upload_small div span.line2 {
-        font-weight: normal;
-        font-size: 85%; 
-        }
-
-  .file_upload input, .file_upload_small input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    border: 100px solid transparent;
-    opacity: 0;
-    -ms-filter: "alpha(opacity=0)";
-    filter: alpha(opacity=0);
-    -o-transform: translate(-300px, -300px) scale(10);
-    -moz-transform: translate(-800px, 0) scale(10);
-    cursor: pointer; 
-    }
-  .file_upload iframe, .file_upload button, .file_upload_small iframe, .file_upload_small button {
-    display: none; 
-    }
-
-.file_upload_large {
-  width: 99%;
-  padding: 2em 0 2.2em;
-  font-size: 200%;
-  background: white;
-  color: #cccccc;
-  border: 2px dashed #666666;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  text-shadow: none; 
-  }
-  .file_upload_large div span.icon {
-    margin-left: 400px
-  }
-  
-.file_upload_highlight {
-  background: white; 
   }
 
-.file_upload_preview img {
-  width: 80px; 
+/* Fix for IE 6: */
+*html .fileinput-button {
+  padding: 2px 0;
+}
+/* Fix for IE 7: */
+*+html .fileinput-button {
+  padding: 2px 0;
+}
+
+.fileupload-buttonbar .ui-button {
+  vertical-align: middle;
+}
+
+.ui-progressbar {
+  width: 200px;
+  height: 20px;
+}
+
+.ui-progressbar-value {
+  background: url('/images/jquery-ui/pbar-ani.gif');
+}
+
+.fileupload-progressbar {
+  width: 400px;
+  margin: 10px auto;
+}
+
+table.files {
+  margin: 10px auto;
+  border-collapse: collapse;
+}
+
+  .files td {
+    padding: 5px;
+    border-spacing: 5px;
   }
 
-.file_upload_progress {
-  font-size: 85%; 
+  .files img {
+    border: none;
   }
 
-.file_upload_progress .ui-progressbar-value {
-  background: url("/images/jqueryui/pbar-ani.gif"); 
+  .files .name {
+    padding: 0 10px;
   }
 
-.file_upload_progress div {
-  width: 435px;
-  height: 15px; 
+  .files .size {
+    padding: 0 10px 0 0;
+    text-align: right;
+    white-space: nowrap;
   }
 
-.file_upload_cancel button {
-  cursor: pointer;
-  margin: 1em 0 0; 
-  }
+.gallery-dialog {
+  text-align: center;
+}
+
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  background: url('/images/jquery-ui/loading.gif');
+  z-index: 9999;
+}
+
+/* IE 6: */
+*html .loading {
+  position: absolute;
+}
