@@ -211,7 +211,10 @@
             dragover:function(e) {
               $('#fileupload').addClass('dragover');
             },
-            dragout:function(e) {
+            dragleave:function(e) {
+              $('#fileupload').removeClass('dragover');
+            },
+           drop:function(e) {
               $('#fileupload').removeClass('dragover');
             }
         },

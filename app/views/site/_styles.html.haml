@@ -6,6 +6,7 @@
       $body_background: #{style.body_background}
       $body_text: #{style.body_text_color}
       $image_border: #{style.image_border}
+      $image_border_color: #{style.image_border.split(' ').last}
     
       header
         background: $header_background
@@ -27,3 +28,5 @@
       #build_images li img
         border: $image_border
 
+      #new_image table.files td canvas
+        border: 2px solid $image_border_color
