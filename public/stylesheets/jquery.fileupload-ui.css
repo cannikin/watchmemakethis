@@ -35,6 +35,16 @@
     height: 40px;
     line-height: 1.2; 
     }
+    .file_upload div span.icon {
+      float: left;
+      font-size: 350%;
+      margin: -15px 20px 0 100px;
+    }
+    .file_upload div span.label {
+      float: left;
+      overflow: hidden;
+      text-align: left;
+    }
     .file_upload div span, .file_upload_small div span {
       display: block; 
       }
@@ -45,6 +55,7 @@
         font-weight: normal;
         font-size: 85%; 
         }
+
   .file_upload input, .file_upload_small input {
     position: absolute;
     top: 0;
@@ -63,9 +74,9 @@
     }
 
 .file_upload_large {
-  width: 100%;
+  width: 99%;
   padding: 2em 0 2.2em;
-  font-size: 161%;
+  font-size: 200%;
   background: white;
   color: #cccccc;
   border: 2px dashed #666666;
@@ -73,7 +84,10 @@
   -webkit-box-shadow: none;
   text-shadow: none; 
   }
-
+  .file_upload_large div span.icon {
+    margin-left: 400px
+  }
+  
 .file_upload_highlight {
   background: white; 
   }

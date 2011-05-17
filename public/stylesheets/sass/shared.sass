@@ -1,3 +1,5 @@
+$create_background: #009900
+
 body
   padding: 20px
 
@@ -14,6 +16,10 @@ header
     vertical-align: middle
     select
       font-size: 110%
+      
+span.icon
+  font-family: Pictos, sans-serif
+  font-weight: normal
     
 footer
   margin: 40px 0 20px
@@ -37,15 +43,30 @@ footer
       
 #create_build
   display: block
+  overflow: hidden
+  width: 210px
   float: right
-  background-color: #009900
+  background-color: $create_background
   color: #ffffff
   text-decoration: none
   margin: 0 -20px 20px 0
-  padding: 10px 30px
+  padding: 6px 10px 0 20px
   -webkit-border-radius: 20px 0 0 20px
-  -webkit-box-shadow: inset 0 2px 2px rgba(255,255,255,0.5)
-      
+  -webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,0.5)
+  &:hover
+    -webkit-box-shadow: none
+    background-color: lighten($create_background, 1%)
+  span
+    display: block
+    float: left
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.2)
+  span.icon
+    font-size: 210%
+  span.label
+    margin: 5px 0 0 8px
+    font-weight: bold
+    font-size: 110%
+
 #builds
   clear: left
   overflow: hidden

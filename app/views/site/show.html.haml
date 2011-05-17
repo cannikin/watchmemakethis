@@ -1,5 +1,5 @@
 - if logged_in? and current_user.is_an_owner?
-  = link_to 'Create a New Build', new_build_path(params[:site_path]), :id => 'create_build'
+  = link_to '<span class="icon">P</span> <span class="label">Create a New Build</span>'.html_safe, new_build_path(params[:site_path]), :id => 'create_build'
 
 - if @site.builds.public.any?
   %ul#builds

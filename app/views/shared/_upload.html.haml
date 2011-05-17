@@ -20,8 +20,10 @@
     %input(type="file" name="file" id="#{id}" class="upload")
   %input.alternate(type="submit" value="#{label.first}")
   %div.label(style="display:none")
-    %span.line1= label.first
-    %span.line2= label.second
+    %span.icon c
+    %span.label
+      %span.line1= label.first
+      %span.line2= label.second
 %table(id="#{table_id}")
 
 - content_for :head do
@@ -62,7 +64,7 @@
         // no dragdrop uploader
         $('##{form_id} input.alternate').click(function() {
           if ($(this).siblings('##{id}').val() == '') {
-            alert('Please choose an image to upload for your avatar!');
+            alert('Please choose an image to upload!');
             return false;
           }
           return true;
