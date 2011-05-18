@@ -1,0 +1,58 @@
+%h1 Watch Me Make This
+%h2 Create Your Account
+
+= form_for @user, :url => signup_go_path do |u| 
+
+  = render :partial => 'shared/form_errors', :locals => { :object => @user }
+  = render :partial => 'shared/form_errors', :locals => { :object => @site }
+
+  %fieldset.user
+    = u.label :first_name, '<span class="icon">U</span> Name'.html_safe
+    .inline.name
+      = u.text_field :first_name
+      = u.text_field :last_name
+      = field_errors(@user, :first_name)
+      = field_errors(@user, :last_name)
+  
+    = u.label :email, '<span class="icon">M</span> Email'.html_safe
+    = u.text_field :email
+    = field_errors(@user, :email)
+  
+    = u.label :password, '<span class="icon">K</span> Password'.html_safe
+    = u.password_field :password
+    = field_errors(@user, :password)
+    
+    = u.label :twitter, '<span class="icon">B</span> Twitter Username'.html_safe
+    .inline.twitter
+      %span @
+      = u.password_field :twitter
+    %span.example 
+      If you're going to send images to your builds with Twitter, this is the account you'll be sending them from.
+      = link_to 'How does this work?', '#'
+    = field_errors(@user, :twitter)
+    
+  .fieldset.site
+    = fields_for @site do |s| 
+      = s.label :name, '<span class="icon">W</span> Site Name'.html_safe
+      = s.text_field :name
+      %span.example The name of your site/business. Something like <em>Cameron Woodworks</em> or <em>Jane's Crafts</em>
+      = field_errors(@site, :name)
+    
+      = s.label :path, '<span class="icon">j</span> Site URL'.html_safe
+      .inline.path
+        %span http://watchmemakethis.com/
+        = s.text_field :path
+      %span.example This will be the URL to your site. We will auto-generate this based on your Site Name, but you are free to change it. Shorter is usually better.
+      = field_errors(@site, :path)
+      
+      = s.label :style_id, '<span class="icon">k</span> Style'.html_safe
+      = s.select :style_id, Style.system.map { |s| [s.name, s.id] }
+            
+  = u.submit 'Create Your Account!', :class => 'button blue large', :style => 'width: 300px'
+  
+= content_for :head do
+  = stylesheet_link_tag 'signup'
+= content_for :body_end do
+  :javascript
+    WatchMeMakeThis.autoFillFields($('#site_name'), [$('#site_path')]);
+    

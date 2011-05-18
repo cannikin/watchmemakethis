@@ -13,7 +13,7 @@
 
   %body{:id => "#{controller.controller_name}-#{controller.action_name}"}
     = render 'shared/flash', :flash => flash
-    = render :partial => 'site/styles', :locals => { :style => @site.style }
+    = render :partial => 'site/styles', :locals => { :style => params[:style] ? Style.find(params[:style]) : @site.style }
     = render :partial => 'site/header', :locals => { :site => @site }
     
     - if logged_in? and current_user.is_an_owner?

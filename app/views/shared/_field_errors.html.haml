@@ -1,0 +1,4 @@
+- if @site.errors.has_key? :name
+  %ul.errors
+    - @site.errors[:name].each do |message| 
+      %li= message

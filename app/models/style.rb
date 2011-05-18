@@ -1,5 +1,6 @@
 class Style < ActiveRecord::Base
   
-  belongs_to :site
+  has_many    :sites
   
+  scope :system, where(:system => true)
 end

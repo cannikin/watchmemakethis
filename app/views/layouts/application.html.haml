@@ -4,7 +4,11 @@
     %title
       = @page_title + " @ " if @page_title
       Watch Me Make This
-    = stylesheet_link_tag 'reset', 'shared'
+    = stylesheet_link_tag 'jquery-ui-1.8.12.custom', 'shared', 'marketing'
+    = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
+    :javascript
+      try{Typekit.load();}catch(e){}
+
     = yield :head
     = csrf_meta_tag
 
@@ -13,7 +17,7 @@
     = yield
     
     %footer
-      This site made possible by
+      Copyright &copy;#{Time.now.year}
       = link_to 'Watch Me Make This', 'http://watchmemakethis.com'
     
     = javascript_include_tag :defaults

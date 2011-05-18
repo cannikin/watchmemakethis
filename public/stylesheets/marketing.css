@@ -1,0 +1,32 @@
+#login_form {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  -webkit-border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+  #login_form label {
+    display: block; }
+  #login_form input {
+    font-size: 130%;
+    display: block;
+    margin: 0 0 10px; }
+    #login_form input[type=text], #login_form input[type=password] {
+      width: 280px; }
+
+h2 {
+  font-family: "proxima-nova-soft-1", "proxima-nova-soft-2", "Helvetica Neue", HelveticaNeue, sans-serif;
+  font-size: 200%; }
+
+.inline.twitter span {
+  font-size: 180%; }
+
+input#user_email, input#site_name {
+  width: 410px; }
+
+body {
+  padding: 0; }
+
+h1 {
+  font-size: 150%;
+  padding: 20px;
+  background-color: #ffcc99; }

@@ -1,0 +1,9 @@
+h2 {
+  font-family: "proxima-nova-soft-1", "proxima-nova-soft-2", "Helvetica Neue", HelveticaNeue, sans-serif;
+  font-size: 200%; }
+
+.inline.twitter span {
+  font-size: 180%; }
+
+input#user_email, input#site_name {
+  width: 410px; }

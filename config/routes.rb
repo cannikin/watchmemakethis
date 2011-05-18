@@ -1,5 +1,5 @@
 Watchmemakethis::Application.routes.draw do
-
+  
   get '/admin' => 'admin/home#index', :as => :admin_home
 
   namespace :admin do
@@ -17,6 +17,11 @@ Watchmemakethis::Application.routes.draw do
     get   '/login'    =>  :new
     post  '/login/go' =>  :create
     get   '/logout'   =>  :destroy
+  end
+  
+  controller :signup do
+    get   '/signup'     => :new
+    post  '/signup/go'  => :create
   end
   
   controller :site_admin do

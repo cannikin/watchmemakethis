@@ -9,7 +9,6 @@ module WatchMeMakeThis
   URL_REGEX = /http.*?( |$)/
   HASHTAG_REGEX = /#([\w-]+)/
   SEARCH_URL_PREFIX = 'http://search.twitter.com/search.json'
-  TWITTER_USERNAME = '@watchmemake'
   
   class Apprentice
     
@@ -27,7 +26,7 @@ module WatchMeMakeThis
           from = result['from_user']
           url = result['text'].match(URL_REGEX)[0] if result['text'].match(URL_REGEX)
           hashtag = result['text'].match(HASHTAG_REGEX)[1] if result['text'].match(HASHTAG_REGEX)
-          description = result['text'].gsub(TWITTER_USERNAME, '').gsub(url, '').gsub('#'+hashtag, '').strip if url and hashtag
+          description = result['text'].gsub(System.first.twitter_username || /@[\w]+/, '').gsub(url, '').gsub('#'+hashtag, '').strip if url and hashtag
           { :id => id, :from => result['from_user'], :url => url, :hashtag => hashtag, :description => description }
         end
       

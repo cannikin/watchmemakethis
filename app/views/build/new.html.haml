@@ -1,5 +1,6 @@
 = form_for @new_build, :url => create_build_path do |form| 
   = render :partial => 'shared/form_errors', :locals => { :object => @new_build }
+  
   = form.label :name, '<span class="icon">W</span> Build Name'.html_safe
   = form.text_field :name
   %span.example Something like <em>Bedroom Nightstand</em> or <em>John Doe's Entertainment Center</em>

@@ -2,6 +2,9 @@ $nova: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", HelveticaNeue, sans
 $nova-soft: "proxima-nova-soft-1", "proxima-nova-soft-2", "Helvetica Neue", HelveticaNeue, sans-serif
 $create_background: #009900
 
+@import 'reset.css'
+@import 'pictos.css'
+
 html, table, td, th, input, textarea
   font-family: $nova
   font-size: 16px
@@ -14,6 +17,25 @@ strong
   
 em
   font-style: italic
+  
+select
+  font-family: $nova
+  font-size: 100%
+  -webkit-appearance: button
+  -webkit-border-radius: 2px
+  -moz-border-radius: 2px
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1)
+  -webkit-user-select: none
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAICAYAAADJEc7MAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA5MDMwMzEzMUVBRTExRTA5NUM0QzJENTZCN0I5Mjk1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA5MDMwMzE0MUVBRTExRTA5NUM0QzJENTZCN0I5Mjk1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDkwMzAzMTExRUFFMTFFMDk1QzRDMkQ1NkI3QjkyOTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDkwMzAzMTIxRUFFMTFFMDk1QzRDMkQ1NkI3QjkyOTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5pY8xsAAAAbUlEQVR42mL8//8/AzmAEYijgJgHj5ovQMOXYYgmAgEzM/M3IPM/OgaJg+RBrkLHIEJhwYIFC9nY2H4iawLxQeIgeVwaMTQT0oSsEa6Zj4/vCyFN6BrBmt++fdtESBMIM2KJDlYg/k0oOgACDABJirkKokz/DAAAAABJRU5ErkJggg=="), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5)
+  background-position: center right
+  background-repeat: no-repeat
+  border: 1px solid #aaaaaa
+  color: #555555
+  overflow: hidden
+  padding: 2px 20px 2px 5px
+  text-overflow: ellipsis
+  white-space: nowrap
 
 header
   margin: -20px -20px 20px -20px
@@ -42,25 +64,6 @@ footer
   clear: both
   text-align: center
   -webkit-border-radius: 0 10px 0 0
-
-
-
-
-
-#login_form
-  width: 300px
-  margin: 100px auto
-  padding: 20px
-  -webkit-border-radius: 10px
-  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4)
-  label
-    display: block
-  input
-    font-size: 130%
-    display: block
-    margin: 0 0 10px
-    &[type=text], &[type=password]
-      width: 280px
       
       
       
@@ -227,7 +230,7 @@ form
       
       
       
-#new_build
+#new_build, #new_user
   width: 680px
   margin: 60px auto
   padding: 20px
@@ -242,10 +245,10 @@ form
       span
         font-size: 150%
       
-  span.example
+  span.example, ul.errors
     display: block
     font-size: 85%
-    margin: 2px 0 40px
+    margin: 2px 0 0
     line-height: 1.3
     
   input
@@ -257,7 +260,7 @@ form
   label
     font-family: $nova-soft
     display: block
-    margin: 0 0 4px
+    margin: 40px 0 4px
     font-size: 150%
     font-weight: 500
     span.icon
@@ -265,112 +268,130 @@ form
       &.hashtag
         font-size: 150%
         vertical-align: middle
+        
+        
+        
+#errors
+  margin: 20px 0
+  color: #990000
+  ul
+    margin: 20px
+    li
+      list-style-type: disc
+  
+ul.errors
+  margin: 0 20px
+  padding: 0 20px
+  color: #ff0000
+  li
+    list-style-type: disc
     
-  .button 
-    font-family: $nova-soft
-    font-weight: 700
-    background: #17A1E6
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #4AC3FF), color-stop(0.5, #17A1E6), color-stop(1, #0088CC))
-    background: -moz-linear-gradient(top, #4AC3FF, #0088CC)
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4AC3FF, endColorstr=#0088CC)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4AC3FF, endColorstr=#0088CC)"
-    border: 1px solid #1c7cb0
-    -moz-border-radius: 5px
-    -webkit-border-radius: 5px
-    border-radius: 5px
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
-    box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
-    color: #FFF
-    cursor: pointer
-    display: inline-block
-    font-size: 15px
-    font-weight: 300
-    line-height: 1em !important
-    padding: 7px 10px
-    position: relative
-    text-align: center
-    text-decoration: none
-    text-shadow: rgba(0,0,0,.5) 1px 1px 0
-  .button.green 
-    background: #809900
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #93B300), color-stop(0.5, #809900), color-stop(1, #6C8000))
-    background: -moz-linear-gradient(top, #93B300, #6C8000)
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#93B300, endColorstr=#6C8000)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#93B300, endColorstr=#6C8000)"
-    border-color: #576800
-    color: #F9FAF3
-    
-  .button.red 
-    background: #DC0203
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #FB3238), color-stop(0.5, #DC000A), color-stop(1, #BD0000))
-    background: -moz-linear-gradient(top, #FB3238, #BD0000)
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB3238, endColorstr=#BD0000)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB3238, endColorstr=#BD0000)"
-    border-color: #9D0D12
-    color: #F9FAF3
-  .button:hover, .button:focus 
-    background: #0087CC !important
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0088CC, endColorstr=#4AC3FF)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#0088CC, endColorstr=#4AC3FF)"
-    color: #FFF
-  .button.green:hover, .button.green:focus 
-    background: #6C8000 !important
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6C8000, endColorstr=#93B300)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#6C8000, endColorstr=#93B300)"
-  .button.red:hover, .button.red:focus 
-    background: #BD0000 !important
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#BD0000, endColorstr=#FB3238)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#BD0000, endColorstr=#FB3238)"
-  .button.disabled, .button.disabled:hover, .button.disabled:focus 
-    background: #ddd !important
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #eee), color-stop(0.5, #ddd), color-stop(1, #ccc))
-    background: -moz-linear-gradient(top, #eee, #ccc)
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eee, endColorstr=#ccc)
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eee, endColorstr=#ccc)"
-    border-color: #aaa
-    color: #888
-    text-shadow: none
-  .button.large 
-    font-size: 140%
-    font-weight: 300
-    padding: 10px 15px
-    text-shadow: rgba(0,0,0,.75) 0 -1px 0
-  .button.small 
-    font-size: 12px
-    padding: 5px 10px
-  .button.very-small 
-    font-size: 11px
-    padding: 0px 5px
-  .button:after 
-    background: none
-    border: 2px solid #E8DED3
-    -moz-border-radius: 6px
-    -webkit-border-radius: 6px
-    border-radius: 6px
-    content: ""
-    position: absolute
-    top: -3px
-    right: -3px
-    bottom: -3px
-    left: -3px
-  .button.green:after 
-    border-color: #E2E6CF
-  .button.large:after 
-    border-width: 3px
-    -moz-border-radius: 8px
-    -webkit-border-radius: 8px
-    border-radius: 8px
-    top: -4px
-    right: -4px
-    bottom: -4px
-    left: -4px
-  .button.small:after 
-    border-width: 1px
-    -moz-border-radius: 5px
-    -webkit-border-radius: 5px
-    border-radius: 5px
-    top: -2px
-    right: -2px
-    bottom: -2px
-    left: -2px
+.button
+  margin: 20px 0 0
+  font-family: $nova-soft
+  font-weight: 700
+  background: #17A1E6
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #4AC3FF), color-stop(0.5, #17A1E6), color-stop(1, #0088CC))
+  background: -moz-linear-gradient(top, #4AC3FF, #0088CC)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4AC3FF, endColorstr=#0088CC)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4AC3FF, endColorstr=#0088CC)"
+  border: 1px solid #1c7cb0
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+  border-radius: 5px
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
+  box-shadow: 0 1px 1px rgba(0,0,0,.1) inset
+  color: #FFF
+  cursor: pointer
+  display: inline-block
+  font-size: 15px
+  font-weight: 300
+  line-height: 1em !important
+  padding: 7px 10px
+  position: relative
+  text-align: center
+  text-decoration: none
+  text-shadow: rgba(0,0,0,.5) 1px 1px 0
+.button.green 
+  background: #809900
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #93B300), color-stop(0.5, #809900), color-stop(1, #6C8000))
+  background: -moz-linear-gradient(top, #93B300, #6C8000)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#93B300, endColorstr=#6C8000)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#93B300, endColorstr=#6C8000)"
+  border-color: #576800
+  color: #F9FAF3
+  
+.button.red 
+  background: #DC0203
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #FB3238), color-stop(0.5, #DC000A), color-stop(1, #BD0000))
+  background: -moz-linear-gradient(top, #FB3238, #BD0000)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB3238, endColorstr=#BD0000)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB3238, endColorstr=#BD0000)"
+  border-color: #9D0D12
+  color: #F9FAF3
+.button:hover, .button:focus 
+  background: #0087CC !important
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0088CC, endColorstr=#4AC3FF)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#0088CC, endColorstr=#4AC3FF)"
+  color: #FFF
+.button.green:hover, .button.green:focus 
+  background: #6C8000 !important
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6C8000, endColorstr=#93B300)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#6C8000, endColorstr=#93B300)"
+.button.red:hover, .button.red:focus 
+  background: #BD0000 !important
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#BD0000, endColorstr=#FB3238)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#BD0000, endColorstr=#FB3238)"
+.button.disabled, .button.disabled:hover, .button.disabled:focus 
+  background: #ddd !important
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0, #eee), color-stop(0.5, #ddd), color-stop(1, #ccc))
+  background: -moz-linear-gradient(top, #eee, #ccc)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eee, endColorstr=#ccc)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#eee, endColorstr=#ccc)"
+  border-color: #aaa
+  color: #888
+  text-shadow: none
+.button.large 
+  font-size: 140%
+  font-weight: 300
+  padding: 10px 15px
+  text-shadow: rgba(0,0,0,.75) 0 -1px 0
+.button.small 
+  font-size: 12px
+  padding: 5px 10px
+.button.very-small 
+  font-size: 11px
+  padding: 0px 5px
+.button:after 
+  background: none
+  border: 2px solid #E8DED3
+  -moz-border-radius: 6px
+  -webkit-border-radius: 6px
+  border-radius: 6px
+  content: ""
+  position: absolute
+  top: -3px
+  right: -3px
+  bottom: -3px
+  left: -3px
+.button.green:after 
+  border-color: #E2E6CF
+.button.large:after 
+  border-width: 3px
+  -moz-border-radius: 8px
+  -webkit-border-radius: 8px
+  border-radius: 8px
+  top: -4px
+  right: -4px
+  bottom: -4px
+  left: -4px
+.button.small:after 
+  border-width: 1px
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+  border-radius: 5px
+  top: -2px
+  right: -2px
+  bottom: -2px
+  left: -2px

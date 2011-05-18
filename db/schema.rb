@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110513193104) do
+ActiveRecord::Schema.define(:version => 20110518191943) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -82,13 +82,13 @@ ActiveRecord::Schema.define(:version => 20110513193104) do
     t.boolean  "show_in_directory"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "style_id"
   end
 
   add_index "sites", ["path"], :name => "index_sites_on_path"
   add_index "sites", ["user_id"], :name => "index_sites_on_user_id"
 
   create_table "styles", :force => true do |t|
-    t.integer  "site_id"
     t.string   "header_background"
     t.string   "header_text_color"
     t.string   "body_background"
@@ -100,6 +100,8 @@ ActiveRecord::Schema.define(:version => 20110513193104) do
     t.string   "header_font_size"
     t.string   "body_font_family"
     t.string   "body_font_size"
+    t.boolean  "system",             :default => false
+    t.string   "name"
   end
 
   create_table "systems", :force => true do |t|
