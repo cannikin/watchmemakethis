@@ -139,6 +139,7 @@ footer
     overflow: hidden
     padding: 10px
     text-align: center
+    margin: 0 0 15px
     img
       border: 16px solid #ffffff
       -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
@@ -174,14 +175,18 @@ form
   #build_name
     width: 400px
   
-  .url
+  .inline
     span, input
       display: inline
+    &.hashtag
+      span
+        font-size: 150%
       
   span.example
     display: block
     font-size: 85%
     margin: 2px 0 40px
+    line-height: 1.3
     
   input
     font-size: 140%
@@ -194,16 +199,25 @@ form
     margin: 0 0 4px
     font-size: 140%
     font-weight: bold
+    span.icon
+      font-size: 120%
+      &.hashtag
+        font-size: 150%
+        vertical-align: middle
     
-  input[type=submit]
+  a.submit
+    display: block
     background-color: $create_background
     color: #ffffff
     border: none
     -webkit-border-radius: 30px
-    padding: 5px 35px
+    padding: 10px 15px
     width: 280px
     text-align: center
     margin: 0 auto
     font-size: 160%
     text-shadow: 0 -1px 1px rgba(0,0,0,0.2)
-    
+    text-decoration: none
+    span.icon
+      font-size: 120%
+      
