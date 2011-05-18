@@ -32,6 +32,18 @@ class BuildController < ApplicationController
   # show the images for a build
   def show
     @page_title = @site.name + ':' + @build.name
+    respond_to do |format|
+      format.html
+      format.json do
+        if params[:since]
+          images = @build.images.where(:id.gt => params[:since].to_i)
+        else
+          images = @build.images
+        end
+        render :json => images.collect { |image| image.attributes.merge(additional_image_attributes(image)) }
+      end
+    end
+
   end
   
   
@@ -39,9 +51,7 @@ class BuildController < ApplicationController
   def upload
     file = params[:file]
     image = Image.create(:file => file, :build_id => @build.id)
-    render :json => image.attributes.merge( :url_small => image.url(:small), 
-                                            :url_large => image.url(:large), 
-                                            :url_delete => destroy_image_path(params[:site_path], params[:build_path], image.id))
+    render :json => image.attributes.merge(additional_image_attributes(image))
     #render :partial => 'image', :locals => { :image => image, :hide => true }
   end
   
@@ -65,6 +75,13 @@ class BuildController < ApplicationController
     else
       render :nothing => true, :status => :bad_request
     end
+  end
+  
+  
+  def additional_image_attributes(image)
+    { :url_small => image.url(:small), 
+      :url_large => image.url(:large), 
+      :path => destroy_image_path(params[:site_path], params[:build_path], image.id) }
   end
   
   

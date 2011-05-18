@@ -52,7 +52,8 @@
     font-family: 'proxima-nova-soft-1','proxima-nova-soft-2', 'Helvetica Neue',HelveticaNeue,sans-serif;
     margin: 20px 0 0;
     line-height: 1.1;
-    font-size: 120%
+    font-size: 120%;
+    padding: 0 0 1px;
   }
   .fileinput-button span.line1 {
     display: block;

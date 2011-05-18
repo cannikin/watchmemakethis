@@ -17,7 +17,7 @@ var WatchMeMakeThis = {
     });
     
     $('#build_name').bind('keyup', function() {
-      var friendly = $(this).val().toLowerCase().replace(/[^0-9a-zA-Z\.-_'"!]/g,'-').replace(/['"!]/g, '').replace(/-+/g,'-');
+      var friendly = $(this).val().toLowerCase().replace(/[^0-9a-zA-Z-_'"!\.]/g,'-').replace(/['"!\.]/g, '').replace(/-+/g,'-');
       
       var buildPathElement = $('#build_path');
       if (!buildPathElement.data('manualEdit')) {
@@ -29,7 +29,50 @@ var WatchMeMakeThis = {
         $('#build_hashtag').val(friendly);
       }
     });
+  },
+  
+  ajaxNewImage:function(image) {
+    // remove any "no images" placeholder
+    $('.none, .intro').fadeOut();
+    // add the new image to the page
+    var newImageElement = $("#image_new").clone();
+    // update the container
+    newImageElement.attr('id', 'image_'+image.id);
+    // update thumbnail image
+    newImageElement.find('img').attr('src', image.url_small);
+    // update link surrounding image
+    newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
+    // update description
+    newImageElement.find('.description').text(image.description);
+    // update upload time
+    newImageElement.find('.added').text('Added just now');
+    // update delete link
+    newImageElement.find('.delete').attr('href', image.path);
+    // add to the page
+    $('#image_new').after(newImageElement);
+    // update fancybox so this image gets added to the rotation
+    WatchMeMakeThis.fancyboxify();
+    // and finally show it
+    newImageElement.delay(1000).fadeIn(500);
+  },
+  
+  checkForNewImages:function(path) {
+    setInterval(function() {
+      var latestId = $('#build_images .image')[1] ? $('#build_images .image')[1].id.split('_')[1] : null;
+      $.get(path+'.json', 
+            {'since':latestId},
+            function(data) {
+              console.info(data);
+              if (data.length > 0) {
+                $.each(data, function() {
+                  WatchMeMakeThis.ajaxNewImage(this);
+                })
+              }
+            }
+          );
+    }, 5000);
   }
+  
 };
 
 $('header nav select').change(function() {

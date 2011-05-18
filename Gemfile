@@ -18,6 +18,7 @@ gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
 gem 'twimage'
+gem 'meta_where'
 
 
 # Use unicorn as the web server

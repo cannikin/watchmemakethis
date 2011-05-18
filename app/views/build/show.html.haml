@@ -1,3 +1,5 @@
+%h2.build_title= link_to @build.name, build_path(@site.path, @build.path)
+
 - if logged_in? and current_user.is_an_owner?
   #new_image
     = render :partial => 'shared/upload'
@@ -22,4 +24,6 @@
     $(document).ready(function() {
       WatchMeMakeThis.fancyboxify();
     });
-      
+  - if !logged_in? or !current_user.is_an_owner?
+    :javascript
+      WatchMeMakeThis.checkForNewImages('#{request.path}');

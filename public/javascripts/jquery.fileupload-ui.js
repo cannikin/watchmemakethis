@@ -123,24 +123,7 @@
                         });
                     });
                     
-                  // remove any "no images" placeholder
-                  $('.none, .intro').remove();
-                  // add the new image to the page
-                  var newImageElement = $("#image_new").clone();
-                  // update the container
-                  newImageElement.attr('id', 'image_'+image.id);
-                  // update thumbnail image
-                  newImageElement.find('img').attr('src', image.url_small);
-                  // update link surrounding image
-                  newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
-                  // update upload time
-                  newImageElement.find('.added').text('Added just now');
-                  // update delete link
-                  newImageElement.find('.delete').attr('href', image.url_delete);
-                  
-                  $('#build_images').prepend(newImageElement);
-                  WatchMeMakeThis.fancyboxify();
-                  newImageElement.delay(1000).fadeIn(500);
+                  WatchMeMakeThis.ajaxNewImage(image);
                   
                 } else {
                   alert("no context");
