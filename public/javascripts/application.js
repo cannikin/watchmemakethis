@@ -10,24 +10,22 @@ var WatchMeMakeThis = {
     });
   },
   
-  newBuild:function() {
+  autoFillFields:function(from, to) {
     // watch for manual keypresses so we don't auto update this
-    $('#build_path, #build_hashtag').data('manualEdit',false).bind('keypress', function() {
-      $(this).data('manualEdit', true);
+    $.each(to, function() {
+      $(this).data('manualEdit',false).bind('keypress', function() {
+        $(this).data('manualEdit', true);
+      })
     });
     
-    $('#build_name').bind('keyup', function() {
+    from.bind('keyup', function() {
       var friendly = $(this).val().toLowerCase().replace(/[^0-9a-zA-Z-_'"!\.]/g,'-').replace(/['"!\.]/g, '').replace(/-+/g,'-');
       
-      var buildPathElement = $('#build_path');
-      if (!buildPathElement.data('manualEdit')) {
-        $('#build_path').val(friendly);
-      }
-      
-      var buildHashtagElement = $('#build_hashtag');
-      if (!buildHashtagElement.data('manualEdit')) {
-        $('#build_hashtag').val(friendly);
-      }
+      $.each(to, function() {
+        if (!$(this).data('manualEdit')) {
+          $(this).val(friendly);
+        }
+      });
     });
   },
   
@@ -70,7 +68,7 @@ var WatchMeMakeThis = {
               }
             }
           );
-    }, 5000);
+    }, 10000);
   }
   
 };

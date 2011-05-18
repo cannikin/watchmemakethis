@@ -23,5 +23,5 @@
 
 = content_for :body_end do
   :javascript
-    WatchMeMakeThis.newBuild();
+    WatchMeMakeThis.autoFillFields($('#build_name'), [$('#build_path'), $('#build_hashtag')]);
     
