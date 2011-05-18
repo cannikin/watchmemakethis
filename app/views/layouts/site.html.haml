@@ -5,6 +5,9 @@
       = @page_title + " @ " if @page_title
       Watch Me Make This
     = stylesheet_link_tag 'reset', 'jquery-ui-1.8.12.custom', 'pictos', 'shared'
+    = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
+    :javascript
+      try{Typekit.load();}catch(e){}
     = yield :head
     = csrf_meta_tag
 
@@ -24,5 +27,11 @@
     
     = javascript_include_tag :defaults
     = yield :body_end
+    :javascript
+      (function() {
+         var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+         uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/AckkUG8xVAuHPiUMoKa2Rw.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+       })();
     
     = render :partial => 'shared/debug' if Rails.env.development?

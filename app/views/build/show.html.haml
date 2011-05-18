@@ -1,6 +1,6 @@
 - if logged_in? and current_user.is_an_owner?
   #new_image
-    = render :partial => 'shared/upload', :locals => { :action => build_upload_path, :on_complete => "$('#build_images').prepend(data).find('li').first().delay(1000).fadeIn(500); WatchMeMakeThis.fancyboxify();" }
+    = render :partial => 'shared/upload'
 
 %ul#build_images
   = render :partial => 'image', :locals => { :image => Image.new, :blank => true }
@@ -8,7 +8,10 @@
     - @build.images.each do |image| 
       = render :partial => 'image', :locals => { :image => image }
   - else
-    .none No images for this build yet, check back soon!
+    - if logged_in? and current_user.is_an_owner?
+      = render 'new_build_intro'
+    - else
+      .none No images for this build yet, check back soon!
     
 = content_for :head do
   = stylesheet_link_tag 'jquery.fancybox.css'

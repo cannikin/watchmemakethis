@@ -19,7 +19,7 @@
     If you are going to use Twitter to send images to this build, use this hashtag. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
     = link_to 'How does this work?', '#'
   
-  = link_to '<span class="icon">2</span> Create this Build'.html_safe, '#', :class => 'submit'
+  = form.submit 'Create this Build', :class => 'button blue large'
 
 = content_for :body_end do
   :javascript

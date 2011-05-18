@@ -42,23 +42,26 @@
     display: block;
     float: left;
     font-size: 350%;
-    margin: 0 10px 0 70px;
+    margin: 4px 10px 0 70px;
   }
   .fileinput-button span.label {
     display: block;
     float: left;
     overflow: hidden;
     text-align: left;
-    font-family: 'Helvetica Neue',HelveticaNeue,sans-serif;
+    font-family: 'proxima-nova-soft-1','proxima-nova-soft-2', 'Helvetica Neue',HelveticaNeue,sans-serif;
     margin: 20px 0 0;
-    line-height: 1.2;
+    line-height: 1.1;
+    font-size: 120%
   }
   .fileinput-button span.line1 {
     display: block;
+    font-weight: 700;
   }
   .fileinput-button span.line2 {
     display: block;
-    font-weight: normal;
+    font-weight: 400;
+    font-size: 95%;
   }
   
 #fileupload.dragover .fileinput-button {
