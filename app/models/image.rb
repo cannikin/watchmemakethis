@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   
   belongs_to :build
 
-  before_save :put
+  before_create :put
   
   # for holding a file that's about to be uploaded (this isn't actually saved to the DB)
   attr_accessor :file

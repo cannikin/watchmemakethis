@@ -10,9 +10,18 @@
                         :title => "#{image.description}", 
                         :rel => "build_group",
                         :class => 'thumb')
-  %p.description
-    = image.description.present? ? image.description[0..70] : ''
-    = "... #{link_to 'more', '#', :class => 'more'}".html_safe if image.description and image.description.length > 70
+  %p.description(style="#{'cursor:pointer' if logged_in? and current_user.is_an_owner?}")
+    - if logged_in? and current_user.is_an_owner? and image.description.blank?
+      %span.placeholder= 'Click to add a description'
+    - else
+      = image.description.present? ? image.description[0..70] : ''
+      = "... #{link_to 'more', '#', :class => 'more'}".html_safe if image.description and image.description.length > 70
+  - if logged_in? and current_user.is_an_owner?
+    - action = blank ? '#' : image_path(@site.path, @build.path, image.id)
+    = form_tag(action, :method => :put, :remote => true, :style => 'display:none') do
+      = text_area_tag 'image[description]', image.description
+      = submit_tag 'Save'
+      = link_to 'Cancel', '#'
   %span.added 
     Added 
     - if blank
@@ -25,6 +34,6 @@
       - if blank
         - link = '#'
       - else
-        - link = destroy_image_path(params[:site_path], params[:build_path], image.id)
+        - link = image_path(params[:site_path], params[:build_path], image.id)
       %li= link_to('D', link, :class => 'delete icon', :remote => true, :method => :delete, :title => 'Delete', :confirm => "Are you sure you want to delete this image? There's no going back!")
     

@@ -42,6 +42,8 @@ var WatchMeMakeThis = {
     newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
     // update description
     newImageElement.find('.description').text(image.description);
+    // update description form action
+    newImageElement.find('form').attr('action', image.path);
     // update upload time
     newImageElement.find('.added').text('Added just now');
     // update delete link
@@ -69,50 +71,42 @@ var WatchMeMakeThis = {
             }
           );
     }, 10000);
+  },
+  
+  signupStylePreview:function(select, preview) {
+    select.change(function() {
+      var style = $.parseJSON(select.find('option:selected').attr('data-style'));
+      preview.find('.header').css('backgroundColor', style.header_background).css('color', style.header_text_color);
+      preview.find('.body').css('backgroundColor', style.body_background).css('color', style.body_text_color).css('borderColor', style.header_background);
+    });
+    select.change();
   }
   
 };
 
-$('header nav select').change(function() {
-  location.href = '/' + this.value;
-});
+$(document).ready(function() {
 
-$('.image .delete').live('ajax:success', function() {
-  $(this).parents('li.image').fadeOut();
-});
+  // switch site dropdown
+  $('header nav select').change(function() {
+    location.href = '/' + this.value;
+  });
 
-$.support.dragDropUpload = (function(){ 
-  var support = false
-  var match, major, minor
-  if (navigator && navigator.userAgent) {
-    var ua = navigator.userAgent;
-  
-    // look for firefox
-    if ($.browser.mozilla) {
-      match = ua.match(/Firefox\/(\d*)\.(\d*)\./);
-      if (match) {
-        major = parseInt(match[1]);
-        minor = parseInt(match[2]);
-        if ((major > 3) || (major == 3 && minor >= 6)) {
-          support = true;
-        }
-      }
-    } else if ($.browser.webkit) {
-      // look for chrome
-      match = ua.match(/Chrome\/(\d*)\./);
-      if (match) {
-        support = true;
-      } else {
-        // look for safari
-        match = ua.match(/Version\/(\d*)\./);
-        if (match) {
-          major = parseInt(match[1]);
-          if (major >= 4) {
-            support = true;
-          }
-        }
-      }
-    }
-  }
-  return support; 
-})();
+  // delete an image
+  $('.image .delete').live('ajax:success', function() {
+    $(this).parents('li.image').fadeOut();
+  });
+
+  // description placeholder text
+  $('.image .description').click(function() {
+    $(this).hide();
+    $(this).siblings('form').show().find('textarea').focus();
+    return false;
+  }).siblings('form').find('a').click(function() {
+    $(this).parent().hide().siblings('.description').show();
+    return false;
+  }).end().bind('ajax:success', function(event, data, xhr) {
+    $(this).siblings('.description').text(data.description);
+    $(this).hide().siblings('.description').show();
+  });
+
+});

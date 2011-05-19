@@ -21,6 +21,13 @@ class User < ActiveRecord::Base
     User.find_by_email_and_password(email, Digest::MD5.hexdigest(password))
   end
   
+  
+  # all images that this user owns
+  def images
+    Image.joins(:build => :site).where(:sites => { :user_id => self.id })
+  end
+  
+  
   # list all the permissions for the use through the role and allowances
   def permissions
     Permission.joins(:allowances).where(:allowances => { :role_id => self.role_id})

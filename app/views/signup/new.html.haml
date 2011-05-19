@@ -45,14 +45,23 @@
       %span.example This will be the URL to your site. We will auto-generate this based on your Site Name, but you are free to change it. Shorter is usually better.
       = field_errors(@site, :path)
       
+      .preview
+        Style Preview
+        .header Header
+        .body Body
+        
       = s.label :style_id, '<span class="icon">k</span> Style'.html_safe
-      = s.select :style_id, Style.system.map { |s| [s.name, s.id] }
-            
+      = s.select :style_id, Style.system.collect { |s| %Q{<option value="#{s.id}" data-style='#{extract_style_attributes(s).to_json}'>#{s.name}</option>} }.join('')
+      %span.example You can change your style at any time.
+        
   = u.submit 'Create Your Account!', :class => 'button blue large', :style => 'width: 300px'
   
 = content_for :head do
   = stylesheet_link_tag 'signup'
 = content_for :body_end do
   :javascript
-    WatchMeMakeThis.autoFillFields($('#site_name'), [$('#site_path')]);
+    $(document).ready(function() {
+      WatchMeMakeThis.autoFillFields($('#site_name'), [$('#site_path')]);
+      WatchMeMakeThis.signupStylePreview($('#site_style_id'), $('.preview'));
+    });
     

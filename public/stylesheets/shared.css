@@ -41,7 +41,7 @@ header {
       text-decoration: none; }
   header nav {
     float: right;
-    margin: -48px 20px 0 0;
+    margin: -60px 20px 0 0;
     vertical-align: middle; }
     header nav select {
       font-size: 100%;
@@ -60,177 +60,42 @@ footer {
   text-align: center;
   -webkit-border-radius: 0 10px 0 0; }
 
-#create_build {
-  position: absolute;
-  top: 62px;
-  right: 0;
-  cursor: pointer;
-  display: block;
-  overflow: hidden;
-  width: 220px;
-  float: right;
-  background-color: #009900;
-  color: white;
-  text-decoration: none;
-  padding: 6px 10px 0 20px;
-  -webkit-border-radius: 20px 0 0 20px;
-  -webkit-box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5); }
-  #create_build:hover {
-    -webkit-box-shadow: none;
-    background-color: #009e00; }
-  #create_build span {
-    display: block;
-    float: left; }
-  #create_build span.icon {
-    font-size: 210%;
-    margin: 1px 0 0; }
-  #create_build span.label {
-    font-family: "proxima-nova-soft-1", "proxima-nova-soft-2", "Helvetica Neue", HelveticaNeue, sans-serif;
-    font-weight: 400;
-    margin: 5px 0 0 8px;
-    font-size: 130%; }
-
-#builds {
-  clear: left;
-  overflow: hidden; }
-  #builds p.none {
-    display: block;
-    float: left;
-    width: 230px;
-    font-size: 140%;
-    padding: 32px 20px;
-    margin: 0 28px 0 0;
-    text-align: center; }
-  #builds ul.images {
-    display: block;
-    float: left;
-    overflow: hidden;
-    width: 300px; }
-    #builds ul.images li {
-      float: left;
-      overflow: hidden; }
-      #builds ul.images li img {
-        border: 4px solid white;
-        -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        margin: 0 5px; }
-  #builds > li {
-    clear: both;
-    overflow: hidden;
-    height: 90px;
-    padding: 5px;
-    cursor: pointer;
-    margin: 0 0 10px; }
-  #builds .stats {
-    display: block;
-    float: left; }
-    #builds .stats h2 {
-      font-size: 200%;
-      margin: 0 0 10px; }
-      #builds .stats h2 a {
-        text-decoration: none; }
-    #builds .stats ul li {
-      display: block;
-      float: none;
-      line-height: 1.3;
-      font-size: 90%; }
-
-#new_image {
-  overflow: auto;
-  margin: 0 0 -20px; }
-
-h2.build_title {
-  position: absolute;
-  font-size: 160%;
-  font-size: 400;
-  width: 30%; }
-  h2.build_title a {
-    text-decoration: none; }
-
-#build_images {
-  padding: 30px 20px 20px;
-  text-align: center; }
-  #build_images li {
-    display: inline-block;
-    width: 300px;
-    overflow: hidden;
-    padding: 10px;
-    text-align: center;
-    margin: 0 0 15px; }
-    #build_images li img {
-      border: 16px solid white;
-      -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); }
-    #build_images li p.description {
-      margin: 5px 0 0;
-      height: 2em; }
-    #build_images li span.added {
-      display: block;
-      margin: 5px 0 0;
-      font-size: 90%; }
-    #build_images li .delete {
-      font-size: 150%; }
-  #build_images .intro {
-    width: 550px;
-    margin: 0 auto;
-    padding: 20px;
-    -webkit-border-radius: 20px; }
-    #build_images .intro p:first-child {
-      font-size: 160%;
-      margin: 0 0 40px; }
-    #build_images .intro .tip {
-      overflow: hidden; }
-      #build_images .intro .tip span.icon {
-        display: block;
-        float: left;
-        font-size: 200%;
-        margin: 0 10px 0 0; }
-      #build_images .intro .tip p {
-        text-align: left; }
-  #build_images .none {
-    display: inline-block;
-    width: 460px;
-    height: 220px;
-    vertical-align: middle;
-    font-size: 200%;
-    padding: 40px 0 0;
-    line-height: 1.5; }
-
-form div.field_with_errors {
-  display: inline; }
-  form div.field_with_errors input {
-    border: 2px solid red; }
-
-#new_build, #new_user {
+form {
   width: 680px;
   margin: 60px auto;
   padding: 20px;
   -webkit-border-radius: 20px; }
-  #new_build #build_name, #new_user #build_name {
+  form #build_name {
     width: 400px; }
-  #new_build .inline span, #new_build .inline input, #new_user .inline span, #new_user .inline input {
+  form .inline span, form .inline input {
     display: inline; }
-  #new_build .inline.hashtag span, #new_user .inline.hashtag span {
+  form .inline.hashtag span {
     font-size: 150%; }
-  #new_build span.example, #new_build ul.errors, #new_user span.example, #new_user ul.errors {
+  form span.example, form ul.errors {
     display: block;
     font-size: 85%;
     margin: 2px 0 0;
     line-height: 1.3; }
-  #new_build input, #new_user input {
+  form input {
     font-size: 140%;
     font-family: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", HelveticaNeue, sans-serif;
     display: block;
     width: 200px; }
-  #new_build label, #new_user label {
+  form label {
     font-family: "proxima-nova-soft-1", "proxima-nova-soft-2", "Helvetica Neue", HelveticaNeue, sans-serif;
     display: block;
     margin: 40px 0 4px;
     font-size: 150%;
     font-weight: 500; }
-    #new_build label span.icon, #new_user label span.icon {
+    form label span.icon {
       font-size: 120%; }
-      #new_build label span.icon.hashtag, #new_user label span.icon.hashtag {
+      form label span.icon.hashtag {
         font-size: 150%;
         vertical-align: middle; }
+  form div.field_with_errors {
+    display: inline; }
+    form div.field_with_errors input {
+      border: 2px solid red; }
 
 #errors {
   margin: 20px 0;

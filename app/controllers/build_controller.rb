@@ -68,6 +68,22 @@ class BuildController < ApplicationController
   end
   
   
+  # update an image's data
+  def update_image
+    if logged_in?
+      image = Image.find(params[:id])
+      if current_user.images.include? image
+        image.update_attributes(params[:image])
+        render :json => image.attributes.merge(additional_image_attributes(image))
+      else
+        render :nothing => true, :status => :bad_request
+      end
+    else
+      render :nothing => true, :status => :authorization_required
+    end
+  end
+  
+  
   def destroy_image
     if image = @build.images.find(params[:id])
       image.destroy
@@ -81,7 +97,7 @@ class BuildController < ApplicationController
   def additional_image_attributes(image)
     { :url_small => image.url(:small), 
       :url_large => image.url(:large), 
-      :path => destroy_image_path(params[:site_path], params[:build_path], image.id) }
+      :path => image_path(params[:site_path], params[:build_path], image.id) }
   end
   
   
