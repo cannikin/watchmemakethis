@@ -52,6 +52,8 @@ var WatchMeMakeThis = {
     $('#image_new').after(newImageElement);
     // update fancybox so this image gets added to the rotation
     WatchMeMakeThis.fancyboxify();
+    // update inline description editing
+    WatchMeMakeThis.setupImageDescriptionEditing();
     // and finally show it
     newImageElement.delay(1000).fadeIn(500);
   },
@@ -80,6 +82,21 @@ var WatchMeMakeThis = {
       preview.find('.body').css('backgroundColor', style.body_background).css('color', style.body_text_color).css('borderColor', style.header_background);
     });
     select.change();
+  },
+  
+  // handlers for inline editing of an image description
+  setupImageDescriptionEditing:function() {
+    $('.image .description').unbind('click').click(function() {
+      $(this).hide();
+      $(this).siblings('form').show().find('textarea').focus();
+      return false;
+    }).siblings('form').find('a').unbind('click').click(function() {
+      $(this).parent().hide().siblings('.description').show();
+      return false;
+    }).end().unbind('ajax:success').bind('ajax:success', function(event, data, xhr) {
+      $(this).siblings('.description').text(data.description);
+      $(this).hide().siblings('.description').show();
+    });
   }
   
 };
@@ -94,19 +111,6 @@ $(document).ready(function() {
   // delete an image
   $('.image .delete').live('ajax:success', function() {
     $(this).parents('li.image').fadeOut();
-  });
-
-  // description placeholder text
-  $('.image .description').click(function() {
-    $(this).hide();
-    $(this).siblings('form').show().find('textarea').focus();
-    return false;
-  }).siblings('form').find('a').click(function() {
-    $(this).parent().hide().siblings('.description').show();
-    return false;
-  }).end().bind('ajax:success', function(event, data, xhr) {
-    $(this).siblings('.description').text(data.description);
-    $(this).hide().siblings('.description').show();
   });
 
 });

@@ -24,6 +24,12 @@
     $(document).ready(function() {
       WatchMeMakeThis.fancyboxify();
     });
+  - if logged_in? and current_user.is_an_owner?
+    :javascript
+      $(document).ready(function() {
+        WatchMeMakeThis.setupImageDescriptionEditing();
+      });
   - if !logged_in? or !current_user.is_an_owner?
     :javascript
       WatchMeMakeThis.checkForNewImages('#{request.path}');
+      
