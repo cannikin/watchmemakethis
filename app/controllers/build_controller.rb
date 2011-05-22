@@ -71,8 +71,8 @@ class BuildController < ApplicationController
   # update an image's data
   def update_image
     if logged_in?
-      image = Image.find(params[:id])
-      if current_user.images.include? image
+      if current_user.images.find(params[:id])
+        image = Image.find(params[:id])
         image.update_attributes(params[:image])
         render :json => image.attributes.merge(additional_image_attributes(image))
       else

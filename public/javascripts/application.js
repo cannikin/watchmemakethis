@@ -79,7 +79,7 @@ var WatchMeMakeThis = {
     select.change(function() {
       var style = $.parseJSON(select.find('option:selected').attr('data-style'));
       preview.find('.header').css('backgroundColor', style.header_background).css('color', style.header_text_color);
-      preview.find('.body').css('backgroundColor', style.body_background).css('color', style.body_text_color).css('borderColor', style.header_background);
+      preview.find('.body').css('backgroundColor', style.body_background).css('color', style.body_text_color).css('borderColor', style.header_background).find('.image').css('borderColor', style.image_border.split(' ')[2]);
     });
     select.change();
   },

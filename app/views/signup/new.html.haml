@@ -48,7 +48,10 @@
       .preview
         Style Preview
         .header Header
-        .body Body
+        .body 
+          .image 
+            %span.icon v
+          Body
         
       = s.label :style_id, '<span class="icon">k</span> Style'.html_safe
       = s.select :style_id, Style.system.collect { |s| %Q{<option value="#{s.id}" data-style='#{extract_style_attributes(s).to_json}'>#{s.name}</option>} }.join('')

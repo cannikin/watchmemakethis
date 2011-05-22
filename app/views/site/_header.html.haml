@@ -2,8 +2,8 @@
   %h1
     = link_to site.name, site_path(site.path)
   
-  %nav
-    - if logged_in? and current_user.is_an_owner?
-      Switch Sites
-      = select_tag :sites, options_from_collection_for_select(current_user.sites, :path, :name, @site.path)
-      
+  /
+    %nav
+      - if logged_in? and current_user.is_an_owner?
+        Switch Sites
+        = select_tag :sites, options_from_collection_for_select(current_user.sites, :path, :name, @site.path)
