@@ -1,15 +1,20 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.1.0.rc1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+
+# Asset template engines
+gem 'sass'
+gem 'coffee-script'
+gem 'uglifier'
+
+gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails'
-gem 'sass'
-gem 'jquery-rails'
 gem 'formtastic'
 gem 'rails3-generators'
 gem 'factory_girl'
@@ -18,7 +23,12 @@ gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
 gem 'twimage'
-gem 'meta_where'
+# gem 'meta_where'
+
+group :test do
+  # Pretty printed test output
+  gem 'turn', :require => false
+end
 
 
 # Use unicorn as the web server
