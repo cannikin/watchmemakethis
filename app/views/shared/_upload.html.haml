@@ -33,13 +33,7 @@
       </tr>
   </script>
 
-
-- content_for :head do
-  = stylesheet_link_tag 'jquery.fileupload-ui'
-
-- content_for :body_end do
-  = javascript_include_tag 'jquery.tmpl.min', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-ui'
-  
+- content_for :body_end do  
   :javascript
   $(function () {
     

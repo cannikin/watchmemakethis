@@ -6,4 +6,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require_tree ../../../vendor/assets/javascripts/jquery-ui
+//= require watchmemakethis
+//
+//= require_tree ../../../vendor/assets/javascripts/fancybox
+//
+//= require fileupload/jquery.fileupload
+//= require fileupload/jquery.fileupload-ui
+//= require_tree ./fileupload
+//
 //= require_tree .

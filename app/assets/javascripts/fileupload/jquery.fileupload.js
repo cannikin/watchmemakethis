@@ -690,7 +690,7 @@
         // must have a files property and can contain additional options:
         // .fileupload('add', {files: filesList});
         add: function (data) {
-            if (!data || this.options.disabled) {
+            if (!data || this.options.disabled) {
                 return;
             }
             data.files = $.each($.makeArray(data.files), this._normalizeFile);

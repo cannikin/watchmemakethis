@@ -3,5 +3,13 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require reset
+ *= require_tree ../../../vendor/assets/stylesheets/fonts
+ *= require_tree ../../../vendor/assets/stylesheets/jquery-ui
+ *= require_tree ../../../vendor/assets/stylesheets/fancybox
+ *= require_tree ../../../vendor/assets/stylesheets/fileupload
+ *= require shared
+ *= require marketing
+ *= require site
+ *= require_tree .
 */

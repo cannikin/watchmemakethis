@@ -15,11 +15,8 @@
     - else
       .none No images for this build yet, check back soon!
     
-= content_for :head do
-  = stylesheet_link_tag 'jquery.fancybox.css'
   
 = content_for :body_end do
-  = javascript_include_tag 'jquery.fancybox.min.js'
   :javascript
     $(document).ready(function() {
       WatchMeMakeThis.fancyboxify();

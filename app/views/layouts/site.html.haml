@@ -4,14 +4,14 @@
     %title
       = @page_title + " @ " if @page_title
       Watch Me Make This
-    = stylesheet_link_tag 'jquery-ui-1.8.12.custom', 'site'
+    = stylesheet_link_tag 'application'
     = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
     :javascript
       try{Typekit.load();}catch(e){}
     = yield :head
     = csrf_meta_tag
 
-  %body{:id => "#{controller.controller_name}-#{controller.action_name}"}
+  %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'site'}
     = render 'shared/flash', :flash => flash
     = render :partial => 'site/styles', :locals => { :style => params[:style] ? Style.find(params[:style]) : @site.style }
     = render :partial => 'site/header', :locals => { :site => @site }
@@ -25,7 +25,8 @@
       This site made possible by
       = link_to 'Watch Me Make This', 'http://watchmemakethis.com'
     
-    = javascript_include_tag :defaults
+    =# javascript_include_tag :defaults
+    = javascript_include_tag 'application'
     = yield :body_end
     :javascript
       (function() {

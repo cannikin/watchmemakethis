@@ -4,7 +4,7 @@
     %title
       = @page_title + " @ " if @page_title
       Watch Me Make This
-    = stylesheet_link_tag 'jquery-ui-1.8.12.custom', 'shared', 'marketing'
+    = stylesheet_link_tag 'application'
     = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
     :javascript
       try{Typekit.load();}catch(e){}
@@ -12,7 +12,7 @@
     = yield :head
     = csrf_meta_tag
 
-  %body{:id => "#{controller.controller_name}-#{controller.action_name}"}
+  %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'marketing'}
     = render 'shared/flash', :flash => flash
     = yield
     
@@ -20,7 +20,7 @@
       Copyright &copy;#{Time.now.year}
       = link_to 'Watch Me Make This', 'http://watchmemakethis.com'
     
-    = javascript_include_tag :defaults
+    = javascript_include_tag 'application'
     = yield :body_end
     
     = render :partial => 'shared/debug' if Rails.env.development?
