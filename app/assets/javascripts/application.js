@@ -13,6 +13,6 @@
 //
 //= require fileupload/jquery.fileupload
 //= require fileupload/jquery.fileupload-ui
-//= require_tree ./fileupload
+//= require_tree ../../../vendor/assets/javascripts/fileupload
 //
 //= require_tree .

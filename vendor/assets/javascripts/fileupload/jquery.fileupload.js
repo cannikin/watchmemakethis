@@ -703,7 +703,7 @@
         // .fileupload('send', {files: filesList});
         // The method returns a Promise object for the file upload call.
         send: function (data) {
-            if (data && !this.options.disabled) {
+            if (data && !this.options.disabled) {
                 data.files = $.each($.makeArray(data.files), this._normalizeFile);
                 if (data.files.length) {
                     return this._onSend(null, data);
