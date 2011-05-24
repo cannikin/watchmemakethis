@@ -18,7 +18,7 @@ body.site
         font-size: 100%
         font-family: $font-family
 
-
+  // Create A New Build button
   #create_build
     position: absolute
     top: 52px
@@ -49,10 +49,7 @@ body.site
       margin: 5px 0 0 8px
       font-size: 130%
 
-
-
-
-
+  // List of builds on the site overview page
   #builds
     clear: left
     overflow: hidden
@@ -100,9 +97,7 @@ body.site
           font-size: 90%
   
   
-  
-  
-  
+  // Upload new images box
   #new_image
     overflow: auto
     margin: 0 0 -20px
@@ -111,7 +106,7 @@ body.site
       padding: 0
   
   
-  
+  // Title of the build
   h2.build_title
     position: absolute
     font-size: 160%
@@ -120,6 +115,7 @@ body.site
     a
       text-decoration: none
   
+  // Grid of images in the build
   #build_images
     padding: 30px 20px 20px
     text-align: center
@@ -139,6 +135,14 @@ body.site
         span.placeholder
           font-style: italic
           text-decoration: none
+      span.added
+        display: block
+        margin: 5px 0 0
+        font-size: 90%
+      .delete
+        font-size: 150%
+          
+      // description edit form
       form
         width: 100%
         margin: 0
@@ -146,6 +150,7 @@ body.site
         text-align: left
         overflow: hidden
         -webkit-border-radius: 0
+        position: relative
         textarea
           display: block
           float: left
@@ -154,17 +159,17 @@ body.site
           font-size: 90%
           line-height: 1.2
           margin: 0 10px 0 0
+          text-align: center
         input
           width: auto
           font-size: 90%
+          padding: 1px 5px
+          border: none
+          -webkit-border-radius: 4px
         a
           font-size: 80%
-      span.added
-        display: block
-        margin: 5px 0 0
-        font-size: 90%
-      .delete
-        font-size: 150%
+          
+    // no images intro text
     .intro
       width: 550px
       margin: 0 auto
