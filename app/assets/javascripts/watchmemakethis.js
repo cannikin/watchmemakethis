@@ -78,24 +78,34 @@ var WatchMeMakeThis = {
   signupStylePreview:function(select, preview) {
     select.change(function() {
       var style = $.parseJSON(select.find('option:selected').attr('data-style'));
-      preview.find('.header').css('backgroundColor', style.header_background).css('color', style.header_text_color);
-      preview.find('.body').css('backgroundColor', style.body_background).css('color', style.body_text_color).css('borderColor', style.header_background).find('.image').css('borderColor', style.image_border.split(' ')[2]);
+      preview.find('.header').animate({'backgroundColor':style.header_background, 'color':style.header_text_color}, 250);
+      preview.find('.body').animate({'backgroundColor':style.body_background, 'color':style.body_text_color, 'borderColor':style.header_background}, 250)
+      preview.find('.image').animate({'borderColor':style.image_border.split(' ')[2]}, 250);
     });
     select.change();
   },
   
   // handlers for inline editing of an image description
   setupImageDescriptionEditing:function() {
+    // show the edit form when the description is clicked
     $('.image .description').unbind('click').click(function() {
       $(this).hide();
-      $(this).siblings('form').show().find('textarea').focus();
+      $(this).siblings('form').show().find('textarea').select();
       return false;
+    // show the description box again when you click cancel
     }).siblings('form').find('a').unbind('click').click(function() {
       $(this).parent().hide().siblings('.description').show();
       return false;
+    // update the description with the new text
     }).end().unbind('ajax:success').bind('ajax:success', function(event, data, xhr) {
       $(this).siblings('.description').text(data.description);
       $(this).hide().siblings('.description').show();
+    // submit the form when you press enter
+    }).find('textarea').bind('keypress', function(e) {  
+      if (e.which == '13') {
+        $(this).parent().submit();
+        e.preventDefault();
+      }
     });
   }
   
