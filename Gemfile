@@ -23,6 +23,7 @@ gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
 gem 'twimage'
+gem 'capistrano'
 # gem 'meta_where'
 
 group :test do

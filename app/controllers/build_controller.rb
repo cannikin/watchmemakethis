@@ -36,7 +36,7 @@ class BuildController < ApplicationController
       format.html
       format.json do
         if params[:since]
-          images = @build.images.where(:id.gt => params[:since].to_i)
+          images = @build.images.where(Image.arel_table[:id].gt(params[:since].to_i))
         else
           images = @build.images
         end
