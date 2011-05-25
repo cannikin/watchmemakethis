@@ -136,4 +136,4 @@ after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 after 'deploy', 'deploy:cleanup'
 after 'deploy:migrations', 'deploy:cleanup'
 
-after 'deploy:update_code', 'rake:invoke task=assets:precompile'
+after 'deploy:update_code', 'deploy:create_assets'
