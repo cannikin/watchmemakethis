@@ -60,7 +60,7 @@ namespace :deploy do
   
   desc "Precompile assets"
   task :create_assets, :roles => :web do
-    run rake_task("assets:precompile")
+    run "cd #{release_path} && rake RAILS_ENV=#{rails_env} assets:precompile"
   end
   
   desc "Start application instances"
