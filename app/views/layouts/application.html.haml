@@ -5,15 +5,32 @@
       = @page_title + " @ " if @page_title
       Watch Me Make This
     = stylesheet_link_tag 'application'
-    = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
+    = javascript_include_tag 'http://use.typekit.com/vsk7kal.js'
     :javascript
       try{Typekit.load();}catch(e){}
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-21347690-1']);
+      _gaq.push(['_setDomainName', '.watchmemakethis.com']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
 
     = yield :head
     = csrf_meta_tag
 
   %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'marketing'}
-    = render 'shared/flash', :flash => flash
+    %header
+      .container
+        %h1= link_to 'Watch Me Make This', '/'
+        %nav
+          %ul
+            %li= link_to 'Sign Up', signup_path
+            %li= link_to 'Log In', login_path
+            
     = yield
     
     %footer

@@ -8,15 +8,26 @@
     = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
     :javascript
       try{Typekit.load();}catch(e){}
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-21347690-1']);
+      _gaq.push(['_setDomainName', '.watchmemakethis.com']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
     = yield :head
     = csrf_meta_tag
 
   %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'site'}
-    = render 'shared/flash', :flash => flash
     = render :partial => 'site/styles', :locals => { :style => params[:style] ? Style.find(params[:style]) : @site.style }
     = render :partial => 'site/header', :locals => { :site => @site }
+    = render 'shared/flash', :flash => flash
     
-    - if logged_in? and current_user.is_an_owner?
+    - if logged_in? and current_user == @site.owner
       = link_to '<span class="icon">P</span> <span class="label">Create a New Build</span>'.html_safe, new_build_path(params[:site_path]), :id => 'create_build'
     
     = yield

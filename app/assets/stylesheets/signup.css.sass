@@ -1,10 +1,7 @@
 $font-family: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", HelveticaNeue, sans-serif
+$label_color: #357627
 
 body.marketing
-
-  h2
-    font-family: $font-family
-    font-size: 200%
 
   .inline.twitter
     span
@@ -12,11 +9,25 @@ body.marketing
     
   form
     label
-      color: #0071aa
+      color: $label_color
+      span.icon
+        color: darken($label_color, 10%)
     
-  input#user_email, input#site_name
-    width: 410px
-  
+    input#user_email, input#site_name
+      width: 410px
+    
+    label#user_password_label
+      span.icon
+        font-size: 100%
+        
+    label#user_twitter_label
+      vertical-align: middle
+      span.icon
+        font-size: 150%
+    
+    label#site_style_label
+      vertical-align: bottom
+
   .preview
     margin: 40px 0 0
     float: right
@@ -42,3 +53,7 @@ body.marketing
       height: 87px
       border: 1px solid #ffffff
       border-top: none
+
+body#signup-new, body#signup-create
+  a
+    color: #357627  

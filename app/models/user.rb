@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
   has_many    :allowances, :through => :role
   has_many    :builds, :through => :sites
   
-  validates :first_name,  :presence => true
-  validates :last_name,   :presence => true
+  #validates :first_name,  :presence => true
+  #validates :last_name,   :presence => true
   validates :password,    :presence => true
   validates :email,       :presence => true, :uniqueness => true
-  validates_format_of     :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "isn't a valid email address: should be in the form of <em>johndoe@anonymous.com</em>"
+  validates_format_of     :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "This isn't a valid email address: it should be in the form of <em>johndoe@anonymous.com</em>"
   validates :role_id,     :presence => true
   
   before_create :encrypt_password

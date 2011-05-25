@@ -31,6 +31,10 @@ group :test do
   gem 'turn', :require => false
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

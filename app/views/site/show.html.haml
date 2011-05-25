@@ -17,9 +17,12 @@
               %li.last= "Last updated #{time_ago_in_words(build.last_updated_at)} ago"
       
 - else
-  %p.none
-    = @site.name
-    has no public builds to view!
+  - if logged_in? and current_user == @site.owner
+    = render 'first_build_intro'
+  - else
+    %p.none
+      = @site.name
+      has no public builds to view!
     
 = content_for :body_end do
   :javascript

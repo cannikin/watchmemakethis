@@ -1,4 +1,5 @@
 $font-family: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", HelveticaNeue, sans-serif
+$error: #ab2c37
 
 html, table, td, th, input, textarea, select
   font-family: $font-family
@@ -12,6 +13,13 @@ strong
   
 em
   font-style: italic
+  
+#flash
+  text-align: center
+  font-size: 120%
+  padding: 10px 0
+  color: #009900
+  background-color: #d5ffd5
   
 select
   -webkit-appearance: button
@@ -45,7 +53,7 @@ footer
       
 form
   width: 680px
-  margin: 60px auto
+  margin: 0 auto
   padding: 20px
   -webkit-border-radius: 20px
   #build_name
@@ -77,7 +85,7 @@ form
     font-size: 150%
     font-weight: 500
     span.icon
-      font-size: 120%
+      font-size: 110%
       &.hashtag
         font-size: 150%
         vertical-align: middle
@@ -85,12 +93,15 @@ form
   div.field_with_errors
     display: inline
     input
-      border: 2px solid #ff0000
+      border: 2px solid $error
   
         
 #errors
   margin: 20px 0
-  color: #990000
+  background-color: $error
+  color: #ffffff
+  padding: 20px
+  -webkit-border-radius: 10px
   ul
     margin: 20px
     li
@@ -99,7 +110,7 @@ form
 ul.errors
   margin: 0 20px
   padding: 0 20px
-  color: #ff0000
+  color: $error
   li
     list-style-type: disc
     

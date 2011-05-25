@@ -1,239 +1,83 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ruby on Rails: Welcome aboard</title>
-    <style type="text/css" media="screen">
-      body {
-        margin: 0;
-        margin-bottom: 25px;
-        padding: 0;
-        background-color: #f0f0f0;
-        font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
-        font-size: 13px;
-        color: #333;
-      }
-
-      h1 {
-        font-size: 28px;
-        color: #000;
-      }
-
-      a  {color: #03c}
-      a:hover {
-        background-color: #03c;
-        color: white;
-        text-decoration: none;
-      }
-
-
-      #page {
-        background-color: #f0f0f0;
-        width: 750px;
-        margin: 0;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #content {
-        float: left;
-        background-color: white;
-        border: 3px solid #aaa;
-        border-top: none;
-        padding: 25px;
-        width: 500px;
-      }
-
-      #sidebar {
-        float: right;
-        width: 175px;
-      }
-
-      #footer {
-        clear: both;
-      }
-
-
-      #header, #about, #getting-started {
-        padding-left: 75px;
-        padding-right: 30px;
-      }
-
-
-      #header {
-        background-image: url("images/rails.png");
-        background-repeat: no-repeat;
-        background-position: top left;
-        height: 64px;
-      }
-      #header h1, #header h2 {margin: 0}
-      #header h2 {
-        color: #888;
-        font-weight: normal;
-        font-size: 16px;
-      }
-
-
-      #about h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
-
-      #about-content {
-        background-color: #ffd;
-        border: 1px solid #fc0;
-        margin-left: -55px;
-        margin-right: -10px;
-      }
-      #about-content table {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-        border-collapse: collapse;
-      }
-      #about-content td {
-        padding: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-      }
-      #about-content td.name  {color: #555}
-      #about-content td.value {color: #000}
-
-      #about-content ul {
-        padding: 0;
-        list-style-type: none;
-      }
-
-      #about-content.failure {
-        background-color: #fcc;
-        border: 1px solid #f00;
-      }
-      #about-content.failure p {
-        margin: 0;
-        padding: 10px;
-      }
-
-
-      #getting-started {
-        border-top: 1px solid #ccc;
-        margin-top: 25px;
-        padding-top: 15px;
-      }
-      #getting-started h1 {
-        margin: 0;
-        font-size: 20px;
-      }
-      #getting-started h2 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 25px;
-      }
-      #getting-started ol {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #getting-started li {
-        font-size: 18px;
-        color: #888;
-        margin-bottom: 25px;
-      }
-      #getting-started li h2 {
-        margin: 0;
-        font-weight: normal;
-        font-size: 18px;
-        color: #333;
-      }
-      #getting-started li p {
-        color: #555;
-        font-size: 13px;
-      }
-
-
-      #sidebar ul {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #sidebar ul h3 {
-        margin-top: 25px;
-        font-size: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      #sidebar li {
-        list-style-type: none;
-      }
-      #sidebar ul.links li {
-        margin-bottom: 5px;
-      }
-
-    </style>
+    <title>Watch Me Make This - Give your clients a peek into the creative process</title>
+    <script type="text/javascript" src="http://use.typekit.com/vsk7kal.js"></script>
     <script type="text/javascript">
-      function about() {
-        info = document.getElementById('about-content');
-        if (window.XMLHttpRequest)
-          { xhr = new XMLHttpRequest(); }
-        else
-          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-        xhr.open("GET","rails/info/properties",false);
-        xhr.send("");
-        info.innerHTML = xhr.responseText;
-        info.style.display = 'block'
-      }
+      try{Typekit.load();}catch(e){}
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-21347690-1']);
+      _gaq.push(['_setDomainName', '.watchmemakethis.com']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
     </script>
+    
+    <link rel="stylesheet" type="text/css" href="/assets/application.css" media="all">
+
   </head>
-  <body>
-    <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
-              <li><a href="http://stdlib.rubyonrails.org/">Ruby standard library</a></li>
-              <li><a href="http://corelib.rubyonrails.org/">Ruby core</a></li>
-              <li><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-            </ul>
-          </li>
-        </ul>
+  
+  <body class="marketing">
+    <header>
+      <div class="container">
+        <h1><a href="/">Watch Me Make This</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/login">Log In</a></li>
+          </ul>
+        </nav>
       </div>
-
-      <div id="content">
-        <div id="header">
-          <h1>Welcome aboard</h1>
-          <h2>You&rsquo;re riding Ruby on Rails!</h2>
-        </div>
-
-        <div id="about">
-          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
-          <div id="about-content" style="display: none"></div>
-        </div>
-
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get rolling:</h2>
-
-          <ol>
-            <li>
-              <h2>Use <code>rails generate</code> to create your models and controllers</h2>
-              <p>To see all available options, run it without parameters.</p>
-            </li>
-
-            <li>
-              <h2>Set up a default route and remove or rename this file</h2>
-              <p>Routes are set up in config/routes.rb.</p>
-            </li>
-
-            <li>
-              <h2>Create your database</h2>
-              <p>Run <code>rake db:migrate</code> to create your database. If you're not using SQLite (the default), edit <code>config/database.yml</code> with your username and password.</p>
-            </li>
-          </ol>
+    </header>
+    
+    <section id="intro">
+      <div class="container">
+        <div class="text">
+          <h2>Give your clients a peek into the creative process</h2>
+          <p><strong>Watch Me Make This</strong> is a way for artists, craftspeople and designers to
+            show pictures of their work as it's being made. Let a client watch as you create
+            their dresser, jewelery or painting.</p>
+          <a href="/signup" class="button blue large">Sign Up Free</a>
         </div>
       </div>
-
-      <div id="footer">&nbsp;</div>
-    </div>
+    </section>
+    
+    <section id="more_info">
+      <div class="container">
+        <section id="build">
+          <h3>What is this?</h3>
+          <p>Are you an artist? Craftsman / woman / person? Have you ever thought about letting a client
+          watch over your shoulder as you're building something for them, minus the heavy
+          breathing? <strong>Watch Me Make This</strong> is for you (and them).</p>
+        </section>
+      
+        <section id="how">
+          <h3>How does it work?</h3>
+          <p>Take photos while you're working and <strong>tweet</strong>, <strong>email</strong>
+            or <strong>upload</strong> them to us. You get a website to send your clients
+            to and they can follow along with your progress.</p>
+        </section>
+      
+        <section id="cost">
+          <h3>How much does it cost?</h3>
+          <p>It's free!</p>
+        </section>
+      </div>
+    </section>
+    
+    <section id="features">
+      <div class="container">
+        <section id="add_photos">
+          Adding photos is ridiculously easy&mdash;send a photo from Twitter, email or even
+          drag and drop from your desktop
+        </section>
+        <section id="style">
+          Make your site look like your own&mdash;customize colors and add your logo
+        </section>
+      </div>
+    </section>
   </body>
 </html>

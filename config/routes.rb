@@ -24,6 +24,10 @@ Watchmemakethis::Application.routes.draw do
     post  '/signup/go'  => :create
   end
   
+  controller :help do
+    get   '/help'       => :index
+  end
+  
   controller :site_admin do
     get '/:site_path/admin' => :index, :as => :site_admin
   end

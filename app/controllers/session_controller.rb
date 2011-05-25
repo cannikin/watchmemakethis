@@ -2,6 +2,7 @@ class SessionController < ApplicationController
   
   # /login
   def new
+    redirect_to(site_path(current_user.sites.first.path), :notice => 'You are already logged in!') if logged_in?
   end
 
   # /login/go
@@ -15,7 +16,7 @@ class SessionController < ApplicationController
         render :new
       end
     else
-      redirect_to(root_path, :notice => 'You are already logged in!')
+      redirect_to(site_path(current_user.sites.first.path), :notice => 'You are already logged in!')
     end
   end
 
