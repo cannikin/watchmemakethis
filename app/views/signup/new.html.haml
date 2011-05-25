@@ -29,7 +29,7 @@
     = u.label :twitter, '<span class="icon">B</span> Twitter Username'.html_safe, :id => 'user_twitter_label'
     .inline.twitter
       %span @
-      = u.password_field :twitter
+      = u.text_field :twitter
     %span.example 
       If you're going to send images to your builds with Twitter, this is the account you'll be sending them from.
       = link_to 'How does this work?', '#'
