@@ -5,6 +5,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))  # Add RVM's lib director
 require "rvm/capistrano"                                # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.2-p180@watchmemakethis'      # Or whatever env you want it to run in.
 set :rvm_type, :user
+set :rails_env, 'production'
 
 set :application, "watchmemakethis"
 
@@ -19,6 +20,16 @@ set :user, 'ubuntu'
 role :web, "ec2-50-17-249-203.compute-1.amazonaws.com"                          # Your HTTP server, Apache/etc
 role :app, "ec2-50-17-249-203.compute-1.amazonaws.com"                          # This may be the same as your `Web` server
 role :db,  "ec2-50-17-249-203.compute-1.amazonaws.com", :primary => true        # This is where Rails migrations will run
+
+
+namespace :rake do  
+  desc "Run a task on a remote server."  
+  # run like: cap staging rake:invoke task=a_certain_task  
+  task :invoke do  
+    run("cd #{release_path}; /usr/bin/env rake #{ENV['task']} RAILS_ENV=#{rails_env}")  
+  end  
+end
+
 
 namespace :deploy do
 
@@ -45,6 +56,11 @@ namespace :deploy do
   desc 'Create symlink to amazon_s3.yml in shared directory'
   task :symlink_amazon_s3_yml, :roles => :app do
     run "ln -nsf #{shared_path}/config/amazon_s3.yml #{release_path}/config/amazon_s3.yml"
+  end
+  
+  desc "Precompile assets"
+  task :create_assets, :roles => :web do
+    
   end
   
   # override the default deploy:restart for mod_rails
@@ -122,3 +138,5 @@ after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 # cleanup old releases (keep the last 5)
 after 'deploy', 'deploy:cleanup'
 after 'deploy:migrations', 'deploy:cleanup'
+
+after 'deploy:update_code', 'rake:invoke task=assets:precompile'
