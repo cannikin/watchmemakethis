@@ -60,25 +60,22 @@ namespace :deploy do
   
   desc "Precompile assets"
   task :create_assets, :roles => :web do
-    
+    run rake_task("assets:precompile")
   end
   
-  # override the default deploy:restart for mod_rails
   desc "Start application instances"
   task :start, :roles => :web do
-    run "service thin start"
-  end
-  
-  # override the default deploy:restart for mod_rails
-  desc "Stop application instances"
-  task :stop, :roles => :web do
-    run "service thin stop"
+    run "cd #{current_path} && bundle exec unicorn -E #{rails_env} -c config/unicorn.rb -D"
   end
 
-  # override the default deploy:restart for mod_rails
+  desc "Stop application instances"
+  task :stop, :roles => :web do
+    run "kill -QUIT `cat #{current_path}/tmp/pids/unicorn.pid`"
+  end
+
   desc "Restart application instances"
   task :restart, :roles => :web do
-    run "service thin restart"
+    run "kill -USR2 `cat #{current_path}/tmp/pids/unicorn.pid`"
   end
   
 end
