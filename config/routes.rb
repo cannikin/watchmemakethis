@@ -1,5 +1,5 @@
 Watchmemakethis::Application.routes.draw do
-  
+
   get '/admin' => 'admin/home#index', :as => :admin_home
 
   namespace :admin do
@@ -11,6 +11,11 @@ Watchmemakethis::Application.routes.draw do
     resources :sites
     resources :styles
     resources :users
+  end
+  
+  controller :marketing do
+    get '/'     => :index
+    get '/help' => :help
   end
   
   controller :session do
@@ -96,7 +101,7 @@ Watchmemakethis::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "marketing#index"
 
   # See how all your routes lay out with "rake routes"
 

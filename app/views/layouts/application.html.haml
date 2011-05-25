@@ -4,11 +4,11 @@
     %title
       = @page_title + " @ " if @page_title
       Watch Me Make This
+    %meta(name="description" content="Give your clients a peek into the creative process")
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'http://use.typekit.com/vsk7kal.js'
     :javascript
       try{Typekit.load();}catch(e){}
-    :javascript
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-21347690-1']);
       _gaq.push(['_setDomainName', '.watchmemakethis.com']);
@@ -26,10 +26,11 @@
     %header
       .container
         %h1= link_to 'Watch Me Make This', '/'
-        %nav
-          %ul
-            %li= link_to 'Sign Up', signup_path
-            %li= link_to 'Log In', login_path
+        /
+          %nav
+            %ul
+              %li= link_to 'Sign Up', signup_path
+              %li= link_to 'Log In', login_path
             
     = yield
     
