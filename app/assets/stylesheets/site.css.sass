@@ -42,7 +42,9 @@ body.site
     text-decoration: none
     padding: 6px 10px 0 20px
     -webkit-border-radius: 20px 0 0 20px
+    -moz-border-radius: 20px 0 0 20px
     -webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,0.5)
+    -moz-box-shadow: inset 0 2px 0 rgba(255,255,255,0.5)
     &:hover
       -webkit-box-shadow: none
       background-color: lighten($create_background, 1%)
@@ -80,6 +82,7 @@ body.site
         overflow: hidden
         img
           border: 4px solid #ffffff
+          -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.2)
           -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.2)
           margin: 0 5px
     & > li
@@ -137,6 +140,7 @@ body.site
       margin: 0 0 15px
       img
         border: 16px solid #ffffff
+        -moz-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
         -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
       p.description
         margin: 5px 0 0
@@ -161,6 +165,7 @@ body.site
         padding: 0
         text-align: left
         overflow: hidden
+        -moz-border-radius: 0
         -webkit-border-radius: 0
         position: relative
         textarea
@@ -177,6 +182,7 @@ body.site
           font-size: 90%
           padding: 1px 5px
           border: none
+          -moz-border-radius: 4px
           -webkit-border-radius: 4px
         a
           font-size: 80%
@@ -196,6 +202,7 @@ body.site
   width: 550px
   margin: 0 auto
   padding: 20px
+  -moz-border-radius: 20px
   -webkit-border-radius: 20px
   & > p:first-child
     font-size: 160%
