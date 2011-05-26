@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_format_of     :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "This isn't a valid email address: it should be in the form of <em>johndoe@anonymous.com</em>"
   validates :role_id,     :presence => true
   
-  before_create :encrypt_password
+  before_create :encrypt_password, :generate_uuid
   before_save   :encrypt_password, :if => lambda { self.changed.include? 'password' }
   
   
@@ -54,6 +54,12 @@ class User < ActiveRecord::Base
     self.password = Digest::MD5.hexdigest(self.password)
   end
   private :encrypt_password
+  
+  
+  # add a uuid
+  def generate_uuid
+    self.uuid = UUID.new.generate
+  end
   
   
   # figures out if a method_missing is a role
