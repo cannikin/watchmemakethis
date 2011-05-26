@@ -14,7 +14,7 @@ System.create :twitter_username => '@watchmemake', :next_twitter_call => 'http:/
 
 # some default styles
 Style.create([
-  { :id => 1, :name => 'Plain Jane', :header_background => '#dddddd', :header_text_color => '#333333', :body_background => '#ffffff', :body_text_color => '#ffffff', :image_border => '15px solid #ffffff', :system => true },
+  { :id => 1, :name => 'Plain Jane', :header_background => '#dddddd', :header_text_color => '#333333', :body_background => '#ffffff', :body_text_color => '#333333', :image_border => '15px solid #ffffff', :system => true },
   { :id => 2, :name => 'Dark Mark', :header_background => '#666666', :header_text_color => '#cccccc', :body_background => '#000000', :body_text_color => '#333333', :image_border => '15px solid #333333', :system => true },
   { :id => 3, :name => 'Lemon', :header_background => '#ffc965', :header_text_color => '#ffedcb', :body_background => '#ffedcb', :body_text_color => '#dc9410', :image_border => '15px solid #ffffff', :system => true },
   { :id => 4, :name => 'Sky', :header_background => '#6cbce6', :header_text_color => '#c3e4f5', :body_background => '#c3e4f5', :body_text_color => '#187db1', :image_border => '15px solid #ffffff', :system => true },
