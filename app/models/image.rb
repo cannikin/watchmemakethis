@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   
-  belongs_to :build
+  belongs_to :build, :touch => true
 
   before_create :put
   

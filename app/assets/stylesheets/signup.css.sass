@@ -1,38 +1,44 @@
 $font-family: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", HelveticaNeue, sans-serif
 $label_color: #357627
+$example_color: #999999
 
-body.marketing
+form.new_user, form.edit_user
 
   .inline.twitter
     span
       font-size: 180%
-    
-  form
-    label
-      color: $label_color
-      span.icon
-        color: darken($label_color, 10%)
-    
-    input#user_email, input#site_name
-      width: 410px
-    
-    label#user_password_label
-      span.icon
-        font-size: 100%
-        
-    label#user_twitter_label
-      vertical-align: middle
-      span.icon
-        font-size: 150%
-    
-    label#site_style_label
-      vertical-align: bottom
+      
+  .inline.path
+    span
+      font-size: 130%
+      
+  .button
+    width: auto
+  
+  input#user_email, input#site_name
+    width: 410px
+  
+  label#user_password_label
+    span.icon
+      font-size: 100%
+      
+  label#user_twitter_label
+    vertical-align: middle
+    span.icon
+      font-size: 150%
+  
+  label#site_style_label
+    vertical-align: bottom
 
+  span.example
+    color: $example_color
+      
   .preview
     margin: 40px 0 0
     float: right
-    color: #cccccc
     text-align: center
+    span.title
+      color: lighten($label_color, 30%)
     .header
       margin: 4px 0 0
       padding: 10px 0 0
@@ -57,4 +63,8 @@ body.marketing
 
 body#signup-new, body#signup-create
   a
-    color: #357627  
+    color: $label_color
+  label
+    color: $label_color
+    span.icon
+      color: darken($label_color, 10%)

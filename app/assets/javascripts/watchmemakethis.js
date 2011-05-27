@@ -77,6 +77,7 @@ var WatchMeMakeThis = {
   
   signupStylePreview:function(select, preview) {
     select.change(function() {
+      console.info($.parseJSON(select.find('option:selected').attr('data-style')));
       var style = $.parseJSON(select.find('option:selected').attr('data-style'));
       preview.find('.header').animate({'backgroundColor':style.header_background, 'color':style.header_text_color}, 250);
       preview.find('.body').animate({'backgroundColor':style.body_background, 'color':style.body_text_color, 'borderColor':style.header_background}, 250)

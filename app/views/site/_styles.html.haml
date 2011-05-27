@@ -36,7 +36,7 @@
           border: 1px dashed $body_text
         li 
           img
-            border: $image_border
+            border: $image_border !important
           .added
             color: transparentize($body_text, 0.5)
           form
@@ -50,6 +50,13 @@
       #new_build
         background-color: lighten($body_background, 5%)
         border: 1px solid $body_text
+        span.example
+          color: transparentize($body_text, 0.5)
+          
+      form.edit_user
+        .preview
+          span.title
+            color: transparentize($body_text, 0.5)
         span.example
           color: transparentize($body_text, 0.5)
           

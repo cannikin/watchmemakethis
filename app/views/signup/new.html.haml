@@ -4,71 +4,11 @@
     
 = render 'shared/flash', :flash => flash
 
-= form_for @user, :url => signup_go_path do |u| 
+= render :partial => 'site/form', :locals => { :user => @user, :site => @site, :submit_path => signup_path, :button_label => 'Create Your Account!' }
 
-  = render :partial => 'shared/form_errors', :locals => { :object => @user }
-  = render :partial => 'shared/form_errors', :locals => { :object => @site }
-
-  %fieldset.user
-    /
-      = u.label :first_name, '<span class="icon">U</span> Name'.html_safe
-      .inline.name
-        = u.text_field :first_name
-        = u.text_field :last_name
-        = field_errors(@user, :first_name)
-        = field_errors(@user, :last_name)
-  
-    = u.label :email, '<span class="icon">M</span> Email'.html_safe, :id => 'user_email_label'
-    = u.text_field :email
-    = field_errors(@user, :email)
-  
-    = u.label :password, '<span class="icon">K</span> Password'.html_safe, :id => 'user_password_label'
-    = u.password_field :password
-    = field_errors(@user, :password)
-    
-    = u.label :twitter, '<span class="icon">B</span> Twitter Username'.html_safe, :id => 'user_twitter_label'
-    .inline.twitter
-      %span @
-      = u.text_field :twitter
-    %span.example 
-      If you're going to send images to your builds with Twitter, this is the account you'll be sending them from.
-      = link_to 'How does this work?', '#'
-    = field_errors(@user, :twitter)
-    
-  .fieldset.site
-    = fields_for @site do |s| 
-      = s.label :name, '<span class="icon">W</span> Site Name'.html_safe, :id => 'site_name_label'
-      = s.text_field :name
-      %span.example The name of your site/business. Something like <em>Cameron Woodworks</em> or <em>Jane's Crafts</em>
-      = field_errors(@site, :name)
-    
-      = s.label :path, '<span class="icon">j</span> Site URL'.html_safe, :id => 'site_path_label'
-      .inline.path
-        %span http://watchmemakethis.com/
-        = s.text_field :path
-      %span.example This will be the URL to your site. We will auto-generate this based on your Site Name, but you are free to change it. Shorter is usually better.
-      = field_errors(@site, :path)
-      
-      .preview
-        Style Preview
-        .header Header
-        .body 
-          .image 
-            %span.icon v
-          Body
-        
-      = s.label :style_id, '<span class="icon">k</span> Style'.html_safe, :id => 'site_style_label'
-      = s.select :style_id, Style.system.collect { |s| %Q{<option value="#{s.id}" data-style='#{extract_style_attributes(s).to_json}'>#{s.name}</option>} }.join('')
-      %span.example You can change your style at any time.
-        
-  = u.submit 'Create Your Account!', :class => 'button blue large', :style => 'width: 300px'
-  
-= content_for :head do
-  = stylesheet_link_tag 'signup'
 = content_for :body_end do
   :javascript
     $(document).ready(function() {
       WatchMeMakeThis.autoFillFields($('#site_name'), [$('#site_path')]);
-      WatchMeMakeThis.signupStylePreview($('#site_style_id'), $('.preview'));
     });
     

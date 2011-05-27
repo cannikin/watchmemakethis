@@ -38,7 +38,9 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :site do
-    get '/:site_path' => :show, :as => :site
+    get '/:site_path'         => :show,   :as => :site
+    get '/:site_path/edit'    => :edit,   :as => :edit_site
+    put '/:site_path/update'  => :update, :as => :update_site
   end
   
   controller :build do

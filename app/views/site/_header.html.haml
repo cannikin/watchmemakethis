@@ -5,6 +5,7 @@
   - if logged_in?
     %nav
       %ul
+        %li= link_to 'Settings', edit_site_path
         %li= link_to 'Help', help_path
         %li= link_to 'Logout', logout_path
       /
