@@ -62,10 +62,10 @@ module WatchMeMakeThis
                       Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id], :description => tweet[:description])
                       image.tempfile.unlink
                     else
-                      raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
+                      LOGGER.warn "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
                     end
                   else
-                    raise StandardError, "No user with twitter username '#{tweet[:from]}' found"
+                    LOGGER.warn "No user with twitter username '#{tweet[:from]}' found"
                   end
                 rescue => e
                   LOGGER.error %Q{        #{e.message}}
@@ -107,8 +107,8 @@ module WatchMeMakeThis
       
       def self.run
         
-        LOGGER.info "  Email search starting at #{Time.zone.now}..."
-        LOGGER.info "    #{@@gmail.inbox.find(:unread).count} new emails..."
+        LOGGER.info "  Email search starting at #{Time.zone.now}"
+        LOGGER.info "    #{@@gmail.inbox.find(:unread).count} new emails"
         
         emails = @@gmail.inbox.find(:unread)
         emails.each do |email|
@@ -121,25 +121,37 @@ module WatchMeMakeThis
                 subject_description = email.subject.gsub("##{hashtag}",'').strip
                 description = subject_description.present? ? subject_description : description = email.text_part.body.to_s.strip
                 if email.attachments.any?
+                  LOGGER.info "      #{email.attachments.count} new images attached"
                   email.attachments.each do |attachment|
                     image = TempImage.new(attachment.body, attachment.content_type.split('/').last)
                     Image.create!(:build_id => build.id, :file => image, :description => description)
                     image.tempfile.unlink
                   end
                 else
-                  raise StandardError, 'No images were attached to this email'
+                  message = '      No images were attached to this email'
+                  LOGGER.warn message
+                  LOGGER.info "        Marked as read."
                 end
               else
-                raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
+                message = "      User #{from} has no build with hashtag ##{hashtag}"
+                LOGGER.warn message
+                email.read!
+                LOGGER.info "        Marked as read."
               end
             else
-              raise StandardError, "No hashtag found in the subject"
+              message = "      No hashtag found in the subject"
+              LOGGER.warn message
+              email.read!
+              LOGGER.info "        Marked as read."
             end
           else
-            raise StandardError, "No user with email address '#{from}' found"
+            message = "      No user with email address '#{from}' found"
+            LOGGER.warn message
+            email.delete!
+            LOGGER.info "        Deleted."
           end
         end
-        LOGGER.info "  Done."
+        LOGGER.info "    Done."
       end
       
       
