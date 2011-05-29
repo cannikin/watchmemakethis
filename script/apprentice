@@ -1,8 +1,15 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/apprentice'
+require 'rubygems'
+require 'daemons'
 
-while true do
-  WatchMeMakeThis::Apprentice.run
-  sleep 10
-end
+Daemons.run('lib/apprentice.rb', :dir_mode => :normal, :dir => 'tmp/pids', :monitor => true)
+
+# require_relative '../lib/apprentice'
+
+# Daemons.run_proc('apprentice', :dir => 'tmp/pids', :dir_mode => :normal, :monitor => true) do
+#   loop do
+#     WatchMeMakeThis::Apprentice.run
+#     sleep 10
+#   end
+# end

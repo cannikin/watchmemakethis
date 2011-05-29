@@ -96,3 +96,8 @@ module WatchMeMakeThis
     
   end
 end
+
+loop do
+  WatchMeMakeThis::Apprentice.run
+  sleep 10
+end
