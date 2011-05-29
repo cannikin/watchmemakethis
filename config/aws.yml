@@ -1,0 +1,10 @@
+development:
+  access_key_id: AKIAJVO23UDSUSXGO75Q
+  secret_access_key: 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
+  s3:
+    bucket_name: dev.watchmemakethis.com
+    url: https://s3.amazonaws.com/dev.watchmemakethis.com
+    cdn: https://d33hnx0c6n9niy.cloudfront.net
+  ses:
+    noreply: no-reply@watchmemake.com
+    

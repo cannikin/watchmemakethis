@@ -1,0 +1,10 @@
+development:
+  access_key_id: ABCD1234
+  secret_access_key: 1234abcd
+  s3:
+    bucket_name: bucketname
+    url: http://bucketname.s3.amazonaws.com
+    object_prefix: 
+  sns:
+    noreply: no-reply@example.com
+    

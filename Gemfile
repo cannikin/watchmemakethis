@@ -22,10 +22,11 @@ gem 'shoulda'
 gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
-gem "aws-ses", :require => 'aws/ses'
+gem "aws-ses", :require => 'aws/ses', :git => 'git@github.com:cannikin/aws-ses.git'
 gem 'twimage'
 gem 'capistrano'
 gem 'daemons'
+gem 'gmail'
 # gem 'meta_where'
 
 group :test do

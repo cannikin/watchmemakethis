@@ -21,7 +21,7 @@ class Image < ActiveRecord::Base
   
   # the full URL
   def url(size=:small)
-    S3_CONFIG[:cdn] + '/' + self.full_path_prefix + '/' + META[size][:prefix] + self.filename
+    AWS_CONFIG[:s3][:cdn] + '/' + self.full_path_prefix + '/' + META[size][:prefix] + self.filename
   end
   
   
@@ -66,7 +66,7 @@ class Image < ActiveRecord::Base
     puts "Uploading filename..."
     
     s3_path = File.join(self.full_path_prefix, filename)
-    AWS::S3::S3Object.store(s3_path, tempfile.open, S3_CONFIG[:bucket_name], :access => :public_read)   # reopen the tempfile and write directly to S3
+    AWS::S3::S3Object.store(s3_path, tempfile.open, AWS_CONFIG[:s3][:bucket_name], :access => :public_read)   # reopen the tempfile and write directly to S3
     
     puts "** Uploaded image to S3: #{s3_path}"
   ensure

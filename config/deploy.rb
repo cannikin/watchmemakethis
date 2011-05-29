@@ -45,7 +45,7 @@ namespace :deploy do
   desc 'Symlinks shared directores to release path'
   task :symlink_shared_dirs, :roles => :app do
     symlink_database_yml
-    symlink_amazon_s3_yml
+    symlink_aws_yml
   end
   
   desc 'Create symlink to database.yml in shared directory'
@@ -53,9 +53,9 @@ namespace :deploy do
     run "ln -nsf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
   
-  desc 'Create symlink to amazon_s3.yml in shared directory'
-  task :symlink_amazon_s3_yml, :roles => :app do
-    run "ln -nsf #{shared_path}/config/amazon_s3.yml #{release_path}/config/amazon_s3.yml"
+  desc 'Create symlink to aws.yml in shared directory'
+  task :symlink_aws_yml, :roles => :app do
+    run "ln -nsf #{shared_path}/config/aws.yml #{release_path}/config/aws.yml"
   end
   
   desc "Precompile assets"
@@ -128,7 +128,7 @@ namespace :admin do
   end
 end
 
-# symlink database and amazon_s3 files after a deploy
+# symlink database and aws files after a deploy
 after 'deploy:setup', 'deploy:config_setup'
 after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 
