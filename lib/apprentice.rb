@@ -7,8 +7,8 @@
 # the second is the number of seconds to wait between API calls
 
 if ARGV.length == 0
-  puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
-  exit 0
+ puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
+ exit 0
 end
 
 ENV['RAILS_ENV'] = ARGV[0] || 'development'
@@ -19,16 +19,19 @@ module WatchMeMakeThis
   module Apprentice
     
     LOGGER = Logger.new(Rails.root.join('log','apprentice.log'))
-    LOGGER.info "Apprentice starting at #{Time.zone.now}..."
+    HASHTAG_REGEX = /#([\w-]+)/
+          
+    LOGGER.info "Apprentice starting at #{Time.zone.now}."
     
     class Twitter
       
       URL_REGEX = /http.*?( |$)/
-      HASHTAG_REGEX = /#([\w-]+)/
       SEARCH_URL_PREFIX = 'http://search.twitter.com/search.json'
       USER_AGENT = 'WatchMeMake.com Twitter Search'
       
       def self.run
+        
+        LOGGER.info "  Twitter search starting at #{Time.zone.now}"
         
         next_search_url = System.first.next_twitter_call
       
@@ -44,11 +47,11 @@ module WatchMeMakeThis
             { :id => id, :from => result['from_user'], :url => url, :hashtag => hashtag, :description => description }
           end
       
-          LOGGER.info "  #{tweets.size} new tweets found, page #{data['page']}"
+          LOGGER.info "    #{tweets.size} new tweets found, page #{data['page']}"
 
           if tweets.any?
             tweets.each do |tweet|
-              LOGGER.info "    #{tweet.inspect}"
+              LOGGER.info "      #{tweet.inspect}"
               if validate(tweet)
                 begin
                   image = Twimage.get(tweet[:url])
@@ -65,10 +68,10 @@ module WatchMeMakeThis
                     raise StandardError, "No user with twitter username '#{tweet[:from]}' found"
                   end
                 rescue => e
-                  LOGGER.error %Q{      #{e.message}}
+                  LOGGER.error %Q{        #{e.message}}
                 end
               else
-                LOGGER.info "      Invalid tweet, skipping"
+                LOGGER.info "        Invalid tweet, skipping"
               end
             end
           end
@@ -81,16 +84,16 @@ module WatchMeMakeThis
         # finally, update the system with the next API call
         System.first.update_attributes :next_twitter_call => SEARCH_URL_PREFIX + data['refresh_url']
       
-        LOGGER.info "  Done."
+        LOGGER.info "    Done."
       end
     
       # validate that a tweet has all the required info
       def self.validate(tweet)
         if tweet[:url].nil?
-          LOGGER.info "      URL not found."
+          LOGGER.info "        URL not found."
           return false
         elsif tweet[:hashtag].nil?
-          LOGGER.info "      Hashtag not found."
+          LOGGER.info "        Hashtag not found."
           return false
         end
         return true
@@ -104,26 +107,33 @@ module WatchMeMakeThis
       
       def self.run
         
-        LOGGER.info "  #{@@gmail.inbox.find(:unread).count} new emails..."
+        LOGGER.info "  Email search starting at #{Time.zone.now}..."
+        LOGGER.info "    #{@@gmail.inbox.find(:unread).count} new emails..."
         
         emails = @@gmail.inbox.find(:unread)
         emails.each do |email|
           from = email.from.first.mailbox + '@' + email.from.first.host
           if User.find_by_email(from)
-            hashtag = email.subject.gsub('#','')
-            if hashtag.present? and build = Build.find_by_hashtag(hashtag)
-              description = email.text_part.body.to_s.strip
-              if email.attachments.any?
-                email.attachments.each do |attachment|
-                  image = TempImage.new(attachment.body, attachment.content_type.split('/').last)
-                  Image.create!(:build_id => build.id, :file => image, :description => description)
-                  image.tempfile.unlink
+            hashtag_match = email.subject.match(HASHTAG_REGEX)
+            hashtag = hashtag_match[1] if hashtag_match
+            if hashtag.present? 
+              if build = Build.find_by_hashtag(hashtag)
+                subject_description = email.subject.gsub("##{hashtag}",'').strip
+                description = subject_description.present? ? subject_description : description = email.text_part.body.to_s.strip
+                if email.attachments.any?
+                  email.attachments.each do |attachment|
+                    image = TempImage.new(attachment.body, attachment.content_type.split('/').last)
+                    Image.create!(:build_id => build.id, :file => image, :description => description)
+                    image.tempfile.unlink
+                  end
+                else
+                  raise StandardError, 'No images were attached to this email'
                 end
               else
-                raise StandardError, 'No images were attached to this email'
+                raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
               end
             else
-              raise StandardError, "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
+              raise StandardError, "No hashtag found in the subject"
             end
           else
             raise StandardError, "No user with email address '#{from}' found"
@@ -149,5 +159,6 @@ end
 loop do
   WatchMeMakeThis::Apprentice::Twitter.run
   WatchMeMakeThis::Apprentice::Email.run
+  #sleep 10
   sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
 end

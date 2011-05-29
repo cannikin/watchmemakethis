@@ -118,6 +118,24 @@ namespace :web do
   end
 end
 
+namespace :apprentice do
+  
+  desc "Start apprentice"
+  task :start, :roles => :app do
+    run "cd #{current_path} && bundle exec script/apprentice start -- #{rails_env} #{ENV['INTERVAL'] || 60}"
+  end
+  
+  desc "Stop apprentice"
+  task :stop, :roles => :app do
+    run "cd #{current_path} && bundle exec script/apprentice stop"
+  end
+  
+  desc "Stop apprentice"
+  task :restart, :roles => :app do
+    run "cd #{current_path} && bundle exec script/apprentice restart"
+  end
+end
+
 
 namespace :admin do
   desc <<-DESC
