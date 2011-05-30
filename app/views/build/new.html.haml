@@ -1,26 +1,7 @@
-= form_for @new_build, :url => create_build_path do |form| 
-  = render :partial => 'shared/form_errors', :locals => { :object => @new_build }
-  
-  = form.label :name, '<span class="icon">W</span> Build Name'.html_safe, :id => 'build_name_label'
-  = form.text_field :name
-  %span.example Something like <em>Bedroom Nightstand</em> or <em>John Doe's Entertainment Center</em>
-  = form.label :path, '<span class="icon">j</span> Build URL'.html_safe
-  
-  .inline
-    %span http://watchmemakethis.com/#{@site.path}/
-    = form.text_field :path
-  %span.example A unique URL that points to this build. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
-  
-  = form.label :hashtag, '<span class="icon hashtag">B</span> Twitter Hashtag'.html_safe
-  .inline.hashtag  
-    %span #
-    = form.text_field :hashtag
-  
-  %span.example 
-    If you are going to use Twitter to send images to this build, use this hashtag. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
-    = link_to 'How does this work?', '#'
-  
-  = form.submit 'Create this Build', :class => 'button blue large'
+= render :partial => 'form', :locals => { :build => @new_build, 
+                                          :submit_path => create_build_path, 
+                                          :button_label => 'Create Build!',
+                                          :show_delete => false }
 
 = content_for :body_end do
   :javascript

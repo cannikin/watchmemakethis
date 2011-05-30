@@ -1,4 +1,7 @@
-%h2.build_title= link_to @build.name, build_path(@site.path, @build.path)
+%h2.build_title
+  = link_to @build.name, build_path(@site.path, @build.path)
+  - if logged_in?
+    = link_to 'Edit', edit_build_path, :class => 'edit_build'
 
 - if logged_in? and current_user.is_an_owner?
   #new_image

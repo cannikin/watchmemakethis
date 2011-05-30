@@ -1,7 +1,8 @@
 class Image < ActiveRecord::Base
   
   belongs_to :build, :touch => true
-
+  belongs_to :upload_method
+  
   before_create :put
   
   # for holding a file that's about to be uploaded (this isn't actually saved to the DB)

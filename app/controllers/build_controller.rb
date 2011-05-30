@@ -47,10 +47,25 @@ class BuildController < ApplicationController
   end
   
   
+  def edit
+    @edit_build = @build
+  end
+  
+  
+  def update
+    @edit_build = @build
+    if @edit_build.update_attributes(params[:build])
+      redirect_to build_path(@edit_build.site.path, @edit_build.path)
+    else
+      render :edit
+    end
+  end
+  
+  
   # upload an image to this build
   def upload
     file = params[:file]
-    image = Image.create(:file => file, :build_id => @build.id)
+    image = Image.create(:file => file, :build_id => @build.id, :upload_method => UploadMethod::DIRECT)
     render :json => image.attributes.merge(additional_image_attributes(image))
     #render :partial => 'image', :locals => { :image => image, :hide => true }
   end
@@ -64,7 +79,12 @@ class BuildController < ApplicationController
   
   # remove a build and all associated images
   def destroy
-    
+    if current_user.builds.find(@build.id)
+      @build.destroy
+      redirect_to site_path(@site.path)
+    else
+      render 'public/404.html', :status => :not_found
+    end
   end
   
   

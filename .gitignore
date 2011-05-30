@@ -2,7 +2,7 @@
 .rvmrc
 db/*.sqlite3
 config/database.yml
-config/amazon_s3.yml
+config/aws.yml
 .DS_Store
 log/*.log
 tmp/

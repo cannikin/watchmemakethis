@@ -4,7 +4,9 @@
       $header_background: #{style.header_background}
       $header_text: #{style.header_text_color}
       $body_background: #{style.body_background}
+      $body_background_light: lighten($body_background, 5%)
       $body_text: #{style.body_text_color}
+      $body_text_light: transparentize($body_text, 0.5)
       $image_border: #{style.image_border}
       $image_border_color: #{style.image_border.split(' ').last}
     
@@ -23,14 +25,17 @@
         & > li:hover
           background-color: transparentize($body_text, 0.95)
         .stats
-          color: transparentize($body_text, 0.5)
+          color: $body_text_light
         p.none
-          color: transparentize($body_text, 0.5)
-          border: 1px dashed transparentize($body_text, 0.5)
+          color: $body_text_light
+          border: 1px dashed $body_text_light
           
       .intro
-        background-color: lighten($body_background, 5%)
-  
+        background-color: $body_background_light
+      
+      .edit_build
+        background-color: $body_background_light
+        
       #build_images 
         .none
           border: 1px dashed $body_text
@@ -38,7 +43,7 @@
           img
             border: $image_border !important
           .added
-            color: transparentize($body_text, 0.5)
+            color: $body_text_light
           form
             input
               background-color: $body_text
@@ -47,18 +52,18 @@
       #new_image table.files td canvas
         border: 2px solid $image_border_color
       
-      #new_build
-        background-color: lighten($body_background, 5%)
+      form#new_build, form.edit_build
+        background-color: $body_background_light
         border: 1px solid $body_text
         span.example
-          color: transparentize($body_text, 0.5)
+          color: $body_text_light
           
       form.edit_user
         .preview
           span.title
-            color: transparentize($body_text, 0.5)
+            color: $body_text_light
         span.example
-          color: transparentize($body_text, 0.5)
+          color: $body_text_light
           
       footer
         background-color: $body_background

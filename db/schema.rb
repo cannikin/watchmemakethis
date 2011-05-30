@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110526022323) do
+ActiveRecord::Schema.define(:version => 20110530022906) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -58,7 +58,10 @@ ActiveRecord::Schema.define(:version => 20110526022323) do
     t.integer  "height"
     t.integer  "width"
     t.string   "tweet_id"
+    t.integer  "upload_method_id"
   end
+
+  add_index "images", ["upload_method_id"], :name => "index_images_on_upload_method_id"
 
   create_table "permissions", :force => true do |t|
     t.string   "name"
@@ -110,6 +113,13 @@ ActiveRecord::Schema.define(:version => 20110526022323) do
     t.integer "twitpic_count",     :default => 0
     t.integer "yfrog_count",       :default => 0
     t.integer "instagram_count",   :default => 0
+  end
+
+  create_table "upload_methods", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

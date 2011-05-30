@@ -59,7 +59,7 @@ module WatchMeMakeThis
                   # find the appropriate user/build to assign this image to
                   if user = User.find_by_twitter(tweet[:from])
                     if build = user.builds.find_by_hashtag(tweet[:hashtag])
-                      Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id], :description => tweet[:description])
+                      Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id], :description => tweet[:description], :upload_method => UploadMethod::TWITTER)
                       image.tempfile.unlink
                     else
                       LOGGER.warn "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
@@ -124,7 +124,7 @@ module WatchMeMakeThis
                   LOGGER.info "      #{email.attachments.count} new images attached"
                   email.attachments.each do |attachment|
                     image = TempImage.new(attachment.body, attachment.content_type.split('/').last)
-                    Image.create!(:build_id => build.id, :file => image, :description => description)
+                    Image.create!(:build_id => build.id, :file => image, :description => description, :upload_method => UploadMethod::EMAIL)
                     image.tempfile.unlink
                   end
                 else

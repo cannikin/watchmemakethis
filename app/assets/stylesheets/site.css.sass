@@ -23,10 +23,14 @@ body.site
         font-family: $font-family
 
   // New build form
-  form#new_build
+  form#new_build, form.edit_build
     margin-top: 60px
     #build_name_label
       margin-top: 0
+    a.delete
+      display: block
+      float: right
+      margin: 34px 0 0
       
   // Create A New Build button
   #create_build
@@ -122,12 +126,18 @@ body.site
   
   // Title of the build
   h2.build_title
-    position: absolute
     font-size: 160%
     font-size: 400
     width: 30%
     a
       text-decoration: none
+    a.edit_build
+      text-decoration: none
+      padding: 2px 8px
+      font-size: 50%
+      -webkit-border-radius: 4px
+      &:hover
+        text-decoration: underline
   
   // Grid of images in the build
   #build_images
