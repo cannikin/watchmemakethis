@@ -1,7 +1,8 @@
 class MarketingController < ApplicationController
   
+  caches_page :index
+  
   def index
-    
   end
 
   def help

@@ -27,7 +27,7 @@
     = render :partial => 'site/header', :locals => { :site => @site }
     = render 'shared/flash', :flash => flash
     
-    - if logged_in? and current_user == @site.owner
+    - if owns_site?
       = link_to '<span class="icon">P</span> <span class="label">Create a New Build</span>'.html_safe, new_build_path(params[:site_path]), :id => 'create_build'
     
     = yield

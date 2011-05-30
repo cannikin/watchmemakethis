@@ -10,13 +10,13 @@
                         :title => "#{image.description}", 
                         :rel => "build_group",
                         :class => 'thumb')
-  %p.description(style="#{'cursor:pointer' if logged_in? and current_user.is_an_owner?}")
-    - if logged_in? and current_user.is_an_owner? and image.description.blank?
+  %p.description(style="#{'cursor:pointer' if owns_site?}")
+    - if owns_site? and image.description.blank?
       %span.placeholder= 'Click to add a description'
     - else
       = image.description.present? ? image.description[0..70] : ''
       = "... #{link_to 'more', '#', :class => 'more'}".html_safe if image.description and image.description.length > 70
-  - if logged_in? and current_user.is_an_owner?
+  - if owns_site?
     - action = blank ? '#' : image_path(@site.path, @build.path, image.id)
     = form_tag(action, :method => :put, :remote => true, :style => 'display:none') do
       = text_area_tag 'image[description]', image.description
@@ -29,7 +29,7 @@
     - else
       %time(datetime="#{image.created_at}")= time_ago_in_words(image.created_at)
     ago
-  - if logged_in?
+  - if owns_site?
     %ul.actions
       - if blank
         - link = '#'

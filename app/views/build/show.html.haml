@@ -1,9 +1,9 @@
 %h2.build_title
   = link_to @build.name, build_path(@site.path, @build.path)
-  - if logged_in?
+  - if owns_site?
     = link_to 'Edit', edit_build_path, :class => 'edit_build'
 
-- if logged_in? and current_user.is_an_owner?
+- if owns_site?
   #new_image
     = render :partial => 'shared/upload'
 
@@ -13,7 +13,7 @@
     - @images.each do |image| 
       = render :partial => 'image', :locals => { :image => image }
   - else
-    - if logged_in? and current_user.is_an_owner?
+    - if owns_site?
       = render 'new_build_intro'
     - else
       .none No images for this build yet, check back soon!
@@ -24,13 +24,13 @@
     $(document).ready(function() {
       WatchMeMakeThis.fancyboxify();
     });
-  - if logged_in? and current_user.is_an_owner?
+  - if owns_site?
     :javascript
       $(document).ready(function() {
         WatchMeMakeThis.setupImageDescriptionEditing();
         WatchMeMakeThis.makeSortable();
       });
-  - if !logged_in? or !current_user.is_an_owner?
+  - unless owns_site?
     :javascript
       WatchMeMakeThis.checkForNewImages('#{request.path}');
       

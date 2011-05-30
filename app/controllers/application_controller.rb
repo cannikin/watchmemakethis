@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
   protect_from_forgery
-  helper_method :logged_in?, :current_user, :today
+  helper_method :logged_in?, :current_user, :today, :owns_site?
   
   
   # create @site and @build instance variables based on URL paths
@@ -86,6 +86,12 @@ class ApplicationController < ActionController::Base
     Time.zone.now.to_date
   end
   private :today
+  
+  
+  # determines whether a user is viewing their own site
+  def owns_site?
+    logged_in? and @site and current_user == @site.owner
+  end
   
   
   # adds the role_missing class methods dynamically so you can do things like `before_filter :admin_required`

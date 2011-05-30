@@ -90,7 +90,7 @@ class BuildController < ApplicationController
   
   # update an image's data
   def update_image
-    if logged_in?
+    if owns_site?
       if current_user.images.find(params[:id])
         image = Image.find(params[:id])
         image.update_attributes(params[:image])
