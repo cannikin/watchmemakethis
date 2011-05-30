@@ -3,7 +3,7 @@
   %head
     %title
       = @page_title + " @ " if @page_title
-      Watch Me Make This
+      Watch Me Make
     %meta(name="description" content="Give your clients a peek into the creative process")
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'http://use.typekit.com/vsk7kal.js'
@@ -25,7 +25,7 @@
   %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'marketing'}
     %header
       .container
-        %h1= link_to 'Watch Me Make This', '/'
+        %h1= link_to 'Watch Me Make', '/'
         /
           %nav
             %ul
@@ -36,7 +36,7 @@
     
     %footer
       Copyright &copy;#{Time.now.year}
-      = link_to 'Watch Me Make This', 'http://watchmemakethis.com'
+      = link_to 'Watch Me Make', 'http://watchmemake.com'
     
     = javascript_include_tag 'application'
     = yield :body_end

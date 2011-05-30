@@ -27,6 +27,7 @@ gem 'twimage'
 gem 'capistrano'
 gem 'daemons'
 gem 'gmail'
+gem 'hoptoad_notifier'
 # gem 'meta_where'
 
 group :test do

@@ -4,6 +4,7 @@ $background_login: #b15e3b
 
 body.marketing
   padding: 0
+  overflow: auto
   
   strong
     font-weight: 600
@@ -48,8 +49,8 @@ body.marketing
     overflow: hidden
     border-bottom: 1px solid #333333
     .container
-      background: transparent url('<%= asset_path 'binoculars.png' %>') 0px 0 no-repeat
-      padding: 0 0 40px 80px
+      background: transparent url('<%= asset_path 'binoculars.png' %>') 0 20px no-repeat
+      padding: 0 0 30px
       overflow: hidden
     .text
       width: 500px
@@ -64,12 +65,16 @@ body.marketing
       letter-spacing: -0.05em
       text-align: left
     p
-      margin: 40px 0 20px
+      margin: 30px 0 20px 40px
       text-align: left
-      color: #b3cce6
+      color: transparentize(#ffffff, 0.5)
       font-size: 110%
       font-weight: 300
       line-height: 1.3
+      strong
+        color: transparentize(#ffffff, 0.25)
+    a.button
+      margin: 0
       
   section#more_info
     background-color: #dddddd

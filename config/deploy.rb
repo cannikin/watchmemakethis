@@ -132,7 +132,7 @@ namespace :apprentice do
   
   desc "Stop apprentice"
   task :restart, :roles => :app do
-    run "cd #{current_path} && bundle exec script/apprentice restart"
+    run "cd #{current_path} && bundle exec script/apprentice restart -- #{rails_env} #{ENV['INTERVAL'] || 60}"
   end
 end
 
@@ -151,7 +151,11 @@ after 'deploy:setup', 'deploy:config_setup'
 after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 
 # cleanup old releases (keep the last 5)
+after 'deploy', 'apprentice:restart'
 after 'deploy', 'deploy:cleanup'
 after 'deploy:migrations', 'deploy:cleanup'
 
 after 'deploy:update_code', 'deploy:create_assets'
+
+        require './config/boot'
+        require 'hoptoad_notifier/capistrano'
