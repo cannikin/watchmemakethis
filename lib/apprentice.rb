@@ -6,10 +6,10 @@
 # Where the first argument after the -- is the environment and 
 # the second is the number of seconds to wait between API calls
 
-if ARGV.length == 0
- puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
- exit 0
-end
+# if ARGV.length == 0
+#  puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
+#  exit 0
+# end
 
 ENV['RAILS_ENV'] = ARGV[0] || 'development'
 require File.expand_path('../../config/environment',  __FILE__)

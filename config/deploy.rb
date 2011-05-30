@@ -150,12 +150,14 @@ end
 after 'deploy:setup', 'deploy:config_setup'
 after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 
-# cleanup old releases (keep the last 5)
 after 'deploy', 'apprentice:restart'
+after 'deploy:migrations', 'apprentice:restart'
+
+# cleanup old releases (keep the last 5)
 after 'deploy', 'deploy:cleanup'
 after 'deploy:migrations', 'deploy:cleanup'
 
 after 'deploy:update_code', 'deploy:create_assets'
 
-        require './config/boot'
-        require 'hoptoad_notifier/capistrano'
+require './config/boot'
+require 'hoptoad_notifier/capistrano'
