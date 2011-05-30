@@ -5,6 +5,7 @@ $background_login: #b15e3b
 body.marketing
   padding: 0
   overflow: auto
+  background-color: #efefef
   
   strong
     font-weight: 600
@@ -44,12 +45,11 @@ body.marketing
             text-decoration: none
   
   section#intro
-    padding: 20px 0 0
     background-color: #336699
     overflow: hidden
     border-bottom: 1px solid #333333
     .container
-      background: transparent url('<%= asset_path 'binoculars.png' %>') 0 20px no-repeat
+      background: transparent url('<%= asset_path 'home/binoculars.png' %>') 0 20px no-repeat
       padding: 0 0 30px
       overflow: hidden
     .text
@@ -77,29 +77,87 @@ body.marketing
       margin: 0
       
   section#more_info
-    background-color: #dddddd
     overflow: hidden
-    padding: 30px 0
     border-top: 1px solid #ffffff
     color: #444444
-    strong
-      color: #000000
-    section
-      width: 30%
-      margin: 0 40px 0 0
-      float: left
-      &:last-child
-        margin: 0
+    .container
+      width: 920px
+      margin: 0 auto
+      padding: 30px
+      overflow: hidden
+      background-color: #ffffff
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      strong
+        color: #000000
+      section
+        width: 30%
+        margin: 0 40px 0 0
+        float: left
+        &:last-child
+          margin: 0
+        h3
+          font-size: 160%
+          font-weight: 600
+          margin: 0 0 10px
+          color: #469c34
+          text-shadow: 0 1px #ffffff
+        p
+          line-height: 1.4
+          font-size: 120%
+          
+  section#screen
+    .container
+      background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
+      width: 950px
+      margin: 0 auto
+      padding: 30px 0 30px 30px
+      overflow: hidden
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      .screen
+        float: right
+        width: 480px
+        height: 492px
+        background: transparent url('<%= asset_path 'home/screen.jpg' %>') top center no-repeat
       h3
-        font-size: 160%
-        font-weight: 600
-        margin: 0 0 10px
-        color: #469c34
-        text-shadow: 0 1px #ffffff
-      p
-        line-height: 1.4
-        font-size: 120%
-        
+        color: #444444
+        font-family: 'Helvetica Neue',HelveticaNeue,sans-serif
+        font-size: 200%
+        letter-spacing: -0.05em
+        float: left
+        width: 430px
+        margin: 0 0 30px
+        font-weight: 700
+        line-height: 1.1
+      ul
+        float: left
+        overflow: hidden
+        width: 455px
+        clear: left
+        margin: 0 0 20px -10px
+        li
+          color: #333333
+          padding: 12px 0 40px 115px
+          font-weight: 300
+          strong
+            color: #000000
+          a
+            display: block
+            font-weight: 600
+            margin: 8px 0 0
+          &#twitter
+            background: transparent url('<%= asset_path 'home/twitter.png' %>') top left no-repeat
+          &#email
+            background: transparent url('<%= asset_path 'home/email.png' %>') top left no-repeat
+          &#upload
+            background: transparent url('<%= asset_path 'home/photos.png' %>') top left no-repeat
+      a.button
+        display: block
+        clear: left
+        margin: 40px auto 0
+        width: 160px
+       
   footer
     position: relative
     margin: 80px 0 0
