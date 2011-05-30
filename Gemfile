@@ -28,6 +28,7 @@ gem 'capistrano'
 gem 'daemons'
 gem 'gmail'
 gem 'hoptoad_notifier'
+gem 'newrelic_rpm'
 # gem 'meta_where'
 
 group :test do
