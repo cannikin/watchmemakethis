@@ -6,10 +6,10 @@
 # Where the first argument after the -- is the environment and 
 # the second is the number of seconds to wait between API calls
 
-if ARGV.length == 0
- puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
- exit 0
-end
+# if ARGV.length == 0
+#  puts 'Usage: script/apprentice start -- [environment] [seconds_interval]'
+#  exit 0
+# end
 
 ENV['RAILS_ENV'] = ARGV[0] || 'development'
 require File.expand_path('../../config/environment',  __FILE__)
@@ -169,8 +169,8 @@ module WatchMeMakeThis
 end
 
 loop do
-  WatchMeMakeThis::Apprentice::Twitter.run
+  #WatchMeMakeThis::Apprentice::Twitter.run
   WatchMeMakeThis::Apprentice::Email.run
-  #sleep 10
-  sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
+  sleep 10
+  #sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
 end

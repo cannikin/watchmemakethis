@@ -32,8 +32,8 @@ class Image < ActiveRecord::Base
       META.each do |size,options|
         tempfile = Tempfile.new(['watchmemake','.jpg'])
         tempfile << File.read(self.file.tempfile)
+        modify(tempfile, options)
         self.width, self.height = get_size(tempfile) if options[:save_dimensions]
-        resize(tempfile, options) if options[:size]
         upload(tempfile, options[:prefix]+remote_filename)
       end
       self.filename = remote_filename
@@ -45,10 +45,12 @@ class Image < ActiveRecord::Base
   
   # Creates and uploads a single image (the model should know everything it needs to about an image, including how to save itself wherever)
   # Returns the name of the file it just uploaded (or throws an error if something goes wrong)
-  def resize(tempfile, options)
-    Rails.logger.debug "  Resizing #{options.inspect}"
+  def modify(tempfile, options)
+    Rails.logger.debug "  Modifying #{options.inspect}"
     
-    command = %Q{mogrify -resize "#{options[:size]}" #{tempfile.path}}
+    command = "convert #{tempfile.path} -auto-orient "
+    command += "-resize '#{options[:size]}' " if options[:size]
+    command += tempfile.path
     sub = Subexec.run(command, :timeout => 5)
     
     # any problem resizing this image?
@@ -59,7 +61,7 @@ class Image < ActiveRecord::Base
     
     Rails.logger.debug "  exitstatus: #{sub.exitstatus}, output: #{sub.output}"
   end
-  private :resize
+  private :modify
   
   
   # takes the current instance and upload its attached file to S3
