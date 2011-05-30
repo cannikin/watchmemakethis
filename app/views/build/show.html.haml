@@ -9,8 +9,8 @@
 
 %ul#build_images
   = render :partial => 'image', :locals => { :image => Image.new, :blank => true }
-  - if @build.images.any?
-    - @build.images.each do |image| 
+  - if @images.any?
+    - @images.each do |image| 
       = render :partial => 'image', :locals => { :image => image }
   - else
     - if logged_in? and current_user.is_an_owner?
@@ -28,6 +28,7 @@
     :javascript
       $(document).ready(function() {
         WatchMeMakeThis.setupImageDescriptionEditing();
+        WatchMeMakeThis.makeSortable();
       });
   - if !logged_in? or !current_user.is_an_owner?
     :javascript

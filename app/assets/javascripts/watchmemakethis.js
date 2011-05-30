@@ -3,7 +3,19 @@
 
 var WatchMeMakeThis = {
   fancyboxify:function() {
-    $('#build_images a[rel=build_group]').fancybox({'cyclic':true,'titlePosition':'over','transitionIn':'elastic','transitionOut':'elastic'});
+    $('#build_images a[rel=build_group]').fancybox({
+      'cyclic':true,
+      'titlePosition':'over',
+      'transitionIn':'elastic',
+      'transitionOut':'elastic',
+      onStart:function(items,index,opts) {
+        var obj = $(items[index]).parent()
+        if (obj.hasClass('drag_sort')) {
+          obj.removeClass('drag_sort');
+          return false;
+        }
+      }
+    });
     $('#build_images a.more').unbind('click').click(function() {
       $(this).parents('li.image').find('a.thumb').click();
       return false;
@@ -106,6 +118,14 @@ var WatchMeMakeThis = {
       if (e.which == '13') {
         $(this).parent().submit();
         e.preventDefault();
+      }
+    });
+  },
+  
+  makeSortable:function() {
+    $('#build_images').sortable({
+      start:function(e,ui) {
+        ui.item.addClass('drag_sort');
       }
     });
   }

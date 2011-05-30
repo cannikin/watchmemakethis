@@ -32,15 +32,15 @@ class BuildController < ApplicationController
   # show the images for a build
   def show
     @page_title = @site.name + ':' + @build.name
+    @images = @build.images.includes(:build => :site)
+    
     respond_to do |format|
       format.html
       format.json do
         if params[:since]
-          images = @build.images.where(Image.arel_table[:id].gt(params[:since].to_i))
-        else
-          images = @build.images
+          @images = @build.images.where(Image.arel_table[:id].gt(params[:since].to_i))
         end
-        render :json => images.collect { |image| image.attributes.merge(additional_image_attributes(image)) }
+        render :json => @images.collect { |image| image.attributes.merge(additional_image_attributes(image)) }
       end
     end
 
