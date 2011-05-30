@@ -25,5 +25,6 @@ class SessionController < ApplicationController
     log_out_user
     redirect_to login_url
   end
+  
 
 end

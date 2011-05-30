@@ -3,6 +3,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :logged_in?, :current_user, :today, :owns_site?
   
+  before_filter :login_if_remember
+  
+  
+  def login_if_remember
+    if !logged_in? and cookies[:remember] and user = User.find_by_uuid(cookies[:remember])
+      Rails.logger.debug "Auto-logging in user #{user.email} based on remember cookie"
+      log_in_user(user)
+    end
+  end
+  private :login_if_remember
+  
   
   # create @site and @build instance variables based on URL paths
   def get_site_and_build
@@ -49,13 +60,16 @@ class ApplicationController < ActionController::Base
     
   # log a user in by creating their session
   def log_in_user(user)
+    Rails.logger.debug "Logging in user #{user.email}"
     session[:user_id] = user.id
+    cookies[:remember] = {:value => user.uuid, :expires => 10.years.from_now }
   end
   private :log_in_user
     
     
   # log a user out by removing their session 
   def log_out_user
+    Rails.logger.debug "Logging out user #{current_user.email}"
     reset_session
     cookies.delete :remember
   end
