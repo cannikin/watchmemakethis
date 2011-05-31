@@ -1,6 +1,7 @@
 $background_main: #336699
 $background_signup: #469c34
 $background_login: #b15e3b
+$background_help: #ab3942
 
 body.marketing
   padding: 0
@@ -162,6 +163,45 @@ body.marketing
     position: relative
     margin: 80px 0 0
         
+        
+// help pages
+.container.help
+  p.hello
+    font-size: 150%
+    margin: 20px 0
+    line-height: 1.4
+  h3
+    font-size: 150%
+    font-weight: 600
+    color: #666666
+    margin: 0 0 20px
+  ul
+    font-size: 120%
+    margin: 0 20px 40px
+    padding: 0 20px
+    line-height: 1.5
+    color: $background_help
+    li
+      list-style-type: disc
+  dl
+    dt
+      font-size: 130%
+      color: $background_help
+      margin: 0
+    dd
+      font-size: 110%
+      line-height: 1.4
+      margin: 0 0 40px
+      p
+        margin: 1em 0
+        img
+          -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
+      ol
+        margin: 0 20px
+        padding: 0 20px
+        li
+          list-style-type: decimal
+      
 
 body#signup-new, body#signup-create
   header, section#intro
@@ -179,3 +219,12 @@ body#session-new, body#session-create
     h1
       background-color: darken($background_login, 10%)
     
+body#marketing-help
+  header, section#intro
+    background-color: $background_help
+    .container
+      background-image: none
+    h1
+      background-color: darken($background_help, 10%)
+  a
+    color: $background_help

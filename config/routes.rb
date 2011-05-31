@@ -15,6 +15,7 @@ Watchmemakethis::Application.routes.draw do
   
   controller :marketing do
     get '/'     => :index
+    get '/help' => :help
     get '/echo' => :echo
   end
   
@@ -27,10 +28,6 @@ Watchmemakethis::Application.routes.draw do
   controller :signup do
     get   '/signup'     => :new
     post  '/signup/go'  => :create
-  end
-  
-  controller :help do
-    get   '/help'       => :index
   end
   
   controller :site_admin do
