@@ -150,8 +150,8 @@ end
 after 'deploy:setup', 'deploy:config_setup'
 after 'deploy:update_code', 'deploy:symlink_shared_dirs'
 
-after 'deploy', 'apprentice:restart'
-after 'deploy:migrations', 'apprentice:restart'
+#after 'deploy', 'apprentice:restart'
+#after 'deploy:migrations', 'apprentice:restart'
 
 # cleanup old releases (keep the last 5)
 after 'deploy', 'deploy:cleanup'
