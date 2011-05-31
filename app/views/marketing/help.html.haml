@@ -10,44 +10,45 @@
   %h3 Builds
   %ul
     %li= link_to %q{What is a "build"?}, :anchor => 'whats-a-build'
-    %li= link_to %q{Can I change the order my images are in?}, :anchor => 'whats-a-build'
-    %li= link_to %q{What's a "hashtag" for?}, :anchor => 'whats-a-build'
+    %li= link_to %q{Can I change the order my images are in?}, :anchor => 'change-order'
+    %li= link_to %q{What's a "hashtag" for?}, :anchor => 'whats-a-hashtag'
     
   %h3 Using Twitter
   %ul
-    %li= link_to %q{What is Twitter, anyway?}
-    %li= link_to %q{How do I upload an image with Twitter?}, :anchor => 'whats-a-build'
+    %li= link_to %q{What is Twitter, anyway?}, :anchor => 'what-is-twitter'
+    %li= link_to %q{How do I upload an image with Twitter?}, :anchor => 'upload-via-twitter'
 
   %h3 Using Email
   %ul
-    %li= link_to %q{How do I upload an image through email?}, :anchor => 'whats-a-build'
+    %li= link_to %q{How do I upload an image through email?}, :anchor => 'upload-via-email'
       
   %dl
-    %dt What is a "build"?
+    %dt(id="whats-a-build") What is a "build"?
     %dd 
       %p A build is meant to hold all the images for a single project. Let's say you're building a nightstand for a client. You would create a build called <em>Nightstand</em>, for example. Now all the images you take of the nightstand while you're building it will be posted to this page&mdash;the build. All of your builds are collected together on your site.
+      %p You can have more than one build with the same name but they must each have a unique URL and Hashtag (if you're using hashtags, otherwise just leave this blank).
     
-    %dt Can I change the order my images are in?
+    %dt(id="change-order") Can I change the order my images are in?
     %dd 
-      %p Absolutely&mdash;just drag and drop! Click and hold the mouse button on an image and then move it where you want it to go. When you're happy with the new stop just release the mouse button.
+      %p Absolutely&mdash;just drag and drop! Click and hold the mouse button on an image and then move it where you want it to go. When you're happy with the new position just release the mouse button.
     
-    %dt What's a "hashtag" for?
+    %dt(id="whats-a-hashtag") What's a "hashtag" for?
     %dd 
       %p If you only plan to upload images through the big <em>Click to Upload Images</em> button at the top of your build then you never need to worry about hashtags. If you want to upload images through Twitter or email, though, you'll need to set a hashtag for each build you want to send images to.
       %p A hashtag is simply a short, simple name that starts with a # symbol (sometimes called a hashmark) so that you can easily reference a build. For example, if you were building a necklace for someone you could use the hashtag <em>#necklace</em>. Now, when sending an image via Twitter you would include <em>#necklace</em> somewhere in the body of the tweet and we'll know to associate it to the proper build.
       %p To see a hashtag in context, check out #{link_to 'How do I upload an image with Twitter?'} and #{link_to 'How do I upload an image through email?'} topics below.
       
-    %dt What is Twitter, anyway?
+    %dt(id="what-is-twitter") What is Twitter, anyway?
     %dd
       %p Twitter is a way to let people know what you're doing in a short, simple fashion. Although it started out as away to just let friends know what you were doing, it's evolved into a marketing tool, instant news alert and a lot more. Messages sent from Twitter are called <em>tweets</em>.
       %p Shortly after people started using Twitter someone thought it would be a great idea to be able to send images as well. Although Twitter only lets you send text, you can include links to web pages. So, services came along that let you upload an image to them, then link to it from your tweet. This is how we can get images from Twitter and post them to your site.
       %p For a great introduction and explanation of how sending messages works, check out #{link_to 'http://www.jhische.com/twitter'}
     
-    %dt How do I upload an image with Twitter?
+    %dt(id="upload-via-twitter") How do I upload an image with Twitter?
     %dd
       %p Very carefully.
       
-    %dt How do I upload an image through email?
+    %dt(id="upload-via-email") How do I upload an image through email?
     %dd
       %p With all these new "social" services like Twitter and Facebook, there's something to be said for good old email. And it's super simple to send images to your build from your email address. Here are the steps:
       %ol
