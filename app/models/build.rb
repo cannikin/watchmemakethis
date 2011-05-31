@@ -1,7 +1,7 @@
 class Build < ActiveRecord::Base
   belongs_to  :site
   has_many    :clients
-  has_many    :images, :dependent => :destroy, :order => 'id desc'
+  has_many    :images, :dependent => :destroy
   
   validates :name,        :presence => true
   validates :path,        :presence => true, :length => { :maximum => 32, :minimum => 1 }, :format => { :with => /^[\w-]+$/ }

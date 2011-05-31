@@ -28,6 +28,7 @@ gem 'capistrano'
 gem 'daemons'
 gem 'gmail'
 gem 'hoptoad_notifier'
+gem 'acts_as_list'
 # gem 'newrelic_rpm'
 # gem 'meta_where'
 

@@ -5,6 +5,8 @@ class Image < ActiveRecord::Base
   
   before_create :put
   
+  acts_as_list :scope => :build
+  
   # for holding a file that's about to be uploaded (this isn't actually saved to the DB)
   attr_accessor :file
   

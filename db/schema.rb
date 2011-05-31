@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110530022906) do
+ActiveRecord::Schema.define(:version => 20110531000804) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20110530022906) do
     t.integer  "width"
     t.string   "tweet_id"
     t.integer  "upload_method_id"
+    t.integer  "position"
   end
 
   add_index "images", ["upload_method_id"], :name => "index_images_on_upload_method_id"

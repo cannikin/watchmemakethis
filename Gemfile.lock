@@ -53,6 +53,7 @@ GEM
       activesupport (= 3.1.0.rc1)
     activesupport (3.1.0.rc1)
       multi_json (~> 1.0)
+    acts_as_list (0.1.2)
     ansi (1.2.5)
     arel (2.1.1)
     bcrypt-ruby (2.1.4)
@@ -178,6 +179,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   aws-s3!
   aws-ses!
   capistrano
