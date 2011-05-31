@@ -64,9 +64,13 @@ class BuildController < ApplicationController
   
   # upload an image to this build
   def upload
-    file = params[:file]
-    image = Image.create(:file => file, :build_id => @build.id, :upload_method => UploadMethod::DIRECT)
-    render :json => image.attributes.merge(additional_image_attributes(image))
+    if current_user.builds.find(@build.id)
+      file = params[:file]
+      image = Image.create(:file => file, :build_id => @build.id, :upload_method => UploadMethod::DIRECT)
+      render :json => image.attributes.merge(additional_image_attributes(image))
+    else
+      render :nothing => true, :status => :bad_request
+    end
     #render :partial => 'image', :locals => { :image => image, :hide => true }
   end
   
@@ -79,12 +83,15 @@ class BuildController < ApplicationController
   
   # update the order of the images
   def order
-    images = Image.find(params[:images])
-    images.each do |image|
-      new_position = params[:images].reverse.index(image.id.to_s)
-      image.update_attributes :position => new_position+1
+    if params[:images]
+      current_user.builds.find(@build.id).images.each do |image|
+        new_position = params[:images].reverse.index(image.id.to_s)
+        image.update_attributes :position => new_position+1
+      end
+      render :nothing => true
+    else
+      render :nothing => true, :status => :bad_request
     end
-    render :nothing => true
   end
   
   
