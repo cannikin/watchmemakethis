@@ -23,7 +23,7 @@ class BuildController < ApplicationController
   def create
     @new_build = Build.new(params[:build].merge(:site => @site))
     if @new_build.save
-      redirect_to build_path(site.path, @new_build.path)
+      redirect_to build_path(@site.path, @new_build.path)
     else
       render :new
     end
