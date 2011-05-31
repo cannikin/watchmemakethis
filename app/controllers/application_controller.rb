@@ -108,9 +108,24 @@ class ApplicationController < ActionController::Base
   end
   
   
+  def must_own_site
+    render_404 unless owns_site?
+  end
+  
+  
   # determines whether a user is viewing their own site
   def owns_build?
     owns_site? and current_user.builds.find(@build.id)
+  end
+  
+  
+  def must_own_build
+    render_404 unless owns_build?
+  end
+  
+  
+  def render_404
+    render :file => 'public/404.html', :layout => false, :status => :not_found and return
   end
   
   
