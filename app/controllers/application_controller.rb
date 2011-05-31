@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
   protect_from_forgery
-  helper_method :logged_in?, :current_user, :today, :owns_site?
+  helper_method :logged_in?, :current_user, :today, :owns_site?, :owns_build?
   
   before_filter :login_if_remember
   
@@ -105,6 +105,12 @@ class ApplicationController < ActionController::Base
   # determines whether a user is viewing their own site
   def owns_site?
     logged_in? and @site and current_user == @site.owner
+  end
+  
+  
+  # determines whether a user is viewing their own site
+  def owns_build?
+    owns_site? and current_user.builds.find(@build.id)
   end
   
   
