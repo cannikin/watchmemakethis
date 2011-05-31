@@ -122,10 +122,23 @@ var WatchMeMakeThis = {
     });
   },
   
-  makeSortable:function() {
+  makeSortable:function(url) {
     $('#build_images').sortable({
       start:function(e,ui) {
         ui.item.addClass('drag_sort');
+      }, 
+      stop:function(e,ui) {
+        var images = [];
+        $('#build_images li').each(function() {
+          if ($(this).attr('data-id')) {
+            images.push(parseInt($(this).attr('data-id')));
+          }
+        });
+        $.ajax({
+          url:url,
+          type:'put',
+          data:{'images':images}
+        });
       }
     });
   }

@@ -32,7 +32,7 @@ class BuildController < ApplicationController
   # show the images for a build
   def show
     @page_title = @site.name + ':' + @build.name
-    @images = @build.images.includes(:build => :site).order('position')
+    @images = @build.images.includes(:build => :site).order('position desc')
     
     respond_to do |format|
       format.html
@@ -74,6 +74,17 @@ class BuildController < ApplicationController
   # mark a build as archived (not viewable publicly)
   def archive
     
+  end
+  
+  
+  # update the order of the images
+  def order
+    images = Image.find(params[:images])
+    images.each do |image|
+      new_position = params[:images].reverse.index(image.id.to_s)
+      image.update_attributes :position => new_position+1
+    end
+    render :nothing => true
   end
   
   

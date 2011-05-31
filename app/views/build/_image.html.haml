@@ -1,7 +1,7 @@
 - hide = hide.nil? ? false : hide
 - blank = blank.nil? ? false : blank
 
-%li[image]{:style => "#{'display:none' if hide or blank}"}
+%li[image]{:style => "#{'display:none' if hide or blank}", :'data-position' => image.position, :'data-id' => image.id}
   - if blank
     = link_to(image_tag('blank.gif'), '#', :class => 'thumb')
   - else
