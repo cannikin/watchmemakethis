@@ -54,7 +54,7 @@ class Image < ActiveRecord::Base
     command = "convert #{tempfile.path} -auto-orient "
     command += "-resize '#{options[:size]}' " if options[:size]
     command += tempfile.path
-    sub = Subexec.run(command, :timeout => 5)
+    sub = Subexec.run(command, :timeout => 30)
     
     # any problem resizing this image?
     if sub.exitstatus != 0
