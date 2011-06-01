@@ -1,11 +1,15 @@
 class Notifier < ActionMailer::Base
-  default :from => "rob@watchmemake.com"
-
   
-  def welcome(user)
-    @greeting = "Hi"
-
-    mail :to => "cannikinn@gmail.com"
+  default :from => "rob@watchmemake.com"
+  
+  def welcome(user, site, host)
+    @user = user
+    @site = site
+    @host = host
+    
+    mail  :to => user.email,
+          :from => 'Watch Me Make <noreply@watchmemake.com>',
+          :subject => 'Welcome to Watch Me Make!'
   end
 
 

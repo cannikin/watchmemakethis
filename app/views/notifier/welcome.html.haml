@@ -1,0 +1,16 @@
+%p Thanks for signing up with Watch Me Make!
+%p 
+  Your site is here: 
+  - url = site_url(@site.path, :host => @host)
+  = link_to url, url
+%p 
+  It will be sort of an index for all of your projects and builds. Speaking of which, have you made your first build yet? You can do that here: 
+  - url = new_build_url(:site_path => @site.path, :host => @host)
+  = link_to url, url 
+%p 
+  Don't know what a build is? Check out the help section at 
+  - url = help_url(:host => @host)
+  = link_to url, url
+  for the answer to that and many more questions. Have fun!
+%p Rob Cameron<br>Owner & Woodworker
+%p P.S. If you have any other questions about getting started you can always email me directly: #{mail_to('rob@watchmemake.com')}

@@ -2,11 +2,13 @@ class SessionController < ApplicationController
   
   # /login
   def new
+    @page_title = 'Login'
     redirect_to(site_url(current_user.sites.first.path), :notice => 'You are already logged in!') if logged_in?
   end
 
   # /login/go
   def create
+    @page_title = 'Login'
     if !logged_in?
       if user = User.authenticate(params[:email], params[:password])
         log_in_user(user)
