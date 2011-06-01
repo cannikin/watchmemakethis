@@ -54,7 +54,11 @@ class Image < ActiveRecord::Base
     command = "convert #{tempfile.path} -auto-orient "
     command += "-resize '#{options[:size]}' " if options[:size]
     command += tempfile.path
+    
+    mutex = Mutex.new
+    mutex.lock
     sub = Subexec.run(command, :timeout => 30)
+    mutex.unlock
     
     # any problem resizing this image?
     if sub.exitstatus != 0
