@@ -39,7 +39,7 @@ class BuildController < ApplicationController
       format.html
       format.json do
         if params[:since]
-          @images = @build.images.where(Image.arel_table[:id].gt(params[:since].to_i))
+          @images = @build.images.where(Image.arel_table[:position].gt(params[:since].to_i))
         end
         render :json => @images.collect { |image| image.attributes.merge(additional_image_attributes(image)) }
       end

@@ -47,7 +47,7 @@ var WatchMeMakeThis = {
     // add the new image to the page
     var newImageElement = $("#image_new").clone();
     // update the container
-    newImageElement.attr('id', 'image_'+image.id);
+    newImageElement.attr('id', 'image_'+image.id).attr('data-id', image.id).attr('data-position', image.position);
     // update thumbnail image
     newImageElement.find('img').attr('src', image.url_small);
     // update link surrounding image
@@ -72,9 +72,9 @@ var WatchMeMakeThis = {
   
   checkForNewImages:function(path) {
     setInterval(function() {
-      var latestId = $('#build_images .image')[1] ? $('#build_images .image')[1].id.split('_')[1] : null;
+      var lastPosition = $('#build_images .image[data-position]').first().attr('data-position');
       $.get(path+'.json', 
-            {'since':latestId},
+            {'since':lastPosition},
             function(data) {
               console.info(data);
               if (data.length > 0) {
