@@ -51,19 +51,19 @@ class Image < ActiveRecord::Base
   def modify(tempfile, options)
     Rails.logger.debug "  Modifying #{options.inspect}"
     
-    command = "convert #{tempfile.path} -auto-orient "
+    command = "mogrify #{tempfile.path} -auto-orient "
     command += "-resize '#{options[:size]}' " if options[:size]
     command += tempfile.path
     
-    mutex = Mutex.new
-    mutex.lock
+    #mutex = Mutex.new
+    #mutex.lock
     sub = Subexec.run(command, :timeout => 30)
-    mutex.unlock
+    #mutex.unlock
     
     # any problem resizing this image?
     if sub.exitstatus != 0
       cleanup(tempfile)
-      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed: #{{:status_code => sub.exitstatus, :output => sub.output}.inspect}"
+      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed"
     end
     
     Rails.logger.debug "  exitstatus: #{sub.exitstatus}, output: #{sub.output}"
