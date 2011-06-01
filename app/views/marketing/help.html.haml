@@ -46,7 +46,22 @@
     
     %dt(id="upload-via-twitter") How do I upload an image with Twitter?
     %dd
-      %p Very carefully.
+      %p Twitter itself doesn't allow to upload any images, but there are several third-party sites which do:
+      %ul
+        %li= link_to 'twitpic', 'http://twitpic.com'
+        %li= link_to 'yfrog', 'http://yfrog.com'
+        %li= link_to 'Instagram', 'http://instagr.am'
+      %p These services are linked to your Twitter account so that you can include an image and post a tweet at the same time. The image itself isn't attached to the tweet, but the tweet will include a link <em>to</em> the image.
+      %p If you're going to use these sites from the web browser on your computer you may as well just upload the images directly on your Build page and be done with it. The real benefit to posting with Twitter is when you have a smartphone (like an iPhone or Android-powered phone). There are many Twitter apps for these phones that make it easy to snap a picture and it in a tweet while you're working on your project. Just like if you decide to use #{link_to 'email', :anchor => 'upload-via-email'} to send your images, you'll need to remember a couple of things:
+      %ol
+        %li The first text in your tweet should be <em>@watchmemake</em> so that it's directed to us
+        %li Include the #{link_to 'hashtag', :anchor => 'whats-a-hashtag'} that you set when you created your build, something like <em>#nightstand</em>
+        %li Include the link to your image. All of the image services and phone apps will do this automatically
+        %li Any other text in your tweet will become the description under the image (this is optional)
+      %p Here's an example of a tweet I'm about to send to attach an image to my <em>#dresser</em> build using the <a href="http://itunes.apple.com/us/app/twitter/id333903271?mt=8">official Twitter app</a> for the iPhone on the left, and <a href="http://itunes.apple.com/us/app/twitterrific-for-twitter/id359914600?mt=8">Twitterrific</a> on the right. Note that the Twitter app doesn't show you what the link is going to be until after you send the tweet, Twitterific shows you right away:
+      %p
+        = image_tag 'help/twitter1.jpg'
+        = image_tag 'help/twitter2.jpg'
       
     %dt(id="upload-via-email") How do I upload an image through email?
     %dd
