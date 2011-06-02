@@ -15,7 +15,6 @@ class Image < ActiveRecord::Base
            :large     => { :prefix => 'l_', :size => "1024" },
            :original  => { :prefix => 'o_', :save_dimensions => true } }
   
-  
   # prefix to the path for this image (not including filename)
   def full_path_prefix
     self.build.site.path + '/' + self.build.path
