@@ -11,8 +11,8 @@ class Image < ActiveRecord::Base
   attr_accessor :file
   
   OUTPUT_FORMAT = 'jpg'
-  META = { :small     => { :prefix => 's_', :size => "250x250>"   },
-           :large     => { :prefix => 'l_', :size => "1024x1024>" },
+  META = { :small     => { :prefix => 's_', :size => "250"  },
+           :large     => { :prefix => 'l_', :size => "1024" },
            :original  => { :prefix => 'o_', :save_dimensions => true } }
   
   
@@ -29,13 +29,11 @@ class Image < ActiveRecord::Base
   
   
   def put
-    if self.file
+    if @file
       Rails.logger.debug "New image, saving..."
       remote_filename = UUID.new.generate + '.' + OUTPUT_FORMAT # filename becomes the timestamp to avoid name conflicts
       META.each do |size,options|
-        tempfile = Tempfile.new(['watchmemake','.jpg'])
-        tempfile << File.read(self.file.tempfile)
-        modify(tempfile, options)
+        tempfile = modify(options)
         self.width, self.height = get_size(tempfile) if options[:save_dimensions]
         upload(tempfile, options[:prefix]+remote_filename)
       end
@@ -48,54 +46,39 @@ class Image < ActiveRecord::Base
   
   # Creates and uploads a single image (the model should know everything it needs to about an image, including how to save itself wherever)
   # Returns the name of the file it just uploaded (or throws an error if something goes wrong)
-  def modify(tempfile, options)
-    Rails.logger.debug "  Modifying #{options.inspect}"
+  def modify(options)
+    Rails.logger.debug "    Modifying #{options.inspect}"
     
-    command = "mogrify #{tempfile.path} -auto-orient "
-    command += "-resize '#{options[:size]}' " if options[:size]
-    command += tempfile.path
-    
-    #mutex = Mutex.new
-    #mutex.lock
-    sub = Subexec.run(command, :timeout => 30)
-    #mutex.unlock
-    
-    # any problem resizing this image?
-    if sub.exitstatus != 0
-      cleanup(tempfile)
-      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed"
+    if options[:size]
+      tempfile = Tempfile.new(['watchmemake','.jpg'])
+      ImageScience.with_image(@file.path) { |i| i.thumbnail(options[:size]) { |t| t.save tempfile.path }}
+    else
+      tempfile = @file
     end
     
-    Rails.logger.debug "  exitstatus: #{sub.exitstatus}, output: #{sub.output}"
+    return tempfile
   end
   private :modify
   
   
   # takes the current instance and upload its attached file to S3
   def upload(tempfile, filename)
-    Rails.logger.debug "  Uploading filename..."
-    
+    Rails.logger.debug "    Uploading filename..."
     s3_path = File.join(self.full_path_prefix, filename)
     AWS::S3::S3Object.store(s3_path, tempfile.open, AWS_CONFIG[:s3][:bucket_name], :access => :public_read)   # reopen the tempfile and write directly to S3
-    
-    Rails.logger.debug "    ** Uploaded image to S3: #{s3_path}"
+    Rails.logger.debug "      ** Uploaded image to S3: #{s3_path}"
   ensure
-    tempfile.unlink
+    # tempfile.unlink
   end
   private :upload
   
   
   def get_size(tempfile)
-    command = %Q{identify #{tempfile.path}}
-    sub = Subexec.run(command, :timeout => 5)
-    Rails.logger.debug "  #{command}: #{sub.output}"
-    
-    if sub.exitstatus != 0
-      cleanup(tempfile)
-      raise StandardError, "Command (#{command.inspect.gsub("\\", "")}) failed: #{{:status_code => sub.exitstatus, :output => sub.output}.inspect}"
-    else
-      return sub.output.split(' ')[2].split('x')
+    size = []
+    ImageScience.with_image(tempfile.path) do |image|
+      size = [image.width, image.height]
     end
+    return size
   end
   
   

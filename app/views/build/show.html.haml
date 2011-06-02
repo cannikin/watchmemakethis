@@ -29,7 +29,7 @@
         WatchMeMakeThis.setupImageDescriptionEditing();
         WatchMeMakeThis.makeSortable('#{order_images_path}');
       });
-  - unless owns_site?
+  - unless logged_in?
     :javascript
       WatchMeMakeThis.checkForNewImages('#{request.path}');
       
