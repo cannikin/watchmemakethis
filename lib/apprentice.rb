@@ -123,10 +123,19 @@ module WatchMeMakeThis
                 if email.attachments.any?
                   LOGGER.info "      #{email.attachments.count} new images attached"
                   email.attachments.each do |attachment|
-                    image = TempImage.new(attachment.body, attachment.content_type.split('/').last)
-                    Image.create!(:build_id => build.id, :file => image, :description => description, :upload_method => UploadMethod::EMAIL)
-                    image.tempfile.unlink
+                    tempfile = Tempfile.new(['apprentice',attachment.filename])
+                    File.open(tempfile.path, "w+b") { |f| f.write attachment.body.decoded }
+                    begin
+                      Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
+                    rescue TypeError => e
+                      Logger.error "Error trying to save file: #{e.message}"
+                    rescue RuntimeError => e
+                      Logger.error "Error trying to save file: #{e.message}"
+                    ensure
+                      tempfile.unlink
+                    end
                   end
+                  email.delete!
                 else
                   message = '      No images were attached to this email'
                   LOGGER.warn message
@@ -158,8 +167,11 @@ module WatchMeMakeThis
       class TempImage
         attr_accessor :tempfile
         def initialize(body, type)
-          @tempfile = Tempfile.new(["watchmemake",".#{type}"])
-          @tempfile.write(body.to_s.force_encoding('utf-8'))
+          @tempfile = Tempfile.new(["apprentice",".#{type}"]) do |temp|
+            temp.binmode
+            temp.write body#.to_s.force_encoding('utf-8')
+            temp.close
+          end
         end
       end
       
@@ -169,8 +181,8 @@ module WatchMeMakeThis
 end
 
 loop do
-  WatchMeMakeThis::Apprentice::Twitter.run
+  #WatchMeMakeThis::Apprentice::Twitter.run
   WatchMeMakeThis::Apprentice::Email.run
-  #sleep 10
-  sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
+  sleep 10
+  #sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
 end
