@@ -59,8 +59,13 @@ module WatchMeMakeThis
                   # find the appropriate user/build to assign this image to
                   if user = User.find_by_twitter(tweet[:from])
                     if build = user.builds.find_by_hashtag(tweet[:hashtag])
-                      Image.create!(:build_id => build.id, :file => image, :tweet_id => tweet[:id], :description => tweet[:description], :upload_method => UploadMethod::TWITTER)
-                      image.tempfile.unlink
+                      begin
+                        Image.create!(:build_id => build.id, :file => image.tempfile, :tweet_id => tweet[:id], :description => tweet[:description], :upload_method => UploadMethod::TWITTER)
+                      rescue => e
+                        Logger.error "*** Error trying to save file: #{e.message}"
+                      ensure
+                        image.tempfile.unlink
+                      end
                     else
                       LOGGER.warn "User #{user.email} has no build with hashtag ##{tweet[:hashtag]}"
                     end
@@ -128,7 +133,7 @@ module WatchMeMakeThis
                     begin
                       Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
                     rescue => e
-                      Logger.error "Error trying to save file: #{e.message}"
+                      Logger.error "*** Error trying to save file: #{e.message}"
                     ensure
                       tempfile.unlink
                     end
@@ -159,18 +164,6 @@ module WatchMeMakeThis
           end
         end
         LOGGER.info "    Done."
-      end
-      
-      
-      class TempImage
-        attr_accessor :tempfile
-        def initialize(body, type)
-          @tempfile = Tempfile.new(["apprentice",".#{type}"]) do |temp|
-            temp.binmode
-            temp.write body#.to_s.force_encoding('utf-8')
-            temp.close
-          end
-        end
       end
       
     end
