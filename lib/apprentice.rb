@@ -127,9 +127,7 @@ module WatchMeMakeThis
                     File.open(tempfile.path, "w+b") { |f| f.write attachment.body.decoded }
                     begin
                       Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
-                    rescue TypeError => e
-                      Logger.error "Error trying to save file: #{e.message}"
-                    rescue RuntimeError => e
+                    rescue => e
                       Logger.error "Error trying to save file: #{e.message}"
                     ensure
                       tempfile.unlink
@@ -181,8 +179,8 @@ module WatchMeMakeThis
 end
 
 loop do
-  #WatchMeMakeThis::Apprentice::Twitter.run
+  WatchMeMakeThis::Apprentice::Twitter.run
   WatchMeMakeThis::Apprentice::Email.run
-  sleep 10
-  #sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
+  #sleep 10
+  sleep ARGV[1].to_i > 0 ? ARGV[1].to_i : 60
 end
