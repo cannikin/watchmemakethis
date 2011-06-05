@@ -117,52 +117,47 @@ module WatchMeMakeThis
         
         emails = @@gmail.inbox.find(:unread)
         emails.each do |email|
-          from = email.from.first.mailbox + '@' + email.from.first.host
-          if User.find_by_email(from)
-            hashtag_match = email.subject.match(HASHTAG_REGEX)
-            hashtag = hashtag_match[1] if hashtag_match
-            if hashtag.present? 
-              if build = Build.find_by_hashtag(hashtag)
-                subject_description = email.subject.gsub("##{hashtag}",'').strip
-                description = subject_description.present? ? subject_description : description = email.text_part.body.to_s.strip
-                if email.attachments.any?
-                  LOGGER.info "      #{email.attachments.count} new images attached"
-                  email.attachments.each do |attachment|
-                    tempfile = Tempfile.new(['apprentice',attachment.filename])
-                    File.open(tempfile.path, "w+b") { |f| f.write attachment.body.decoded }
-                    begin
-                      Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
-                    rescue => e
-                      Logger.error "*** Error trying to save file: #{e.message}"
-                    ensure
-                      tempfile.unlink
+          begin
+            from = email.from.first.mailbox + '@' + email.from.first.host
+            if User.find_by_email(from)
+              hashtag_match = email.subject.match(HASHTAG_REGEX)
+              hashtag = hashtag_match[1] if hashtag_match
+              if hashtag.present? 
+                if build = Build.find_by_hashtag(hashtag)
+                  subject_description = email.subject.gsub("##{hashtag}",'').strip
+                  description = subject_description.present? ? subject_description : description = email.text_part.body.to_s.strip
+                  if email.attachments.any?
+                    LOGGER.info "      #{email.attachments.count} new images attached"
+                    email.attachments.each do |attachment|
+                      tempfile = Tempfile.new(['apprentice',attachment.filename])
+                      File.open(tempfile.path, "w+b") { |f| f.write attachment.body.decoded }
+                      begin
+                        Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
+                      rescue => e
+                        Logger.error "*** Error trying to save file: #{e.message}"
+                      ensure
+                        tempfile.unlink
+                      end
                     end
+                    email.delete!
+                  else
+                    LOGGER.warn '      No images were attached to this email'
                   end
-                  email.delete!
                 else
-                  message = '      No images were attached to this email'
-                  LOGGER.warn message
-                  LOGGER.info "        Marked as read."
+                  LOGGER.warn "      User #{from} has no build with hashtag ##{hashtag}"
                 end
               else
-                message = "      User #{from} has no build with hashtag ##{hashtag}"
-                LOGGER.warn message
-                email.read!
-                LOGGER.info "        Marked as read."
+                LOGGER.warn "      No hashtag found in the subject"
               end
             else
-              message = "      No hashtag found in the subject"
-              LOGGER.warn message
-              email.read!
-              LOGGER.info "        Marked as read."
+              LOGGER.warn "      No user with email address '#{from}' found"
             end
-          else
-            message = "      No user with email address '#{from}' found"
-            LOGGER.warn message
+          rescue => e
+            LOGGER.error "      Unexpected error: #{e.message}"
+          ensure
             email.delete!
-            LOGGER.info "        Deleted."
           end
-        end
+        end # looping through emails in inbox
         LOGGER.info "    Done."
       end
       
