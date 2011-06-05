@@ -26,11 +26,10 @@
     %header
       .container
         %h1= link_to 'Watch Me Make', '/'
-        /
-          %nav
-            %ul
-              %li= link_to 'Sign Up', signup_path
-              %li= link_to 'Log In', login_path
+        %nav
+          %ul
+            %li= link_to 'Sign Up', signup_path
+            %li= link_to 'Log In', login_path
             
     = yield
     
