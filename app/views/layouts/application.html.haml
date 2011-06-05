@@ -34,11 +34,10 @@
     = yield
     
     %footer
-      Copyright &copy;#{Time.now.year}
-      = link_to 'Watch Me Make', 'http://watchmemake.com'
+      .container
+        Copyright &copy;#{Time.now.year}
+        = link_to 'Watch Me Make', 'http://watchmemake.com'
     
     = javascript_include_tag 'application'
     = yield :body_end
     
-    = render :partial => 'shared/debug' if Rails.env.development?
-      

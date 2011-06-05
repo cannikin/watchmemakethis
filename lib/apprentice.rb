@@ -119,11 +119,11 @@ module WatchMeMakeThis
         emails.each do |email|
           begin
             from = email.from.first.mailbox + '@' + email.from.first.host
-            if User.find_by_email(from)
+            if user = User.find_by_email(from)
               hashtag_match = email.subject.match(HASHTAG_REGEX)
               hashtag = hashtag_match[1] if hashtag_match
               if hashtag.present? 
-                if build = Build.find_by_hashtag(hashtag)
+                if build = user.builds.find_by_hashtag(hashtag)
                   subject_description = email.subject.gsub("##{hashtag}",'').strip
                   description = subject_description.present? ? subject_description : description = email.text_part.body.to_s.strip
                   if email.attachments.any?
@@ -134,7 +134,7 @@ module WatchMeMakeThis
                       begin
                         Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
                       rescue => e
-                        Logger.error "*** Error trying to save file: #{e.message}"
+                        LOGGER.error "*** Error trying to save file: #{e.message}\n#{e.backtrace}"
                       ensure
                         tempfile.unlink
                       end
@@ -153,7 +153,7 @@ module WatchMeMakeThis
               LOGGER.warn "      No user with email address '#{from}' found"
             end
           rescue => e
-            LOGGER.error "      Unexpected error: #{e.message}"
+            LOGGER.error "      Unexpected error: #{e.message}\n#{e.backtrace}"
           ensure
             email.delete!
           end

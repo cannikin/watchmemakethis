@@ -33,11 +33,17 @@ body.marketing
       -moz-border-radius: 8px
     nav
       float: right
+      margin-right: 20px
       ul
         li
           display: block
           float: left
-          margin: 10px
+          margin: 6px
+          padding: 10px 20px
+          -webkit-border-radius: 6px
+          -moz-border-radius: 6px
+          font-size: 120%
+          background-color: darken($background_main, 5%)
           a:hover
             text-decoration: underline
           a.button
@@ -85,7 +91,7 @@ body.marketing
     .container
       width: 920px
       margin: 0 auto
-      padding: 30px
+      padding: 40px 30px
       overflow: hidden
       background-color: #ffffff
       border-left: 1px solid #e0e0e0
@@ -113,7 +119,7 @@ body.marketing
       background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
       width: 950px
       margin: 0 auto
-      padding: 30px 0 30px 30px
+      padding: 50px 0 50px 30px
       overflow: hidden
       border-left: 1px solid #e0e0e0
       border-right: 1px solid #e0e0e0
@@ -154,18 +160,54 @@ body.marketing
             background: transparent url('<%= asset_path 'home/email.png' %>') top left no-repeat
           &#upload
             background: transparent url('<%= asset_path 'home/photos.png' %>') top left no-repeat
-      .signup
-        clear: both
-        padding: 30px 0 0
-        a.button
-          display: block
-          clear: left
-          margin: 0 auto
-          width: 160px
-       
+          
+  section#demo
+    .container
+      background: #ffffff url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
+      width: 980px
+      margin: 0 auto
+      overflow: hidden
+      padding: 50px 0
+      overflow: hidden
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      text-align: center
+      h3
+        color: #444444
+        font-family: 'Helvetica Neue',HelveticaNeue,sans-serif
+        font-size: 300%
+        letter-spacing: -0.04em
+        font-weight: 700
+        line-height: 1.1
+        margin: 0 0 40px
+      iframe
+        width: 853px
+        margin: 0 auto
+        
+  .signup
+    clear: both
+    padding: 30px 0 0
+    a.button
+      display: block
+      clear: left
+      margin: 0 auto
+      width: 160px
+            
   footer
-    position: relative
-    margin: 80px 0 0
+    .container
+      background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
+      width: 980px
+      margin: 0 auto
+      overflow: hidden
+      padding: 40px 0
+      overflow: hidden
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      text-align: center
+      font-size: 120%
+      color: #666666
+      a
+        color: #666666
         
         
 // help pages
@@ -215,6 +257,9 @@ body#signup-new, body#signup-create
       background-image: none
     h1
       background-color: darken($background_signup, 10%)
+    nav
+      li
+        background-color: darken($background_signup, 5%)
       
 body#session-new, body#session-create
   header, section#intro
@@ -223,7 +268,10 @@ body#session-new, body#session-create
       background-image: none
     h1
       background-color: darken($background_login, 10%)
-    
+    nav
+      li
+        background-color: darken($background_login, 5%)
+          
 body#marketing-help
   header, section#intro
     background-color: $background_help
@@ -231,5 +279,8 @@ body#marketing-help
       background-image: none
     h1
       background-color: darken($background_help, 10%)
+    nav
+      li
+        background-color: darken($background_help, 5%)
   a
     color: $background_help
