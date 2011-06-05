@@ -26,7 +26,7 @@
       = u.text_field :twitter
     %span.example 
       If you're going to send images to your builds with Twitter, this is the account you'll be sending them from.
-      = link_to 'How does this work?', '#'
+      = link_to 'How does this work?', help_path(:anchor => 'upload-via-twitter'), :target => '_blank'
     = field_errors(user, :twitter)
     
   .fieldset.site

@@ -11,14 +11,14 @@
     = form.text_field :path
   %span.example A unique URL that points to this build. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
   
-  = form.label :hashtag, '<span class="icon hashtag">B</span> Twitter Hashtag'.html_safe
+  = form.label :hashtag, '<span class="icon hashtag">B</span> Twitter/Email Hashtag'.html_safe
   .inline.hashtag  
     %span #
     = form.text_field :hashtag
   
   %span.example 
     If you are going to use Twitter or email to send images to this build, use this hashtag. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
-    = link_to 'How does this work?', '#'
+    = link_to 'How does this work?', help_path(:anchor => 'whats-a-hashtag'), :target => '_blank'
   
   = form.submit button_label, :class => 'button blue large'
   

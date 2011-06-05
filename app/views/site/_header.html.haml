@@ -2,12 +2,14 @@
   %h1
     = link_to site.name, site_path(site.path)
   
-  - if owns_site?
-    %nav
-      %ul
+  %nav
+    %ul
+      - if owns_site?
         %li= link_to 'Settings', edit_site_path
         %li= link_to 'Help', help_path
         %li= link_to 'Logout', logout_path
+      - else
+        %li= link_to 'Log In', login_path
       /
         - if owns_site?
           Switch Sites
