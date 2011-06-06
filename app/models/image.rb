@@ -17,7 +17,7 @@ class Image < ActiveRecord::Base
   
   # prefix to the path for this image (not including filename)
   def full_path_prefix
-    self.build.site.path + '/' + self.build.path
+    self.build.site.id.to_s + '/' + self.build.id.to_s
   end
 
   
