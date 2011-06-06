@@ -15,7 +15,16 @@ module ApplicationHelper
   
   # fix for IE to recognize HTML5 tags
   def ie_html5_fix
-    '<!--[if IE]><script type="text/javascript">document.createElement("time");document.createElement("header");document.createElement("footer");document.createElement("nav");document.createElement("article");document.createElement("section");</script><![endif]-->'.html_safe
+    '<!--[if IE]>
+      <script type="text/javascript">
+        document.createElement("time");
+        document.createElement("header");
+        document.createElement("footer");
+        document.createElement("nav");
+        document.createElement("article");
+        document.createElement("section");
+      </script>
+    <![endif]-->'.html_safe
   end
   
 end
