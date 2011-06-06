@@ -1,6 +1,6 @@
 class Site < ActiveRecord::Base
   
-  has_many    :builds
+  has_many    :builds, :dependent => :destroy
   belongs_to  :user
     alias :owner :user
   belongs_to  :style

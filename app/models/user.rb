@@ -1,9 +1,9 @@
 require 'digest'
 
 class User < ActiveRecord::Base
-  has_many    :sites
+  has_many    :sites, :dependent => :destroy
   belongs_to  :role
-  has_many    :allowances, :through => :role
+  has_many    :allowances, :through => :role, :dependent => :destroy
   has_many    :builds, :through => :sites
   
   #validates :first_name,  :presence => true

@@ -22,7 +22,7 @@
 
     %section#cost
       %h3 How much does it cost?
-      %p It's free!
+      %p It's <strong>free</strong>!
 
 %section#screen
   .container
@@ -48,3 +48,25 @@
     .signup
       = link_to 'Sign Up', signup_path, :class => 'button large blue'
       
+%section#examples
+  .container
+    %h3 Some Example Sites
+    %ul
+      %li.half.left
+        = image_tag 'home/example-half-left.jpg'
+      %li#dresser
+        = link_to(image_tag('home/example-1.jpg'), '/cameronwoodworks/dresser')
+        %h4= link_to "Jack's Dresser", '/cameronwoodworks/dresser'
+        %p Created for my son, this dresser is made of Sapele and Douglas fir. Six drawers, six legs and ninety-two handcut dovetails.
+      %li#cake
+        = link_to(image_tag('home/example-2.jpg'), '/aimee/rachels-diaper-cake')
+        %h4= link_to "Rachel's Diaper Cake", '/aimee/rachels-diaper-cake'
+        %p My wife created this diaper cake for a friend's baby shower. Eighteen bumpcloths, thirty-six diapers and sixteen washcloths.
+      %li#octokeg
+        = link_to(image_tag('home/example-3.jpg'), '/cameronwoodworks/octokeg')
+        %h4= link_to "GitHub's Octokeg", '/cameronwoodworks/octokeg'
+        %p A friend was putting together a kegerator for his office and I offered to build a Walnut top featuring the company's logo inlaid in veneer.
+      %li.half.right
+        = image_tag 'home/example-half-right.jpg'
+    .signup
+      = link_to 'Sign Up', signup_path, :class => 'button large blue'

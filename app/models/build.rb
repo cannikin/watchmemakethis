@@ -1,4 +1,5 @@
 class Build < ActiveRecord::Base
+  
   belongs_to  :site
   has_many    :clients
   has_many    :images, :dependent => :destroy

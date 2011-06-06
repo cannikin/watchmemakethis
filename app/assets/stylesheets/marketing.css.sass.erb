@@ -58,6 +58,16 @@ body.marketing
     line-height: 0.9
     letter-spacing: -0.04em
     text-align: left
+    
+  section
+    .container
+      h3
+        color: #333333
+        font-family: 'Helvetica Neue',HelveticaNeue,sans-serif
+        font-size: 300%
+        letter-spacing: -0.04em
+        font-weight: 700
+        line-height: 1.1
   
   section#intro
     background-color: #336699
@@ -65,7 +75,7 @@ body.marketing
     border-bottom: 1px solid #333333
     .container
       background: transparent url('<%= asset_path 'home/binoculars.png' %>') 0 20px no-repeat
-      padding: 0 0 30px
+      padding: 0 30px 30px
       overflow: hidden
     .text
       width: 500px
@@ -105,11 +115,12 @@ body.marketing
         &:last-child
           margin: 0
         h3
-          font-size: 160%
+          font-family: 'proxima-nova-1','proxima-nova-2',sans-serif
+          font-size: 150%
           font-weight: 600
+          letter-spacing: 0
           margin: 0 0 10px
           color: #469c34
-          text-shadow: 0 1px #ffffff
         p
           line-height: 1.4
           font-size: 120%
@@ -163,7 +174,7 @@ body.marketing
           
   section#demo
     .container
-      background: #ffffff url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
+      background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
       width: 980px
       margin: 0 auto
       overflow: hidden
@@ -173,7 +184,7 @@ body.marketing
       border-right: 1px solid #e0e0e0
       text-align: center
       h3
-        color: #444444
+        color: #333333
         font-family: 'Helvetica Neue',HelveticaNeue,sans-serif
         font-size: 300%
         letter-spacing: -0.04em
@@ -183,7 +194,49 @@ body.marketing
       iframe
         width: 853px
         margin: 0 auto
+        border: 25px solid #ffffff
+        -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
+  
+  section#examples
+    .container
+      background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
+      width: 980px
+      margin: 0 auto
+      overflow: hidden
+      padding: 50px 0
+      overflow: hidden
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      text-align: center
+      ul
+        margin-top: 30px
+        li
+          display: inline-block
+          float: left
+          width: 250px
+          margin: 0 13px
+          img
+            height: 175px
+            border: 15px solid #ffffff
+            -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.2)
+          &.half
+            width: 62px
+          &.half.left
+            margin: 0 14px 0 0
+            img
+              border-left: none
+          &.half.right
+            margin: 0 0 0 14px
+            img
+              border-right: none
+          h4
+            font-size: 120%
+            margin: 10px 0 4px
+          p
+            font-weight: 100
+            line-height: 1.3
         
+            
   .signup
     clear: both
     padding: 30px 0 0

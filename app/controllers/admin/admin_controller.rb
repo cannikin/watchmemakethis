@@ -1,6 +1,6 @@
 class Admin::AdminController < ApplicationController
   
-  before_filter :build_nav#, admin_required
+  before_filter :build_nav, :admin_required
   layout 'admin'
   
   def build_nav
@@ -20,5 +20,15 @@ class Admin::AdminController < ApplicationController
           ]
   end
   private :build_nav
+  
+  
+  # force the user to login
+  def admin_required
+    unless logged_in? and current_user.is_an_admin?
+      session[:return_to] = request.fullpath
+      redirect_to login_path
+    end
+  end
+  private :admin_required
   
 end
