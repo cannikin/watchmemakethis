@@ -42,7 +42,6 @@
         li 
           img
             border: $image_border !important
-            cursor: move !important
           .added
             color: $body_text_light
           form
@@ -71,4 +70,10 @@
           
       footer
         background-color: $body_background
+        
+- if @build and owns_build?
+  %style(type="text/css")
+    :sass
+      #build_images img
+        cursor: move !important
         
