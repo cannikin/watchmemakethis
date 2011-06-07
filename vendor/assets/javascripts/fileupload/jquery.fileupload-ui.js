@@ -34,7 +34,7 @@
             minFileSize: 1,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
-            acceptFileTypes:  /^image\/(gif|jpeg|jpg|png)$/i,
+            acceptFileTypes:  /(gif|jpeg|jpg|png)$/i,
             // The regular expression to define for which files a preview
             // image is shown, matched against the file type:
             previewFileTypes: /^image\/(gif|jpeg|jpg|png)$/,
