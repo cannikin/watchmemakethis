@@ -66,7 +66,7 @@ class BuildController < ApplicationController
   # upload an image to this build
   def upload
     file = params[:file]
-    image = Image.create(:file => file, :build_id => @build.id, :upload_method => UploadMethod::DIRECT)
+    image = Image.create(:file => file, :build_id => @build.id, :upload_method_id => UploadMethod::DIRECT)
     render :json => image.attributes.merge(additional_image_attributes(image))
   end
   
