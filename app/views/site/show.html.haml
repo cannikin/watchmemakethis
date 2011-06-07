@@ -1,6 +1,6 @@
-- if @site.builds.public.any?
+- if @site.builds.publics.any?
   %ul#builds
-    - @site.builds.public.order('updated_at desc').each do |build| 
+    - @site.builds.publics.order('updated_at desc').each do |build| 
       %li(data-path="#{build_path(@site.path, build.path)}")
         - if build.images.any?
           %ul.images
