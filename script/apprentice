@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
+require 'bundler/setup'
 require 'daemons'
 
-Daemons.run('lib/apprentice.rb', :dir_mode => :normal, :dir => 'tmp/pids', :monitor => true)
+Daemons.run(File.join(File.expand_path(__FILE__),'..','..','lib','apprentice.rb'), :dir_mode => :normal, :dir => File.join(File.expand_path(__FILE__),'..','..','tmp','pids'), :monitor => true)
 
 # require_relative '../lib/apprentice'
 

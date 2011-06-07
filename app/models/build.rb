@@ -11,6 +11,6 @@ class Build < ActiveRecord::Base
   validates_uniqueness_of :hashtag, :scope => :site_id
   validates_format_of     :hashtag, :with => /^[\w-]+$/
   
-  scope :public, where(:public => true)
-  scope :private, where(:public => false)
+  #scope :public, where(:public => true)
+  #scope :private, where(:public => false)
 end

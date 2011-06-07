@@ -11,17 +11,48 @@
 #  exit 0
 # end
 
+require 'bundler/setup'
+require 'logger'
+
 ENV['RAILS_ENV'] = ARGV[0] || 'development'
-require File.expand_path('../../config/environment',  __FILE__)
+ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..')
+LOGGER = Logger.new(File.join(ROOT, 'log', 'apprentice.log'))
+DB_CONFIG = YAML.load(File.read(File.join(ROOT, 'config', 'database.yml')))[ENV['RAILS_ENV']]
+DB_CONFIG.merge!('database' => File.join(ROOT, DB_CONFIG['database'])) if DB_CONFIG['adapter'] == 'sqlite3'
+
+require 'active_record'
+require 'acts_as_list'
+require 'gmail'
+require 'twimage'
+require 'aws/s3'
+require 'action_mailer'
+require 'aws/ses'
+require 'uuid'
+require 'image_science'
+require_relative '../app/models/user'
+require_relative '../app/models/site'
+require_relative '../app/models/build'
+require_relative '../app/models/upload_method'
+require_relative '../app/models/image'
+require_relative '../app/models/system'
+require_relative '../config/initializers/aws'
+
+# simulated Rails object so Rails.logger still works
+class Rails
+  def self.logger
+    LOGGER
+  end
+end
 
 module WatchMeMakeThis
   
   module Apprentice
     
-    LOGGER = Logger.new(Rails.root.join('log','apprentice.log'))
     HASHTAG_REGEX = /#([\w-]+)/
-          
-    LOGGER.info "Apprentice starting at #{Time.zone.now}."
+    
+    LOGGER.info "Apprentice starting at #{Time.now}."
+    
+    ActiveRecord::Base.establish_connection(DB_CONFIG)
     
     class Twitter
       
@@ -31,7 +62,7 @@ module WatchMeMakeThis
       
       def self.run
         
-        LOGGER.info "  Twitter search starting at #{Time.zone.now}"
+        LOGGER.info "  Twitter search starting at #{Time.now}"
         
         next_search_url = System.first.next_twitter_call
       
@@ -60,9 +91,9 @@ module WatchMeMakeThis
                   if user = User.find_by_twitter(tweet[:from])
                     if build = user.builds.find_by_hashtag(tweet[:hashtag])
                       begin
-                        Image.create!(:build_id => build.id, :file => image.tempfile, :tweet_id => tweet[:id], :description => tweet[:description], :upload_method => UploadMethod::TWITTER)
+                        Image.create!(:build_id => build.id, :file => image.tempfile, :tweet_id => tweet[:id], :description => tweet[:description], :upload_method_id => UploadMethod::TWITTER)
                       rescue => e
-                        Logger.error "*** Error trying to save file: #{e.message}"
+                        LOGGER.error "*** Error trying to save file: #{e.message}\n#{e.backtrace}"
                       ensure
                         image.tempfile.unlink
                       end
@@ -112,7 +143,7 @@ module WatchMeMakeThis
       
       def self.run
         
-        LOGGER.info "  Email search starting at #{Time.zone.now}"
+        LOGGER.info "  Email search starting at #{Time.now}"
         LOGGER.info "    #{@@gmail.inbox.find(:unread).count} new emails"
         
         emails = @@gmail.inbox.find(:unread)
@@ -132,7 +163,7 @@ module WatchMeMakeThis
                       tempfile = Tempfile.new(['apprentice',attachment.filename])
                       File.open(tempfile.path, "w+b") { |f| f.write attachment.body.decoded }
                       begin
-                        Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method => UploadMethod::EMAIL)
+                        Image.create!(:build_id => build.id, :file => tempfile, :description => description, :upload_method_id => UploadMethod::EMAIL)
                       rescue => e
                         LOGGER.error "*** Error trying to save file: #{e.message}\n#{e.backtrace}"
                       ensure
