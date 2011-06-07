@@ -2,4 +2,9 @@
   %p Here's your new build! Now, let's add some images: click the button above to pick images from your computer.
   .tip
     %span.icon i
-    %p You can add multiple images at once! Try holding Ctrl (in Windows) or Command (on the Mac) when clicking files to select more than one.
+    %p You can add multiple images at once! Try holding Ctrl (in Windows) or Command (on the Mac) when clicking files to select more than one. <em>Note that not all browsers support this feature.</em>
+  .reverse
+    Don't forget that can also add images via
+    = link_to 'email', help_path(:anchor => 'upload-via-email'), :target => '_blank'
+    and
+    = link_to 'Twitter', help_path(:anchor => 'upload-via-twitter'), :target => '_blank'

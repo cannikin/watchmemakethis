@@ -1,14 +1,15 @@
 #fileupload
   %form(action="#{request.path}/upload.html" method="POST" enctype="multipart/form-data")
     .fileupload-buttonbar
-      .fileinput-button
+      %label.fileinput-button
         %span.icon c
         %span.label
           %span.line1 Click to Upload Files
           %span.line2 or Drag and Drop
         %input(type="file" name="file" multiple)
-  %table.files
-  .fileupload-progressbar
+  .fileupload-content
+    %table.files
+    .fileupload-progressbar
 
 :plain
   <script id="template-upload" type="text/x-jquery-tmpl">
@@ -36,19 +37,13 @@
 - content_for :body_end do  
   :javascript
   $(function () {
-    
-      // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload({
-        downloadTemplate:null
-      });
+    $('#fileupload').fileupload({
+      downloadTemplate:null
+    });
 
-      // Open download dialogs via iframes,
-      // to prevent aborting current uploads:
-      $('#fileupload .files a:not([rel^=gallery])').live('click', function (e) {
-          e.preventDefault();
-          $('<iframe style="display:none;"></iframe>')
-              .prop('src', this.href)
-              .appendTo('body');
-      });
-
+    // Open download dialogs via iframes, to prevent aborting current uploads:
+    $('#fileupload .files a:not([rel^=gallery])').live('click', function (e) {
+      e.preventDefault();
+      $('<iframe style="display:none;"></iframe>').prop('src', this.href).appendTo('body');
+    });
   });
