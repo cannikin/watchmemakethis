@@ -1,5 +1,6 @@
 #fileupload
   %form(action="#{request.path}/upload.html" method="POST" enctype="multipart/form-data")
+    = hidden_field_tag request_forgery_protection_token, form_authenticity_token
     .fileupload-buttonbar
       %label.fileinput-button
         %span.icon c
