@@ -14,3 +14,8 @@
 = content_for :head do
   = stylesheet_link_tag 'session'
   
+= content_for :body_end do
+  :javascript
+    $(document).ready(function() {
+      $('#email').focus();
+    });
