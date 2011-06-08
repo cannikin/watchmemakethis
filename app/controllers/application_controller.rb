@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :login_if_remember
   
   #unless Watchmemakethis::Application.config.consider_all_requests_local
-  #  rescue_from Exception,                            :with => :render_error
-  #  rescue_from ActiveRecord::RecordNotFound,         :with => :render_error
-  #  rescue_from ActionController::RoutingError,       :with => :render_not_found
-  #  rescue_from ActionController::UnknownController,  :with => :render_not_found
-  #  rescue_from ActionController::UnknownAction,      :with => :render_not_found
+    # rescue_from Exception,                            :with => :render_error
+    # rescue_from ActiveRecord::RecordNotFound,         :with => :render_error
+    # rescue_from ActionController::RoutingError,       :with => :render_not_found
+    # rescue_from ActionController::UnknownController,  :with => :render_not_found
+    # rescue_from ActionController::UnknownAction,      :with => :render_not_found
   #end
   
   
@@ -18,12 +18,14 @@ class ApplicationController < ActionController::Base
     @body_id = 'not_found'
     render 'marketing/not_found', :layout => 'application'
   end
+  protected :render_not_found
   
   
   def render_error(exception)
     @body_id = 'error'
     render 'marketing/error', :layout => 'application'
   end
+  protected :render_error
   
   
   def login_if_remember
