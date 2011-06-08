@@ -13,5 +13,9 @@ class MarketingController < ApplicationController
     foo = request.env.dup
     render :json => foo.env.keys
   end
+  
+  def error
+    raise StandardError, 'Threw this error on purpose'
+  end
 
 end

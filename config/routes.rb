@@ -14,9 +14,10 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :marketing do
-    get '/'     => :index
-    get '/help' => :help
-    get '/echo' => :echo
+    get '/'       => :index
+    get '/help'   => :help
+    get '/echo'   => :echo
+    get '/error'  => :error
   end
   
   controller :session do

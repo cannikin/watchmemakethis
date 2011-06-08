@@ -23,7 +23,7 @@
     = yield :head
     = csrf_meta_tag
 
-  %body{:id => "#{controller.controller_name}-#{controller.action_name}", :class => 'marketing'}
+  %body{:id => "#{@body_id || controller.controller_name+'-'+controller.action_name}", :class => 'marketing'}
     %header
       .container
         %h1= link_to 'Watch Me Make', '/'

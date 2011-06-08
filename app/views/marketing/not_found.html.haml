@@ -1,0 +1,10 @@
+%section#intro
+  .container
+    %h2 Not Found
+
+.container.help
+  %p.hello
+    - if flash[:now]
+      = flash[:now].html_safe
+    - else
+      The page you were looking for wasn't found.

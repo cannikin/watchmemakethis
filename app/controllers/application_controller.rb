@@ -5,6 +5,26 @@ class ApplicationController < ActionController::Base
   
   before_filter :login_if_remember
   
+  unless Watchmemakethis::Application.config.consider_all_requests_local
+    rescue_from Exception,                            :with => :render_error
+    rescue_from ActiveRecord::RecordNotFound,         :with => :render_error
+    rescue_from ActionController::RoutingError,       :with => :render_not_found
+    rescue_from ActionController::UnknownController,  :with => :render_not_found
+    rescue_from ActionController::UnknownAction,      :with => :render_not_found
+  end
+  
+  
+  def render_not_found(exception)
+    @body_id = 'not_found'
+    render 'marketing/not_found', :layout => 'application'
+  end
+  
+  
+  def render_error(exception)
+    @body_id = 'error'
+    render 'marketing/error', :layout => 'application'
+  end
+  
   
   def login_if_remember
     if !logged_in? and cookies[:remember] and user = User.find_by_uuid(cookies[:remember])
@@ -23,10 +43,12 @@ class ApplicationController < ActionController::Base
           if @build = @site.builds.find_by_path(params[:build_path])
             # ready to go, @site and @build are set
           else
+            flash[:now] = %Q{There was no build found named <em>#{params[:build_path]}</em>. <a href="#{site_path(@site.path)}">Head back to the site</a>.}
             raise ActionController::RoutingError, 'Build not found'
           end
         end
       else
+        flash[:now] = %Q{There was no site found name <em>#{params[:site_path]}</em>. <a href="#{root_path}">Head back to the homepage.</a>}
         raise ActionController::RoutingError, 'Site not found'
       end
     end

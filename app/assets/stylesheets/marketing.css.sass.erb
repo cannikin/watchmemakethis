@@ -2,6 +2,7 @@ $background_main: #336699
 $background_signup: #469c34
 $background_login: #b15e3b
 $background_help: #ab3942
+$background_error: #990000
 
 body.marketing
   padding: 0
@@ -253,16 +254,13 @@ body.marketing
       overflow: hidden
       padding: 40px 0
       overflow: hidden
-      border-left: 1px solid #e0e0e0
-      border-right: 1px solid #e0e0e0
       text-align: center
       font-size: 120%
       color: #666666
       a
         color: #666666
-        
-        
-// help pages
+    
+// help/error pages
 .container.help
   p.hello
     font-size: 150%
@@ -305,7 +303,9 @@ body#marketing-index
   footer
     .container
       background: #f6f6f6 url('<%= asset_path 'home/section_shadow.png' %>') 0 -1px no-repeat
-
+      border-left: 1px solid #e0e0e0
+      border-right: 1px solid #e0e0e0
+      
 body#signup-new, body#signup-create
   header, section#intro
     background-color: $background_signup
@@ -340,3 +340,18 @@ body#marketing-help
         background-color: darken($background_help, 5%)
   a
     color: $background_help
+    
+body#not_found, body#error
+  header, section#intro
+    background-color: $background_error
+    .container
+      background-image: none
+    h1
+      background-color: darken($background_error, 10%)
+    nav
+      li
+        background-color: darken($background_error, 5%)
+  a
+    color: $background_error
+  p.hello
+    min-height: 600px
