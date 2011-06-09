@@ -1,11 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc1'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
+gem 'rails', '3.1.0.rc3'
 
 # Asset template engines
 gem 'sass'
@@ -34,6 +29,10 @@ gem 'image_science'
 
 # gem 'newrelic_rpm'
 # gem 'meta_where'
+
+group :development do
+  gem 'sqlite3'
+end
 
 group :test do
   # Pretty printed test output

@@ -122,6 +122,7 @@ var WatchMeMakeThis = {
   
   makeSortable:function(url) {
     $('#build_images').sortable({
+      tolerance: 'pointer',
       start:function(e,ui) {
         ui.item.addClass('drag_sort');
       }, 
