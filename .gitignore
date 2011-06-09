@@ -6,3 +6,4 @@ config/aws.yml
 .DS_Store
 log/*.log
 tmp/
+.sass-cache/
