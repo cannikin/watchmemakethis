@@ -27,7 +27,7 @@ gem 'hoptoad_notifier'
 gem 'acts_as_list'
 gem 'opsb-RubyInline'
 gem 'image_science'
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 # gem 'meta_where'
 
 group :development do

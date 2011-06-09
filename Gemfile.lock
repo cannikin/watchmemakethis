@@ -120,7 +120,6 @@ GEM
     net-ssh (2.1.4)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.0.1)
     nokogiri (1.4.4)
     oauth (0.4.4)
     opsb-RubyInline (3.8.6)
@@ -199,7 +198,6 @@ DEPENDENCIES
   image_science
   jquery-rails
   mysql2
-  newrelic_rpm
   opsb-RubyInline
   rails (= 3.1.0.rc1)
   rails3-generators
