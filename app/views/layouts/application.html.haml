@@ -22,6 +22,7 @@
 
     = yield :head
     = csrf_meta_tag
+    = apple_touch_icon_link_tag
 
   %body{:id => "#{@body_id || controller.controller_name+'-'+controller.action_name}", :class => 'marketing'}
     %header

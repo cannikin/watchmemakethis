@@ -4,7 +4,7 @@
       $header_background: #{style.header_background}
       $header_text: #{style.header_text_color}
       $body_background: #{style.body_background}
-      $body_background_light: lighten($body_background, 5%)
+      $body_background_light: lighten(#{style.body_background.split(' ').first}, 5%)
       $body_text: #{style.body_text_color}
       $body_text_light: transparentize($body_text, 0.5)
       $image_border: #{style.image_border}

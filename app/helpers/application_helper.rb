@@ -27,4 +27,9 @@ module ApplicationHelper
     <![endif]-->'.html_safe
   end
   
+  
+  def apple_touch_icon_link_tag
+    %Q{<link rel="apple-touch-icon" href="#{asset_path 'apple-touch-icon.png'}"}.html_safe
+  end
+  
 end
