@@ -24,7 +24,7 @@
             // By default, files added to the widget are uploaded as soon
             // as the user clicks on the start buttons. To enable automatic
             // uploads, set the following option to true:
-            autoUpload: false,
+            autoUpload: true,
             // The following option limits the number of files that are
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: undefined,
@@ -51,7 +51,7 @@
             uploadTemplate: $('#template-upload'),
             // The file download template, that is given as first argument to the
             // jQuery.tmpl method to render the file downloads:
-            downloadTemplate: $('#template-download'),
+            downloadTemplate: null,
             // The expected data type of the upload response, sets the dataType
             // option of the $.ajax upload requests:
             dataType: 'json',
