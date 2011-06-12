@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload User Interface Plugin 5.0
+ * jQuery File Upload User Interface Plugin 5.0.12
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
@@ -9,7 +9,7 @@
  * http://creativecommons.org/licenses/MIT/
  */
 
-/*jslint nomen: false, unparam: false, regexp: false */
+/*jslint nomen: false, unparam: true, regexp: false */
 /*global window, document, URL, webkitURL, FileReader, jQuery */
 
 (function ($) {
@@ -24,7 +24,7 @@
             // By default, files added to the widget are uploaded as soon
             // as the user clicks on the start buttons. To enable automatic
             // uploads, set the following option to true:
-            autoUpload: true,
+            autoUpload: false,
             // The following option limits the number of files that are
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: undefined,
@@ -34,23 +34,18 @@
             minFileSize: 1,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
-            acceptFileTypes:  /(gif|jpeg|jpg|png)$/i,
+            acceptFileTypes:  /.+$/i,
             // The regular expression to define for which files a preview
             // image is shown, matched against the file type:
-            previewFileTypes: /^image\/(gif|jpeg|jpg|png)$/,
+            previewFileTypes: /^image\/(gif|jpeg|png)$/,
             // The maximum width of the preview images:
-            previewMaxWidth: 50,
+            previewMaxWidth: 80,
             // The maximum height of the preview images:
-            previewMaxHeight: 50,
+            previewMaxHeight: 80,
             // By default, preview images are displayed as canvas elements
             // if supported by the browser. Set the following option to false
-            // to alwqys display preview images as img elements:
+            // to always display preview images as img elements:
             previewAsCanvas: true,
-            // Image links with a "rel" attribute starting with "gallery"
-            // (e.g. rel="gallery" or rel="gallery[name]") are opened in a
-            // jQuery UI dialog. If the following option is true and the browser
-            // supports it, the image is displayed as canvas elements:
-            openImageAsCanvas: true,
             // The file upload template that is given as first argument to the
             // jQuery.tmpl method to render the file uploads:
             uploadTemplate: $('#template-upload'),
@@ -67,29 +62,26 @@
             add: function (e, data) {
                 var that = $(this).data('fileupload');
                 that._adjustMaxNumberOfFiles(-data.files.length);
+                data.isAdjusted = true;
+                data.isValidated = that._validate(data.files);
                 data.context = that._renderUpload(data.files)
                     .appendTo($(this).find('.files')).fadeIn(function () {
                         // Fix for IE7 and lower:
                         $(this).show();
                     }).data('data', data);
-                data.isValidated = true;
-                if (that.options.autoUpload || data.autoUpload) {
-                    data.context.find('.start button').click();
+                if ((that.options.autoUpload || data.autoUpload) &&
+                        data.isValidated) {
+                    data.jqXHR = data.submit();
                 }
             },
             // Callback for the start of each file upload request:
             send: function (e, data) {
                 if (!data.isValidated) {
-                    var that = $(this).data('fileupload'),
-                        hasErrors = false;
-                    that._adjustMaxNumberOfFiles(-data.files.length);
-                    $.each(data.files, function (index, file) {
-                        file.error = that._hasError(file);
-                        if (file.error) {
-                            hasErrors = true;
-                        }
-                    });
-                    if (hasErrors) {
+                    var that = $(this).data('fileupload');
+                    if (!data.isAdjusted) {
+                        that._adjustMaxNumberOfFiles(-data.files.length);
+                    }
+                    if (!that._validate(data.files)) {
                         return false;
                     }
                 }
@@ -106,12 +98,14 @@
             },
             // Callback for successful uploads:
             done: function (e, data) {
-                var images = data.result;
                 var that = $(this).data('fileupload');
                 if (data.context) {
                     data.context.each(function (index) {
                         var file = ($.isArray(data.result) &&
                                 data.result[index]) || {error: 'emptyResult'};
+                        if (file.error) {
+                            that._adjustMaxNumberOfFiles(1);
+                        }
                         $(this).fadeOut(function () {
                             that._renderDownload([file])
                                 .css('display', 'none')
@@ -122,11 +116,7 @@
                                 });
                         });
                     });
-                    
-                  WatchMeMakeThis.ajaxNewImage(images);
-                  
                 } else {
-                  alert("no context");
                     that._renderDownload(data.result)
                         .css('display', 'none')
                         .appendTo($(this).find('.files'))
@@ -211,30 +201,29 @@
                         $(this).remove();
                     });
                 }
-            },
-            dragover:function(e) {
-              $('#fileupload').addClass('dragover');
-            },
-            dragleave:function(e) {
-              $('#fileupload').removeClass('dragover');
-            },
-           drop:function(e) {
-              $('#fileupload').removeClass('dragover');
             }
         },
 
-        _scaleImage: function (img, maxWidth, maxHeight, noCanvas) {
+        // Scales the given image (img HTML element)
+        // using the given options.
+        // Returns a canvas object if the canvas option is true
+        // and the browser supports canvas, else the scaled image:
+        _scaleImage: function (img, options) {
+            options = options || {};
             var canvas = document.createElement('canvas'),
                 scale = Math.min(
-                    (maxWidth || img.width) / img.width,
-                    (maxHeight || img.height) / img.height
+                    (options.maxWidth || img.width) / img.width,
+                    (options.maxHeight || img.height) / img.height
                 );
-            if (scale > 1) {
-                scale = 1;
+            if (scale >= 1) {
+                scale = Math.max(
+                    (options.minWidth || img.width) / img.width,
+                    (options.minHeight || img.height) / img.height
+                );
             }
             img.width = parseInt(img.width * scale, 10);
             img.height = parseInt(img.height * scale, 10);
-            if (noCanvas || !canvas.getContext) {
+            if (!options.canvas || !canvas.getContext) {
                 return img;
             }
             canvas.width = img.width;
@@ -244,111 +233,58 @@
             return canvas;
         },
 
-        // Loads an image for a given File object,
-        // invokes the callback with an img or canvas element as parameter:
-        _loadImage: function (file, callBack, maxWidth, maxHeight, imageTypes, noCanvas) {
-            var that = this,
-                undef = 'undefined',
-                img,
-                urlAPI,
-                fileReader;
-            if (!imageTypes || imageTypes.test(file.type)) {
-                img = document.createElement('img');
-                urlAPI = (typeof URL !== undef && URL) ||
+        _createObjectURL: function (file) {
+            var undef = 'undefined',
+                urlAPI = (typeof window.createObjectURL !== undef && window) ||
+                    (typeof URL !== undef && URL) ||
                     (typeof webkitURL !== undef && webkitURL);
-                if (urlAPI && urlAPI.createObjectURL) {
-                    img.onload = function () {
-                        urlAPI.revokeObjectURL(this.src);
-                        callBack(that._scaleImage(img, maxWidth, maxHeight, noCanvas));
-                    };
-                    img.src = urlAPI.createObjectURL(file);
-                    return true;
-                }
-                if (typeof FileReader !== undef &&
-                        FileReader.prototype.readAsDataURL) {
-                    img.onload = function () {
-                        callBack(that._scaleImage(img, maxWidth, maxHeight, noCanvas));
-                    };
-                    fileReader = new FileReader();
-                    fileReader.onload = function (e) {
-                        img.src = e.target.result;
-                    };
-                    fileReader.readAsDataURL(file);
-                    return true;
-                }
+            return urlAPI ? urlAPI.createObjectURL(file) : false;
+        },
+        
+        _revokeObjectURL: function (url) {
+            var undef = 'undefined',
+                urlAPI = (typeof window.revokeObjectURL !== undef && window) ||
+                    (typeof URL !== undef && URL) ||
+                    (typeof webkitURL !== undef && webkitURL);
+            return urlAPI ? urlAPI.revokeObjectURL(url) : false;
+        },
+
+        // Loads a given File object via FileReader interface,
+        // invokes the callback with a data url:
+        _loadFile: function (file, callback) {
+            if (typeof FileReader !== 'undefined' &&
+                    FileReader.prototype.readAsDataURL) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (e) {
+                    callback(e.target.result);
+                };
+                fileReader.readAsDataURL(file);
+                return true;
             }
             return false;
         },
 
-        // Opens the image of the given link in a jQuery UI dialog
-        // and provides a simple gallery functionality:
-        _openImageDialog: function (link, callback, noCanvas) {
+        // Loads an image for a given File object.
+        // Invokes the callback with an img or optional canvas
+        // element (if supported by the browser) as parameter:
+        _loadImage: function (file, callback, options) {
             var that = this,
-                rel = link.rel,
-                links = $('a[rel="' + rel + '"]'),
-                nextLink,
-                loader = $('<div class="loading"></div>')
-                    .hide().appendTo(that.element).fadeIn();
-            links.each(function (index) {
-                if ((links[index - 1] === link || links[index - 2] === link) &&
-                        this.href !== link.href) {
-                    nextLink = this;
-                    return false;
+                url,
+                img;
+            if (!options || !options.fileTypes ||
+                    options.fileTypes.test(file.type)) {
+                url = this._createObjectURL(file);
+                img = $('<img>').bind('load', function () {
+                    $(this).unbind('load');
+                    that._revokeObjectURL(url);
+                    callback(that._scaleImage(img[0], options));
+                }).prop('src', url);
+                if (!url) {
+                    this._loadFile(file, function (url) {
+                        img.prop('src', url);
+                    });
                 }
-            });
-            if (!nextLink) {
-                nextLink = links[0];
             }
-            $('<img>').bind('load error', function (e) {
-                var dialog = $('<div class="' + rel.replace(/\W/g, '-') +
-                        '-dialog"></div>'),
-                    closeDialog = function () {
-                        dialog.dialog('close'); 
-                    };
-                if (e.type === 'error') {
-                    noCanvas = true;
-                    dialog.addClass('missing-image');
-                }
-                dialog.bind({
-                    click: function () {
-                        dialog.unbind('click').fadeOut();
-                        if (nextLink.href !== link.href) {
-                            that._openImageDialog(nextLink, closeDialog, noCanvas);
-                        } else {
-                            closeDialog();
-                        }
-                    },
-                    dialogopen: function () {
-                        if (typeof callback === 'function') {
-                            callback();
-                        }
-                        $('.ui-widget-overlay').click(closeDialog);
-                    },
-                    dialogclose: function () {
-                        $(this).remove();
-                    }
-                }).css('cursor', 'pointer').append(
-                    that._scaleImage(
-                        this,
-                        $(window).width() - 100,
-                        $(window).height() - 100,
-                        noCanvas
-                    )
-                ).appendTo(that.element).dialog({
-                    modal: true,
-                    resizable: false,
-                    width: 'auto',
-                    height: 'auto',
-                    show: 'fade',
-                    hide: 'fade',
-                    title: decodeURIComponent(this.src.split('/').pop())
-                });
-                loader.fadeOut(function () {
-                    loader.remove();
-                });
-            }).prop('src', link.href);
-            // Preload the next image:
-            $('<img>').prop('src', nextLink.href);
         },
 
         // Link handler, that allows to download files
@@ -372,6 +308,11 @@
         _adjustMaxNumberOfFiles: function (operand) {
             if (typeof this.options.maxNumberOfFiles === 'number') {
                 this.options.maxNumberOfFiles += operand;
+                if (this.options.maxNumberOfFiles < 1) {
+                    this._disableFileInputButton();
+                } else {
+                    this._enableFileInputButton();
+                }
             }
         },
 
@@ -416,44 +357,67 @@
             return null;
         },
 
+        _validate: function (files) {
+            var that = this,
+                valid;
+            $.each(files, function (index, file) {
+                file.error = that._hasError(file);
+                valid = !file.error;
+            });
+            return valid;
+        },
+
         _uploadTemplateHelper: function (file) {
             file.sizef = this._formatFileSize(file);
-            file.error = this._hasError(file);
             return file;
+        },
+
+        _renderUploadTemplate: function (files) {
+            var that = this;
+            return $.tmpl(
+                this.options.uploadTemplate,
+                $.map(files, function (file) {
+                    return that._uploadTemplateHelper(file);
+                })
+            );
         },
 
         _renderUpload: function (files) {
             var that = this,
                 options = this.options,
-                tmpl = $.tmpl(
-                    this.options.uploadTemplate,
-                    $.map(files, function (file) {
-                        return that._uploadTemplateHelper(file);
-                    })
-                );
+                tmpl = this._renderUploadTemplate(files);
             if (!(tmpl instanceof $)) {
                 return $();
             }
             tmpl.css('display', 'none');
-            tmpl.find('.progress div').first().progressbar();
-            tmpl.find('.start button').hide().first().show().button({
-                text: false,
-                icons: {primary: 'ui-icon-circle-arrow-e'}
-            });
-            tmpl.find('.cancel button').hide().first().show().button({
-                text: false,
-                icons: {primary: 'ui-icon-cancel'}
-            });
+            // .slice(1).remove().end().first() removes all but the first
+            // element and selects only the first for the jQuery collection:
+            tmpl.find('.progress div').slice(1).remove().end().first()
+                .progressbar();
+            tmpl.find('.start button').slice(
+                this.options.autoUpload ? 0 : 1
+            ).remove().end().first()
+                .button({
+                    text: false,
+                    icons: {primary: 'ui-icon-circle-arrow-e'}
+                });
+            tmpl.find('.cancel button').slice(1).remove().end().first()
+                .button({
+                    text: false,
+                    icons: {primary: 'ui-icon-cancel'}
+                });
             tmpl.find('.preview').each(function (index, node) {
                 that._loadImage(
                     files[index],
                     function (img) {
                         $(img).hide().appendTo(node).fadeIn();
                     },
-                    options.previewMaxWidth,
-                    options.previewMaxHeight,
-                    options.previewFileTypes,
-                    !options.previewAsCanvas
+                    {
+                        maxWidth: options.previewMaxWidth,
+                        maxHeight: options.previewMaxHeight,
+                        fileTypes: options.previewFileTypes,
+                        canvas: options.previewAsCanvas
+                    }
                 );
             });
             return tmpl;
@@ -463,15 +427,19 @@
             file.sizef = this._formatFileSize(file);
             return file;
         },
+
+        _renderDownloadTemplate: function (files) {
+            var that = this;
+            return $.tmpl(
+                this.options.downloadTemplate,
+                $.map(files, function (file) {
+                    return that._downloadTemplateHelper(file);
+                })
+            );
+        },
         
         _renderDownload: function (files) {
-            var that = this,
-                tmpl = $.tmpl(
-                    this.options.downloadTemplate,
-                    $.map(files, function (file) {
-                        return that._downloadTemplateHelper(file);
-                    })
-                );
+            var tmpl = this._renderDownloadTemplate(files);
             if (!(tmpl instanceof $)) {
                 return $();
             }
@@ -488,7 +456,7 @@
             e.preventDefault();
             var tmpl = $(this).closest('.template-upload'),
                 data = tmpl.data('data');
-            if (data && data.submit) {
+            if (data && data.submit && !data.jqXHR) {
                 data.jqXHR = data.submit();
                 $(this).fadeOut();
             }
@@ -516,12 +484,6 @@
                 dataType: e.data.fileupload.options.dataType
             });
         },
-
-        _imageLinkHandler: function (e) {
-            e.preventDefault();
-            var fu = e.data.fileupload;
-            fu._openImageDialog(this, null, !fu.options.openImageAsCanvas);
-        },
         
         _initEventHandlers: function () {
             $.blueimp.fileupload.prototype._initEventHandlers.call(this);
@@ -545,18 +507,10 @@
                     eventData,
                     this._deleteHandler
                 );
-            filesList.find('a[rel^=gallery]')
-                .live(
-                    'click.' + this.options.namespace,
-                    eventData,
-                    this._imageLinkHandler
-                );
         },
         
         _destroyEventHandlers: function () {
             var filesList = this.element.find('.files');
-            filesList.find('a[rel^=gallery]')
-                .die('click.' + this.options.namespace);
             filesList.find('.start button')
                 .die('click.' + this.options.namespace);
             filesList.find('.cancel button')
@@ -570,11 +524,12 @@
             var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
                 filesList = this.element.find('.files'),
                 ns = this.options.namespace;
-            $('.fileinput-button').each(function () {
+            fileUploadButtonBar
+                .addClass('ui-widget-header ui-corner-top');
+            this.element.find('.fileinput-button').each(function () {
                 var fileInput = $(this).find('input:file').detach();
-                //$(this).button({icons: {primary: 'ui-icon-plusthick'}})
-                //  .append(fileInput);
-                $(this).button().append(fileInput);
+                $(this).button({icons: {primary: 'ui-icon-plusthick'}})
+                    .append(fileInput);
             });
             fileUploadButtonBar.find('.start')
                 .button({icons: {primary: 'ui-icon-circle-arrow-e'}})
@@ -597,20 +552,63 @@
         },
         
         _destroyFileUploadButtonBar: function () {
-            $('.fileinput-button').each(function () {
+            this.element.find('.fileupload-buttonbar')
+                .removeClass('ui-widget-header ui-corner-top');
+            this.element.find('.fileinput-button').each(function () {
                 var fileInput = $(this).find('input:file').detach();
                 $(this).button('destroy')
                     .append(fileInput);
             });
-            this.element.find('.fileupload-buttonbar').find('button')
+            this.element.find('.fileupload-buttonbar button')
                 .unbind('click.' + this.options.namespace)
                 .button('destroy');
         },
 
+        _enableFileInputButton: function () {
+            this.element.find('.fileinput-button input:file:disabled')
+                .each(function () {
+                    var fileInput = $(this),
+                        button = fileInput.parent();
+                    fileInput.detach().prop('disabled', false);
+                    button.button('enable').append(fileInput);
+                });
+        },
+
+        _disableFileInputButton: function () {
+            this.element.find('.fileinput-button input:file:enabled')
+                .each(function () {
+                    var fileInput = $(this),
+                        button = fileInput.parent();
+                    fileInput.detach().prop('disabled', true);
+                    button.button('disable').append(fileInput);
+                });
+        },
+
+        _initTemplates: function () {
+            // Handle cases where the templates are defined
+            // after the widget library has been included:
+            if (this.options.uploadTemplate instanceof $ &&
+                    !this.options.uploadTemplate.length) {
+                this.options.uploadTemplate = $(
+                    this.options.uploadTemplate.selector
+                );
+            }
+            if (this.options.downloadTemplate instanceof $ &&
+                    !this.options.downloadTemplate.length) {
+                this.options.downloadTemplate = $(
+                    this.options.downloadTemplate.selector
+                );
+            }
+        },
+
         _create: function () {
             $.blueimp.fileupload.prototype._create.call(this);
-            this.element.addClass('ui-widget');
+            this._initTemplates();
+            this.element
+                .addClass('ui-widget');
             this._initFileUploadButtonBar();
+            this.element.find('.fileupload-content')
+                .addClass('ui-widget-content ui-corner-bottom');
             this.element.find('.fileupload-progressbar')
                 .hide().progressbar();
         },
@@ -618,9 +616,25 @@
         destroy: function () {
             this.element.find('.fileupload-progressbar')
                 .progressbar('destroy');
+            this.element.find('.fileupload-content')
+                .removeClass('ui-widget-content ui-corner-bottom');
             this._destroyFileUploadButtonBar();
             this.element.removeClass('ui-widget');
             $.blueimp.fileupload.prototype.destroy.call(this);
+        },
+        
+        enable: function () {
+            $.blueimp.fileupload.prototype.enable.call(this);
+            this.element.find(':ui-button').not('.fileinput-button')
+                .button('enable');
+            this._enableFileInputButton();
+        },
+        
+        disable: function () {
+            this.element.find(':ui-button').not('.fileinput-button')
+                .button('disable');
+            this._disableFileInputButton();
+            $.blueimp.fileupload.prototype.disable.call(this);
         }
 
     });
