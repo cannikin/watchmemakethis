@@ -9,7 +9,7 @@ var WatchMeMakeThis = {
       'transitionIn':'elastic',
       'transitionOut':'elastic',
       onStart:function(items,index,opts) {
-        var obj = $(items[index]).parent()
+        var obj = $(items[index]).parent();
         if (obj.hasClass('drag_sort')) {
           obj.removeClass('drag_sort');
           return false;
@@ -27,7 +27,7 @@ var WatchMeMakeThis = {
     $.each(to, function() {
       $(this).data('manualEdit',false).bind('keypress', function() {
         $(this).data('manualEdit', true);
-      })
+      });
     });
     
     from.bind('keyup', function() {
@@ -41,33 +41,37 @@ var WatchMeMakeThis = {
     });
   },
   
-  ajaxNewImage:function(image) {
+  ajaxNewImage:function(images) {
     // remove any "no images" placeholder
     $('.none, .intro').fadeOut();
-    // add the new image to the page
-    var newImageElement = $("#image_new").clone();
-    // update the container
-    newImageElement.attr('id', 'image_'+image.id).attr('data-id', image.id).attr('data-position', image.position);
-    // update thumbnail image
-    newImageElement.find('img').attr('src', image.url_small);
-    // update link surrounding image
-    newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
-    // update description
-    newImageElement.find('.description').text(image.description);
-    // update description form action
-    newImageElement.find('form').attr('action', image.path);
-    // update upload time
-    newImageElement.find('.added').text('Added just now');
-    // update delete link
-    newImageElement.find('.delete').attr('href', image.path);
-    // add to the page
-    $('#image_new').after(newImageElement);
-    // update fancybox so this image gets added to the rotation
-    WatchMeMakeThis.fancyboxify();
-    // update inline description editing
-    WatchMeMakeThis.setupImageDescriptionEditing();
-    // and finally show it
-    newImageElement.delay(1000).fadeIn(500);
+    $.each(images, function(i, image) {
+      // add the new image to the page
+      var newImageElement = $("#image_new").clone();
+      // update the container
+      newImageElement.attr('id', 'image_'+image.id)
+        .attr('data-id', image.id)
+        .attr('data-position', image.position);
+      // update thumbnail image
+      newImageElement.find('img').attr('src', image.url_small);
+      // update link surrounding image
+      newImageElement.find('a.thumb').attr('href', image.url_large).attr('rel', 'build_group').attr('title',image.description);
+      // update description
+      newImageElement.find('.description').text(image.description);
+      // update description form action
+      newImageElement.find('form').attr('action', image.path);
+      // update upload time
+      newImageElement.find('.added').text('Added just now');
+      // update delete link
+      newImageElement.find('.delete').attr('href', image.path);
+      // add to the page
+      $('#image_new').after(newImageElement);
+      // update fancybox so this image gets added to the rotation
+      WatchMeMakeThis.fancyboxify();
+      // update inline description editing
+      WatchMeMakeThis.setupImageDescriptionEditing();
+      // and finally show it
+      newImageElement.delay(1000).fadeIn(500);
+    });
   },
   
   checkForNewImages:function(path) {
@@ -79,7 +83,7 @@ var WatchMeMakeThis = {
               if (data.length > 0) {
                 $.each(data, function() {
                   WatchMeMakeThis.ajaxNewImage(this);
-                })
+                });
               }
             }
           );
@@ -90,7 +94,7 @@ var WatchMeMakeThis = {
     select.change(function() {
       var style = $.parseJSON(select.find('option:selected').attr('data-style'));
       preview.find('.header').animate({'backgroundColor':style.header_background, 'color':style.header_text_color}, 250);
-      preview.find('.body').animate({'backgroundColor':style.body_background, 'color':style.body_text_color, 'borderColor':style.header_background}, 250)
+      preview.find('.body').animate({'backgroundColor':style.body_background, 'color':style.body_text_color, 'borderColor':style.header_background}, 250);
       preview.find('.image').animate({'borderColor':style.image_border.split(' ')[2]}, 250);
     });
     select.change();
@@ -130,7 +134,7 @@ var WatchMeMakeThis = {
         var images = [];
         $('#build_images li').each(function() {
           if ($(this).attr('data-id')) {
-            images.push(parseInt($(this).attr('data-id')));
+            images.push(parseInt($(this).attr('data-id'), 10));
           }
         });
         $.ajax({

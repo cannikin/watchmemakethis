@@ -5,6 +5,8 @@ class BuildController < ApplicationController
   before_filter :must_own_build, :except => [:index, :show, :new, :create]
   before_filter :must_own_image, :only => [:update_image, :destroy_image]
   
+  protect_from_forgery :except => [:order]
+  
   layout 'site'
   
   # list builds
@@ -65,9 +67,12 @@ class BuildController < ApplicationController
   
   # upload an image to this build
   def upload
-    file = params[:file]
-    image = Image.create(:file => file, :build_id => @build.id, :upload_method_id => UploadMethod::DIRECT)
-    render :json => image.attributes.merge(additional_image_attributes(image))
+    images = []
+    params[:files].each do |file|
+      images << Image.create(:file => file, :build_id => @build.id, :upload_method_id => UploadMethod::DIRECT)
+    end
+    #render :json => image.attributes.merge(additional_image_attributes(image)), :content_type => 'text/javascript'
+    render :json => images.collect { |i| i.attributes.merge(additional_image_attributes(i)) }, :content_type => 'text/javascript'
   end
   
   
@@ -80,8 +85,9 @@ class BuildController < ApplicationController
   # update the order of the images
   def order
     current_user.builds.find(@build.id).images.each do |image|
-      new_position = params[:images].reverse.index(image.id.to_s)
-      image.update_attributes :position => new_position+1
+      if new_position = params[:images].reverse.index(image.id.to_s)
+        image.update_attributes :position => new_position+1
+      end
     end
     render :nothing => true
   end

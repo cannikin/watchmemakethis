@@ -106,7 +106,7 @@
             },
             // Callback for successful uploads:
             done: function (e, data) {
-                var image = data.result;
+                var images = data.result;
                 var that = $(this).data('fileupload');
                 if (data.context) {
                     data.context.each(function (index) {
@@ -123,7 +123,7 @@
                         });
                     });
                     
-                  WatchMeMakeThis.ajaxNewImage(image);
+                  WatchMeMakeThis.ajaxNewImage(images);
                   
                 } else {
                   alert("no context");
