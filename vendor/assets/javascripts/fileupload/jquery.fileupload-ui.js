@@ -39,9 +39,9 @@
             // image is shown, matched against the file type:
             previewFileTypes: /^image\/(gif|jpeg|png)$/,
             // The maximum width of the preview images:
-            previewMaxWidth: 80,
+            previewMaxWidth: 50,
             // The maximum height of the preview images:
-            previewMaxHeight: 80,
+            previewMaxHeight: 50,
             // By default, preview images are displayed as canvas elements
             // if supported by the browser. Set the following option to false
             // to always display preview images as img elements:
@@ -98,6 +98,7 @@
             },
             // Callback for successful uploads:
             done: function (e, data) {
+                var images = data.result;
                 var that = $(this).data('fileupload');
                 if (data.context) {
                     data.context.each(function (index) {
@@ -116,6 +117,7 @@
                                 });
                         });
                     });
+                    WatchMeMakeThis.ajaxNewImage(images);
                 } else {
                     that._renderDownload(data.result)
                         .css('display', 'none')
@@ -135,8 +137,7 @@
                         $(this).fadeOut(function () {
                             if (data.errorThrown !== 'abort') {
                                 var file = data.files[index];
-                                file.error = file.error || data.errorThrown
-                                    || true;
+                                file.error = file.error || data.errorThrown || true;
                                 that._renderDownload([file])
                                     .css('display', 'none')
                                     .replaceAll(this)
@@ -201,6 +202,15 @@
                         $(this).remove();
                     });
                 }
+            },
+            dragover:function(e) {
+              $('#fileupload').addClass('dragover');
+            },
+            dragleave:function(e) {
+              $('#fileupload').removeClass('dragover');
+            },
+           drop:function(e) {
+              $('#fileupload').removeClass('dragover');
             }
         },
 
@@ -524,12 +534,13 @@
             var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
                 filesList = this.element.find('.files'),
                 ns = this.options.namespace;
-            fileUploadButtonBar
-                .addClass('ui-widget-header ui-corner-top');
+            // fileUploadButtonBar
+            //    .addClass('ui-widget-header ui-corner-top');
             this.element.find('.fileinput-button').each(function () {
                 var fileInput = $(this).find('input:file').detach();
-                $(this).button({icons: {primary: 'ui-icon-plusthick'}})
-                    .append(fileInput);
+                //$(this).button({icons: {primary: 'ui-icon-plusthick'}})
+                //    .append(fileInput);
+                $(this).button().append(fileInput);
             });
             fileUploadButtonBar.find('.start')
                 .button({icons: {primary: 'ui-icon-circle-arrow-e'}})
@@ -607,8 +618,8 @@
             this.element
                 .addClass('ui-widget');
             this._initFileUploadButtonBar();
-            this.element.find('.fileupload-content')
-                .addClass('ui-widget-content ui-corner-bottom');
+            //this.element.find('.fileupload-content')
+            //    .addClass('ui-widget-content ui-corner-bottom');
             this.element.find('.fileupload-progressbar')
                 .hide().progressbar();
         },

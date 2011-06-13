@@ -603,12 +603,22 @@
             }
             e.preventDefault();
         },
+
+        _onDragLeave: function (e) {
+            var that = e.data.fileupload,
+                dataTransfer = e.dataTransfer = e.originalEvent.dataTransfer;
+            if (that._trigger('dragleave', e) === false) {
+                return false;
+            }
+            e.preventDefault();
+        },
         
         _initEventHandlers: function () {
             var ns = this.options.namespace || this.name;
             this.options.dropZone
                 .bind('dragover.' + ns, {fileupload: this}, this._onDragOver)
-                .bind('drop.' + ns, {fileupload: this}, this._onDrop);
+                .bind('drop.' + ns, {fileupload: this}, this._onDrop)
+                .bind('dragleave.' + ns, {fileupload: this}, this._onDragLeave);
             this.options.fileInput
                 .bind('change.' + ns, {fileupload: this}, this._onChange);
         },

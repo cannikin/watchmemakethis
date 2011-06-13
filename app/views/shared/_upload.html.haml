@@ -1,18 +1,18 @@
+#fileupload
+  %form(action="#{request.path}/upload.html" method="POST" enctype="multipart/form-data")
+    = hidden_field_tag request_forgery_protection_token, form_authenticity_token
+    .fileupload-buttonbar
+      %label.fileinput-button
+        %span.icon c
+        %span.label
+          %span.line1 Click to Upload Files
+          %span.line2 or Drag and Drop
+        %input(type="file" name="files[]" multiple)
+  .fileupload-content
+    %table.files
+    .fileupload-progressbar
+
 :plain
-  <div id="fileupload">
-      <form action="#{request.path}/upload.html" method="POST" enctype="multipart/form-data">
-          <div class="fileupload-buttonbar">
-              <label class="fileinput-button">
-                  <span>Add files...</span>
-                  <input type="file" name="files[]" multiple>
-              </label>
-          </div>
-      </form>
-      <div class="fileupload-content">
-          <table class="files"></table>
-          <div class="fileupload-progressbar"></div>
-      </div>
-  </div>
   <script id="template-upload" type="text/x-jquery-tmpl">
       <tr class="template-upload{{if error}} ui-state-error{{/if}}">
           <td class="preview"></td>
@@ -35,20 +35,24 @@
       </tr>
   </script>
 
-- content_for :body_end do  
+- content_for :body_end do
   :javascript
 
-    $(function () {
+    $(function() {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload();
-
+      $('#fileupload').fileupload({
+        downloadTemplate:null,
+        dropZone:(navigator && navigator.userAgent && navigator.userAgent.match(/Firefox\/3\.6/)) ? null : $(document)
+      });
+    });
+  
+  :javascript
+    $(function() {
       // Open download dialogs via iframes,
       // to prevent aborting current uploads:
       $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
         e.preventDefault();
-        $('<iframe style="display:none;"></iframe>')
-          .prop('src', this.href)
-          .appendTo('body');
+        $('<iframe style="display:none;"></iframe>').prop('src', this.href).appendTo('body');
       });
     });
     

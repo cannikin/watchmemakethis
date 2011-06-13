@@ -5,7 +5,7 @@
   - if blank
     = link_to(image_tag('blank.gif'), '#', :class => 'thumb')
   - else
-    = link_to(image_tag(image.url(:small), compute_width_height(image)), 
+    = link_to(image_tag(image.url(:small), compute_width_height(image).merge(:alt => '')), 
                         image.url(:large), 
                         :title => "#{image.description}", 
                         :rel => "build_group",
