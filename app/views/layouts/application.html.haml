@@ -37,8 +37,13 @@
     
     %footer
       .container
-        Copyright &copy;#{Time.now.year}
-        = link_to 'Watch Me Make', root_path
+        .copyright
+          Copyright &copy;#{Time.now.year}
+          = link_to 'Watch Me Make', root_path
+        %ul
+          %li= link_to 'Help', help_path
+          %li= link_to 'Blog', 'http://blog.watchmemake.com'
+          %li= mail_to 'help@watchmemake.com', 'Contact'
     
     = javascript_include_tag 'application'
     = yield :body_end

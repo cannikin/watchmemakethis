@@ -140,8 +140,10 @@ body.marketing
       .screen
         float: right
         width: 480px
-        height: 492px
+        height: 597px
         background: transparent url('<%= asset_path 'home/screen.jpg' %>') top center no-repeat
+        -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1)
+        -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1)
       h3
         color: #444444
         font-family: 'Helvetica Neue',HelveticaNeue,sans-serif
@@ -164,10 +166,12 @@ body.marketing
           font-weight: 300
           strong
             color: #000000
-          a
+          a, span.soon
             display: block
             font-weight: 600
             margin: 8px 0 0
+          &#phone
+            background: transparent url('<%= asset_path 'home/phone.png' %>') top left no-repeat
           &#twitter
             background: transparent url('<%= asset_path 'home/twitter.png' %>') top left no-repeat
           &#email
@@ -262,6 +266,15 @@ body.marketing
       color: #666666
       a
         color: #666666
+      .copyright
+        float: left
+        margin: 0 20px
+      ul
+        float: right
+        margin: 0 20px
+        li
+          display: inline
+          margin: 0 0 0 10px
     
 // help/error pages
 .container.help
