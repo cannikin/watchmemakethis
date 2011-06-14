@@ -275,13 +275,14 @@ body.marketing
         li
           display: inline
           margin: 0 0 0 10px
-    
+
+p.hello
+  font-size: 150%
+  margin: 20px 0
+  line-height: 1.4
+  
 // help/error pages
 .container.help
-  p.hello
-    font-size: 150%
-    margin: 20px 0
-    line-height: 1.4
   h3
     font-size: 150%
     font-weight: 600
@@ -333,7 +334,7 @@ body#signup-new, body#signup-create
       li
         background-color: darken($background_signup, 5%)
       
-body#session-new, body#session-create
+body#session-new, body#session-create, body#session-forgot_password, body#session-send_reset_email, body#session-reset_password
   header, section#intro
     background-color: $background_login
     .container

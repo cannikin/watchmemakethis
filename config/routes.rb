@@ -21,9 +21,13 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :session do
-    get   '/login'    =>  :new
-    post  '/login/go' =>  :create
-    get   '/logout'   =>  :destroy
+    get   '/login'        =>  :new
+    post  '/login/go'     =>  :create
+    get   '/logout'       =>  :destroy
+    get   '/forgot'       =>  :forgot_password,   :as => :forgot_password
+    post  '/forgot/send'  =>  :send_reset_email,  :as => :send_reset_email
+    get   '/reset'        =>  :reset_password,    :as => :reset_password
+    post  '/reset/go'     =>  :save_password,     :as => :save_password
   end
   
   controller :signup do

@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   
-  default :from => "rob@watchmemake.com"
+  default :from => 'Watch Me Make <noreply@watchmemake.com>'
   
   def welcome(user, site, host)
     @user = user
@@ -8,7 +8,6 @@ class Notifier < ActionMailer::Base
     @host = host
     
     mail  :to => user.email,
-          :from => 'Watch Me Make <noreply@watchmemake.com>',
           :subject => 'Welcome to Watch Me Make!'
   end
 
@@ -37,9 +36,12 @@ class Notifier < ActionMailer::Base
   end
 
 
-  def forgot_password(user)
-    @greeting = "Hi"
+  def forgot_password(user, host)
+    @user = user
+    @host = host
 
-    mail :to => "to@example.org"
+    mail  :to => @user.email,
+          :subject => 'Reset your password at Watch Me Make'
+          
   end
 end

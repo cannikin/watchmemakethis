@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
     
   # log a user out by removing their session 
   def log_out_user
-    Rails.logger.debug "Logging out user #{current_user.email}"
+    # Rails.logger.debug "Logging out user #{current_user.email}" if current_user.present?
     reset_session
     cookies.delete :remember
   end

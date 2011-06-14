@@ -6,16 +6,16 @@
 
 = form_tag login_go_path, :id => 'login_form' do
   = label_tag :email
-  = text_field_tag :email
-  = label_tag :password
-  = password_field_tag :password
-  = submit_tag 'Log In', :class => 'button blue large'
-  
-= content_for :head do
-  = stylesheet_link_tag 'session'
+  = text_field_tag :email, '', :tabindex => 1
+  .password
+    = label_tag :password
+    %span.forgot= link_to '(Forgot?)', forgot_password_path
+    = password_field_tag :password, '', :tabindex => 2
+  = submit_tag 'Log In', :class => 'button blue large', :tabindex => 3
   
 = content_for :body_end do
   :javascript
     $(document).ready(function() {
       $('#email').focus();
     });
+    
