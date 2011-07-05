@@ -6,15 +6,13 @@ class User < ActiveRecord::Base
   has_many    :allowances, :through => :role, :dependent => :destroy
   has_many    :builds, :through => :sites
   
-  #validates :first_name,  :presence => true
-  #validates :last_name,   :presence => true
   validates :password,    :presence => true
   validates :email,       :presence => true, :uniqueness => true
   validates_format_of     :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "This isn't a valid email address: it should be in the form of <em>johndoe@anonymous.com</em>"
   validates :role_id,     :presence => true
   
   before_create :encrypt_password, :generate_uuid
-  before_save   :encrypt_password, :if => lambda { self.changed.include? 'password' }
+  before_save   :encrypt_password, :if => lambda { self.persisted? and self.changed.include? 'password' }
   
   
   def self.authenticate(email, password)
@@ -29,9 +27,9 @@ class User < ActiveRecord::Base
   
   
   # list all the permissions for the use through the role and allowances
-  def permissions
-    Permission.joins(:allowances).where(:allowances => { :role_id => self.role_id})
-  end
+  #def permissions
+  #  Permission.joins(:allowances).where(:allowances => { :role_id => self.role_id})
+  #end
   
   
   # roles and permissions
@@ -51,7 +49,7 @@ class User < ActiveRecord::Base
   
   # MD5 has the password
   def encrypt_password
-    self.password = Digest::MD5.hexdigest(self.password)
+    self.password = Digest::MD5.hexdigest(self.password).encode('UTF-8')
   end
   private :encrypt_password
   

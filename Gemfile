@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rake', '0.9.2'
-gem 'rails', '3.1.0.rc1'
+gem 'rails', '3.1.0.rc4'
+# gem 'sprockets', :git => 'git://github.com/sstephenson/sprockets.git'
 
 # Asset template engines
 gem 'sass'
@@ -13,8 +14,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'formtastic'
 gem 'rails3-generators'
-gem 'factory_girl'
-gem 'shoulda'
 gem 'uuid'
 gem 'subexec'
 gem 'aws-s3', :require => 'aws/s3', :git => 'git@github.com:cannikin/aws-s3.git'
@@ -37,6 +36,9 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'factory_girl_rails', '1.1.rc1'
+  gem 'shoulda'
+  gem 'faker'
 end
 
 group :production do
