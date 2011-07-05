@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class ClientTest < ActiveSupport::TestCase
-  # should "be valid" do
-  #   assert Client.new.valid?
-  # end
+  
+  should belong_to :user
+  should belong_to :build
+  
 end

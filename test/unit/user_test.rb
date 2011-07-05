@@ -2,7 +2,9 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  Factory.create :user, :email => 'jane.doe@anonymous.com'
+  setup do
+    Factory.create :user, :email => 'jane.doe@anonymous.com'
+  end
   
   should have_many  :sites
   should belong_to  :role

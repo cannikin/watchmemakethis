@@ -1,5 +1,12 @@
 FactoryGirl.define do
   
+  # builds
+  factory :build do
+    name    'Build'
+    path    'build'
+    hashtag 'build'
+  end
+  
   # styles
   factory :style do
     # system  true
