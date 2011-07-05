@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  
+  # styles
+  factory :style do
+    # system  true
+    name    'system style'
+  end
 
   # users
   factory :user do
