@@ -11,4 +11,10 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def create_tempfile
+    tempfile = Tempfile.new ['watchmemake','jpg']
+    FileUtils.copy(Rails.root.join('test','unit','helpers','sample.jpg'), tempfile.path)
+    return tempfile
+  end
+  
 end

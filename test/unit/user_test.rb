@@ -82,8 +82,7 @@ class UserTest < ActiveSupport::TestCase
     user = Factory.create :user
     site = Factory.create :site, :user => user
     build = Factory.create :build, :site => site
-    tempfile = Tempfile.new ['watchmemake','jpg']
-    FileUtils.copy(Rails.root.join('test','unit','helpers','sample.jpg'), tempfile.path)
+    tempfile = create_tempfile
     image = Factory.create :image, :file => tempfile, :build => build
     
     assert_equal [image], user.images
