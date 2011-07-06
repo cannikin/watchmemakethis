@@ -1,5 +1,3 @@
-require 'digest'
-
 class User < ActiveRecord::Base
   has_many    :sites, :dependent => :destroy
   belongs_to  :role
