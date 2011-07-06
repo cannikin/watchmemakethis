@@ -7,6 +7,17 @@ FactoryGirl.define do
     hashtag 'build'
   end
   
+  # images
+  factory :image do
+    
+  end
+  
+  # site
+  factory :site do
+    name  'Site'
+    path  'factory_site'
+  end
+  
   # styles
   factory :style do
     # system  true

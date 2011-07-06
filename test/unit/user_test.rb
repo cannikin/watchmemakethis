@@ -78,4 +78,15 @@ class UserTest < ActiveSupport::TestCase
     
   end
   
+  should "have a method to return all images in all builds" do
+    user = Factory.create :user
+    site = Factory.create :site, :user => user
+    build = Factory.create :build, :site => site
+    tempfile = Tempfile.new ['watchmemake','jpg']
+    FileUtils.copy(Rails.root.join('test','unit','helpers','sample.jpg'), tempfile.path)
+    image = Factory.create :image, :file => tempfile, :build => build
+    
+    assert_equal [image], user.images
+  end
+  
 end

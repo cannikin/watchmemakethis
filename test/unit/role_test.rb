@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
-  # should "be valid" do
-  #   assert Role.new.valid?
-  # end
+  
+  should have_many :allowances
+  should have_many :permissions
+  
+  should validate_presence_of :name
+  
 end
