@@ -14,14 +14,17 @@
     - if owns_site? and image.description.blank?
       %span.placeholder= 'Click to add a description'
     - else
-      = image.description.present? ? image.description[0..70] : ''
-      = "... #{link_to 'more', '#', :class => 'more'}".html_safe if image.description and image.description.length > 70
+      - truncated_description = truncate(image.description, :length => 70, :separator => ' ')
+      = truncated_description
+      = "... #{link_to 'more', '#', :class => 'more'}".html_safe if truncated_description != image.description
+      
   - if owns_site?
     - action = blank ? '#' : image_path(@site.path, @build.path, image.id)
     = form_tag(action, :method => :put, :remote => true, :style => 'display:none') do
       = text_area_tag 'image[description]', image.description
       = submit_tag 'Save'
       = link_to 'Cancel', '#'
+      
   %span.added 
     Added 
     - if blank

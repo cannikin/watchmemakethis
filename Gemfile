@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rake', '0.9.2'
-gem 'rails', '3.1.0.rc4'
-# gem 'sprockets', :git => 'git://github.com/sstephenson/sprockets.git'
+gem 'rails', '3.1.0'
 
 # Asset template engines
 gem 'sass'
@@ -26,7 +25,7 @@ gem 'hoptoad_notifier'
 gem 'acts_as_list'
 gem 'opsb-RubyInline'
 gem 'image_science'
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm'
 # gem 'meta_where'
 
 group :development do
