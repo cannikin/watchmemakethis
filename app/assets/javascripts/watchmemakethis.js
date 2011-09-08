@@ -16,7 +16,7 @@ var WatchMeMakeThis = {
         }
       }
     });
-    $('#build_images a.more').unbind('click').click(function() {
+    $('#build_images a.more').unbind('click').live('click',function() {
       $(this).parents('li.image').find('a.thumb').click();
       return false;
     });
@@ -113,7 +113,11 @@ var WatchMeMakeThis = {
       return false;
     // update the description with the new text
     }).end().unbind('ajax:success').bind('ajax:success', function(event, data, xhr) {
-      $(this).siblings('.description').text(data.description);
+      var description = data.description;
+      if (description.length > 70) {
+        description = description.slice(0,70) + '...<a href="#" class="more">more</a>';
+      }
+      $(this).siblings('.description').html(description);
       $(this).hide().siblings('.description').show();
     // submit the form when you press enter
     }).find('textarea').bind('keypress', function(e) {  

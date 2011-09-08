@@ -10,6 +10,7 @@ gem 'uglifier'
 
 gem 'jquery-rails'
 gem 'haml'
+gem 'sass'
 gem 'haml-rails'
 gem 'formtastic'
 gem 'rails3-generators'

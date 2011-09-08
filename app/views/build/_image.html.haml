@@ -16,7 +16,7 @@
     - else
       - truncated_description = truncate(image.description, :length => 70, :separator => ' ')
       = truncated_description
-      = "... #{link_to 'more', '#', :class => 'more'}".html_safe if truncated_description != image.description
+      = link_to('more', '#', :class => 'more').html_safe if truncated_description != image.description
       
   - if owns_site?
     - action = blank ? '#' : image_path(@site.path, @build.path, image.id)
