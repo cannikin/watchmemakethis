@@ -14,7 +14,7 @@
     %tr
       %td= site.user_id
       %td= site.name
-      %td= site.path
+      %td= link_to(site.path, site_path(site.path))
       %td= site.show_in_directory
       %td= link_to 'Edit', edit_admin_site_path(site)
       %td= link_to 'Destroy', [:admin,site], :confirm => 'Are you sure?', :method => :delete

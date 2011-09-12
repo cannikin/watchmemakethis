@@ -16,7 +16,7 @@
   - @builds.each do |build|
     %tr
       %td= build.site_id
-      %td= build.name
+      %td= link_to(build.name, build_path(build.site.path, build.path))
       %td= build.hashtag
       %td= build.archived
       %td= build.public
