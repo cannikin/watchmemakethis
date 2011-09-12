@@ -4,7 +4,7 @@
       %li(data-path="#{build_path(@site.path, build.path)}")
         - if build.images.any?
           %ul.images
-            - build.images.order('position desc')[0..2].each do |image| 
+            - build.images.order("position #{build.image_order}")[0..2].each do |image| 
               - style = image.width > image.height ? "width:75px" : "height:75px"
               %li= link_to(image_tag(image.url, :alt => '', :style => style), build_path(@site.path, build.path))
         - else
