@@ -19,6 +19,19 @@
   %span.example 
     If you are going to use Twitter or email to send images to this build, use this hashtag. We will auto-generate this based on your Build Name, but you are free to change it. Shorter is usually better.
     = link_to 'How does this work?', help_path(:anchor => 'whats-a-hashtag'), :target => '_blank'
+    
+  %label
+    %span(class="icon hashtag") 0
+    Image Order
+  .inline.radio
+    = form.radio_button :image_order, 'desc'
+    = label_tag :build_image_order_desc, 'Newest images first'
+  %span.example This layout works great when you're in the process of building&mdash;visitors will see the newest photos at the top of the page.
+  
+  .inline.radio
+    = form.radio_button :image_order, 'asc'
+    = label_tag :build_image_order_asc, 'Oldest images first'
+  %span.example This layout makes sense once your build is complete&mdash;visitors see your photos in the order you posted them and can watch the project progressing from top to bottom.
   
   = form.submit button_label, :class => 'button blue large'
   

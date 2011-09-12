@@ -53,11 +53,17 @@ form
     width: 400px
   
   .inline
-    span, input
+    span, input, label
       display: inline
     &.hashtag
       span
         font-size: 150%
+    &.radio
+      input, label
+        margin-top: 0.7em
+        vertical-align: bottom
+      label
+        font-size: 120%
       
   span.example, ul.errors
     display: block
@@ -70,6 +76,8 @@ form
     font-family: $font-family
     display: block
     width: 200px
+    &[type=radio], &[type=checkbox]
+      width: auto
     
   label
     font-family: $font-family

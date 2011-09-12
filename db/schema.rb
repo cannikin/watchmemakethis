@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912024547) do
+ActiveRecord::Schema.define(:version => 20110912034112) do
 
   create_table "allowances", :force => true do |t|
     t.string   "role_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20110912024547) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "client_name"
+    t.string   "image_order",   :default => "desc"
   end
 
   add_index "builds", ["hashtag"], :name => "index_builds_on_hashtag"
