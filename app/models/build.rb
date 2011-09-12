@@ -13,4 +13,14 @@ class Build < ActiveRecord::Base
   
   scope :publics, where(:public => true)
   scope :privates, where(:public => false)
+  
+  def image_order_arel
+    case self.image_order
+    when 'asc'
+      Image.arel_table[:position]
+    when 'desc'
+      Image.arel_table[:position].desc
+    end
+  end
+  
 end

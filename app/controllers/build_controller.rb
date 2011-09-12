@@ -35,7 +35,7 @@ class BuildController < ApplicationController
   # show the images for a build
   def show
     @page_title = @site.name + ':' + @build.name
-    @images = @build.images.includes(:build => :site).order("position #{@build.image_order}")
+    @images = @build.images.includes(:build => :site).order(@build.image_order_arel)
     
     respond_to do |format|
       format.html
