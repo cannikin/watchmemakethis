@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rake', '0.9.2'
 gem 'rails', '3.1.0'
+# gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 
 # Asset template engines
 gem 'sass'
