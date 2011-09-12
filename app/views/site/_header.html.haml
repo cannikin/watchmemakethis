@@ -5,6 +5,7 @@
   %nav
     %ul
       - if owns_site?
+        %li= link_to 'Admin', admin_home_path if current_user.is_admin?
         %li= link_to 'Settings', edit_site_path
         %li= link_to 'Help', help_path
         %li= link_to 'Logout', logout_path
