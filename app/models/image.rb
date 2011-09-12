@@ -15,6 +15,12 @@ class Image < ActiveRecord::Base
            :large     => { :prefix => 'l_', :size => "1024" },
            :original  => { :prefix => 'o_', :save_dimensions => true } }
   
+  
+  def self.latest
+    Image.order('created_at desc').first
+  end
+           
+           
   # prefix to the path for this image (not including filename)
   def full_path_prefix
     self.build.site.id.to_s + '/' + self.build.id.to_s
@@ -88,5 +94,6 @@ class Image < ActiveRecord::Base
     tempfile = nil
   end
   private :cleanup
+  
   
 end

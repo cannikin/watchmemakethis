@@ -2,7 +2,6 @@
 
 %table
   %tr
-    %th User
     %th Site
     %th Name
     %th Hashtag
@@ -16,7 +15,6 @@
 
   - @builds.each do |build|
     %tr
-      %td= build.user_id
       %td= build.site_id
       %td= build.name
       %td= build.hashtag

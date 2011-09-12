@@ -1,0 +1,28 @@
+%h1 Newest Sites
+
+%table
+  %tr
+    %th Name
+    %th Path
+    %th User
+    %th Latest Upload
+
+  - @newest_sites.each do |site|
+    %tr
+      %td= site.name
+      %td= link_to site.path, site.path
+      %td= site.user.email
+      %td= time_ago_in_words(site.images.latest.created_at) + ' ago' if site.images.any?
+
+
+%h1 Recent Uploads
+- @recent_uploads.each do |image| 
+  %ul.recents
+    %li
+      - if image.height > image.width
+        = link_to(image_tag(image.url, :class => 'recent', :height => '150'), build_path(image.build.site.path, image.build.path))
+      - else
+        = link_to(image_tag(image.url, :class => 'recent', :width => '150'), build_path(image.build.site.path, image.build.path))
+      %span.site= link_to image.build.site.name, site_path(image.build.site.path)
+      %span.build= link_to image.build.name, build_path(image.build.site.path, image.build.path)
+      %span.time= time_ago_in_words(image.created_at) + ' ago'

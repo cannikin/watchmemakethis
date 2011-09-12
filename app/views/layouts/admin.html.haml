@@ -8,7 +8,7 @@
     
     = csrf_meta_tag
 
-  %body
+  %body(class="#{controller.controller_name}-#{controller.action_name}")
     %nav
       %h1 Watch Me Make
       /%span.return= link_to '&laquo; Return to App'.html_safe, root_path

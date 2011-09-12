@@ -24,7 +24,7 @@ class Admin::AdminController < ApplicationController
   
   # force the user to login
   def admin_required
-    unless logged_in? and current_user.is_an_admin?
+    unless logged_in? and current_user.is_admin?
       session[:return_to] = request.fullpath
       redirect_to login_path
     end
