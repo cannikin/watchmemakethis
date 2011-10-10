@@ -44,4 +44,14 @@ class Notifier < ActionMailer::Base
           :subject => 'Reset your password at Watch Me Make'
           
   end
+
+
+  def email_link(from, to, subject, body)
+    @message = body
+
+    mail  :from => "#{from} <noreply@watchmemake.com>",
+          :reply_to => from,
+          :to => to,
+          :subject => subject
+  end
 end

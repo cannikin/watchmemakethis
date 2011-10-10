@@ -36,7 +36,9 @@ class BuildController < ApplicationController
   def show
     @page_title = @site.name + ':' + @build.name
     @images = @build.images.includes(:build => :site).order(@build.image_order_arel)
-    
+    @link_text = "Check out the progress on my #{@build.name} build:\n\nhttp://watchmemake.com/#{@site.path}/#{@build.path}"
+    @tweet_text = "http://twitter.com/home?status=#{CGI.escape(@link_text)}"
+
     respond_to do |format|
       format.html
       format.json do
@@ -116,6 +118,19 @@ class BuildController < ApplicationController
   
   def must_own_image
     render_404 unless current_user.images.find(params[:id])
+  end
+
+
+  # ajax call to email a link
+  def email_link
+    params[:to].split(',')[0..4].each do |to|
+      begin
+        Notifier.email_link(params[:from], to.strip, params[:subject], params[:body]).deliver
+      rescue => e
+        Rails.logger.error "Email could not be sent: #{e.message}\n#{e.backtrace.inspect}"
+      end
+    end
+    render :nothing => true
   end
   
   

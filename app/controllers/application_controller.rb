@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
   protect_from_forgery
-  helper_method :logged_in?, :current_user, :today, :owns_site?, :owns_build?
+  helper_method :logged_in?, :current_user, :today, :owns_site?, :owns_build?, :markdown
   
   before_filter :login_if_remember
   
@@ -189,4 +189,10 @@ class ApplicationController < ActionController::Base
   end
   private :tokenize_roles
   
+
+  def markdown(text)
+    RDiscount.new(text).to_html.html_safe
+  end
+  private :markdown
+
 end

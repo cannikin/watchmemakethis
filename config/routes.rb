@@ -46,18 +46,19 @@ Watchmemakethis::Application.routes.draw do
   end
   
   controller :build do
-    get     '/:site_path/builds'              => :index
-    get     '/:site_path/builds/new'          => :new,            :as => :new_build
-    post    '/:site_path/builds'              => :create,         :as => :create_build
-    get     '/:site_path/:build_path'         => :show,           :as => :build
-    delete  '/:site_path/:build_path'         => :destroy,        :as => :destroy_build
-    put     '/:site_path/:build_path'         => :update,         :as => :update_build
-    get     '/:site_path/:build_path/edit'    => :edit,           :as => :edit_build
-    post    '/:site_path/:build_path/upload'  => :upload,         :as => :build_upload
-    put     '/:site_path/:build_path/order'   => :order,          :as => :order_images
-    get     '/:site_path/:build_path/:id'     => :image,          :as => :image
-    put     '/:site_path/:build_path/:id'     => :update_image,   :as => :image
-    delete  '/:site_path/:build_path/:id'     => :destroy_image,  :as => :image
+    get     '/:site_path/builds'                  => :index
+    get     '/:site_path/builds/new'              => :new,            :as => :new_build
+    post    '/:site_path/builds'                  => :create,         :as => :create_build
+    get     '/:site_path/:build_path'             => :show,           :as => :build
+    delete  '/:site_path/:build_path'             => :destroy,        :as => :destroy_build
+    put     '/:site_path/:build_path'             => :update,         :as => :update_build
+    get     '/:site_path/:build_path/edit'        => :edit,           :as => :edit_build
+    post    '/:site_path/:build_path/upload'      => :upload,         :as => :build_upload
+    put     '/:site_path/:build_path/order'       => :order,          :as => :order_images
+    post    '/:site_path/:build_path/email_link'  => :email_link,     :as => :email_link
+    get     '/:site_path/:build_path/:id'         => :image,          :as => :image
+    put     '/:site_path/:build_path/:id'         => :update_image,   :as => :image
+    delete  '/:site_path/:build_path/:id'         => :destroy_image,  :as => :image
   end
 
   # The priority is based upon order of creation:

@@ -1,0 +1,27 @@
+#email_dialog(style="display:none")
+  = form_tag :email_link, :remote => true, :id => 'email_link_form' do
+    = label_tag :from, 'From'
+    = text_field_tag :from, current_user.email
+    = label_tag :to, 'To'
+    = text_field_tag :to
+    %span.example Enter up to 5 email addresses, separate them with commas
+    = label_tag :subject, 'Subject'
+    = text_field_tag :subject, 'Check out my build on watchmemake.com'
+    = text_area_tag :body, link_text
+
+:javascript
+  $(document).ready(function() {
+    $('#email_link_form').bind('ajax:success', function() { 
+      $('#email_dialog').dialog('close');
+    });
+
+    $('a.email').click(function() {
+      $('#email_dialog').dialog({ width:500,
+                                  title:'Send a Link to Your Build', 
+                                  modal:true,
+                                  buttons:{ 'Send':function() { $('#email_link_form').submit(); $('#email_link_form input, #email_link_form textarea').attr('disabled',true); }, 
+                                            'Cancel':function() { $(this).dialog('close')} }});
+      $('#email_link_form input, #email_link_form textarea').attr('disabled', false);
+      $('#to').focus();
+    });
+  });

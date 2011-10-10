@@ -6,6 +6,7 @@
       Watch Me Make
     = stylesheet_link_tag 'application'
     = javascript_include_tag "http://use.typekit.com/vsk7kal.js"
+    = javascript_include_tag 'application'
     :javascript
       try{Typekit.load();}catch(e){}
     :javascript
@@ -37,9 +38,7 @@
     %footer
       This site made possible by
       = link_to 'Watch Me Make', root_path
-    
-    =# javascript_include_tag :defaults
-    = javascript_include_tag 'application'
+
     = yield :body_end
     :javascript
       (function() {

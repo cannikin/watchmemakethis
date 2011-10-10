@@ -4,8 +4,12 @@
     = link_to 'Edit', edit_build_path, :class => 'edit_build'
 
 - if owns_site?
+  %ul.share
+    %li= link_to 'Email a Link', "#", :class => 'email', :title => 'Email a link to this build'
+    %li= link_to 'Tweet a Link', @tweet_text, :title => 'Tweet a link to this build'
   #new_image
     = render :partial => 'shared/upload'
+  = render :partial => 'email_dialog', :locals => { :link_text => @link_text }
 
 %ul#build_images
   = render :partial => 'image', :locals => { :image => Image.new, :blank => true }
