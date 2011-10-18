@@ -33,6 +33,8 @@ gem 'rdiscount'
 
 group :development do
   gem 'sqlite3'
+  gem 'active_reload'
+  gem 'ruby-graphviz'
 end
 
 group :test do
