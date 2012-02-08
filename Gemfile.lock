@@ -114,7 +114,7 @@ GEM
       treetop (~> 1.4.8)
     mime (0.1)
     mime-types (1.16)
-    multi_json (1.0.3)
+    multi_json (1.0.4)
     multi_xml (0.4.1)
     mysql2 (0.3.7)
     net-scp (1.0.4)
@@ -178,7 +178,7 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.8.3)
       ansi
-    twimage (0.1.0)
+    twimage (0.1.2)
       httparty
       nokogiri
     tzinfo (0.3.30)
