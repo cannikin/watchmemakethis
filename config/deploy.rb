@@ -17,9 +17,9 @@ set :deploy_to,     '/var/www'
 set :use_sudo, false
 set :user, 'ubuntu'
 
-role :web, "ec2-50-17-249-203.compute-1.amazonaws.com"                          # Your HTTP server, Apache/etc
-role :app, "ec2-50-17-249-203.compute-1.amazonaws.com"                          # This may be the same as your `Web` server
-role :db,  "ec2-50-17-249-203.compute-1.amazonaws.com", :primary => true        # This is where Rails migrations will run
+role :web, "23.21.173.20"                          # Your HTTP server, Apache/etc
+role :app, "23.21.173.20"                          # This may be the same as your `Web` server
+role :db,  "23.21.173.20", :primary => true        # This is where Rails migrations will run
 
 
 namespace :rake do  
